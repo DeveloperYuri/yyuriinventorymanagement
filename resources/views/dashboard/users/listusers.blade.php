@@ -13,21 +13,16 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">List Spare Part</h5>
+              <h5 class="card-title">List Users</h5>
 
               <!-- Default Table -->
               <table class="table">
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">No</th>
-                    <th class="text-center" scope="col">Image</th>
-                    <th class="text-center" scope="col">Part Number</th>
-                    <th class="text-center" scope="col">Description</th>
-                    <th class="text-center" scope="col">Brand</th>
-                    <th class="text-center" scope="col">Price</th>
-                    <th class="text-center" scope="col">Stock</th>
-                    <th class="text-center" scope="col">Location</th>
-                    <th class="text-center" scope="col">Status</th>
+                    <th class="text-center" scope="col">Name</th>
+                    <th class="text-center" scope="col">Email</th>
+                    <th class="text-center" scope="col">Role</th>
                     <th class="text-center" scope="col">Action</th>
                   </tr>
                 </thead>
@@ -38,11 +33,6 @@
                     <td class="text-center">Designer</td>
                     <td class="text-center">Designer</td>
                     <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">28</td>
-                    <td class="text-center">2016-05-25</td>
                   </tr>
                  
                 </tbody>

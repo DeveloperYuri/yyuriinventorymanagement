@@ -21,8 +21,8 @@
         <div class="col-12">
           <div class="row">
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-12">
+            <!-- Spare Part Card -->
+            <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
                 <div class="card-body">
                   <h5 class="card-title">Total Spare Part</h5>
@@ -32,7 +32,45 @@
                       <i class="bi bi-wrench"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145 Qty</h6>
+                      <h6>145</h6>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Spare Part Card -->
+
+            <!-- Asset Card -->
+            <div class="col-xxl-4 col-md-4">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Tools Part</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-tools"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>145</h6>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Asset Card -->
+
+            <!-- Sales Card -->
+            <div class="col-xxl-4 col-md-4">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Supplier</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-truck"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>145</h6>
                     </div>
                   </div>
                 </div>

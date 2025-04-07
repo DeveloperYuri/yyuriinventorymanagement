@@ -13,28 +13,26 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">List Spare Part</h5>
+              <h5 class="card-title">Spare Part In</h5>
 
               <!-- Default Table -->
               <table class="table">
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">No</th>
-                    <th class="text-center" scope="col">Image</th>
                     <th class="text-center" scope="col">Part Number</th>
                     <th class="text-center" scope="col">Description</th>
                     <th class="text-center" scope="col">Brand</th>
                     <th class="text-center" scope="col">Price</th>
                     <th class="text-center" scope="col">Stock</th>
                     <th class="text-center" scope="col">Location</th>
-                    <th class="text-center" scope="col">Status</th>
+                    <th class="text-center" scope="col">Date</th>
                     <th class="text-center" scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th class="text-center" scope="row">1</th>
-                    <td class="text-center">Brandon Jacob</td>
                     <td class="text-center">Designer</td>
                     <td class="text-center">Designer</td>
                     <td class="text-center">Designer</td>

@@ -13,7 +13,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">List Spare Part</h5>
+              <h5 class="card-title">List Asset Tools</h5>
 
               <!-- Default Table -->
               <table class="table">
