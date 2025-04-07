@@ -44,4 +44,4 @@ Route::get('/brand', [DashboardController::class, 'listbrand'])->name('indexbran
 Route::get('/warehouse', [DashboardController::class, 'listwarehouse'])->name('indexwarehouse');
 
 // Profile
-Route::get('/warehouse', [DashboardController::class, 'profile'])->name('indexprofile');
+Route::get('/profile', [DashboardController::class, 'profile'])->name('indexprofile');

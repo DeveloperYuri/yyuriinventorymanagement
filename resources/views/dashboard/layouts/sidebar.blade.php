@@ -117,12 +117,12 @@
         </a>
         <ul id="configuration-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#">
+            <a href="{{ route('indexbrand')}}">
               <i class="bi bi-circle"></i><span>Brand</span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="{{ route('indexwarehouse')}}">
               <i class="bi bi-circle"></i><span>Warehouse</span>
             </a>
           </li>

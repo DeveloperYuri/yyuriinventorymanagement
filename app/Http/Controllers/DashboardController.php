@@ -53,5 +53,17 @@ class DashboardController extends Controller
     public function listusers(){
         return view('dashboard.users.listusers');
     }
+
+    public function listbrand(){
+        return view('dashboard.brand.listbrand');
+    }
+
+    public function listwarehouse(){
+        return view('dashboard.warehouse.listwarehouse');
+    }
+
+    public function profile(){
+        return view('dashboard.users.listusers');
+    }
     
 }
