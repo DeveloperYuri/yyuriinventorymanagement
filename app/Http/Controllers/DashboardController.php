@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class DashboardController extends Controller
 {
@@ -48,10 +50,6 @@ class DashboardController extends Controller
 
     public function listsupplier(){
         return view('dashboard.supplier.listsupplier');
-    }
-
-    public function listusers(){
-        return view('dashboard.users.listusers');
     }
 
     public function listbrand(){

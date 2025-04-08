@@ -4,7 +4,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <a href="" class="btn btn-primary">Create New</a>
+      <a href="{{ route('createlistsparepart')}}" class="btn btn-primary">Add Spare Part</a>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -14,6 +14,8 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">List Spare Part</h5>
+
+              @include('_message')
 
               <!-- Default Table -->
               <table class="table">
@@ -32,18 +34,40 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @forelse ($spareparts as $sp)
                   <tr>
-                    <th class="text-center" scope="row">1</th>
-                    <td class="text-center">Brandon Jacob</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">Designer</td>
-                    <td class="text-center">28</td>
-                    <td class="text-center">2016-05-25</td>
+                    <th class="text-center" scope="row">{{ $loop->iteration }}</th>
+                    <td class="text-center">
+                      <img src="{{ asset('/storage/sparepart/' . $sp->image) }}"
+                                class="rounded" style="width: 100px" height="70px">
+                    </td>
+                    <td class="text-center">{{ $sp->partnumber }}</td>
+                    <td class="text-center">{{ $sp->description }}</td>
+                    <td class="text-center">{{ $sp->brand_id }}</td>
+                    <td class="text-center">{{ $sp->price }}</td>
+                    <td class="text-center">{{ $sp->stock }}</td>
+                    <td class="text-center">{{ $sp->location }}</td>
+                    <td class="text-center">{{ $sp->status }}</td>
+
+                    <td class="text-center">
+                      <form onsubmit="return confirm('Apakah Anda Yakin ?');" action=""
+                          method="POST">
+  
+                          <a href="" class="btn btn-sm btn-warning">EDIT</a>
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                      </form>
+                  </td>
                   </tr>
+                  @empty
+                  <tr>
+                    <td class="text-center" colspan="100%">Spare Part Not Found</td>
+                </tr>
+                  @endforelse
+
+                  
+                  
                  
                 </tbody>
               </table>

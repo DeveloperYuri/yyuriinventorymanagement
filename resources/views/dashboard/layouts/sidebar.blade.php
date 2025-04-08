@@ -68,7 +68,7 @@
       <!-- End Asset Sidebar -->
 
       <!-- Start ATK Sidebar -->
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#atk-nav" data-bs-toggle="collapse" href="#">
           <i class="bbi bi-journal-check"></i><span>ATK</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -89,7 +89,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> --}}
       <!-- End ATK Sidebar -->
 
       <!-- Start Supplier Sidebar -->

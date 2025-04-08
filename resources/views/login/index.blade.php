@@ -17,6 +17,8 @@
                                 </a>
                             </div><!-- End Logo -->
 
+                            @include('_message')
+                            
                             <div class="card mb-3">
 
                                 <div class="card-body">

@@ -4,7 +4,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <a href="" class="btn btn-primary">Create New</a>
+      <a href="{{ route('')}}" class="btn btn-primary">Add Brand</a>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -14,6 +14,8 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">List Brand</h5>
+
+              @include('_message')
 
               <!-- Default Table -->
               <table class="table">
@@ -25,11 +27,25 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @forelse ($brand as $br)
                   <tr>
-                    <th class="text-center" scope="row">1</th>
-                    <td class="text-center">Brandon Jacob</td>
-                    <td class="text-center">2016-05-25</td>
+                    <th class="text-center" scope="row">{{ $loop->iteration }}</th>
+                    <td class="text-center">{{ $br->name}}</td>
+                    <td class="text-center">
+                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action=""
+                            method="POST">
+    
+                            <a href="" class="btn btn-sm btn-warning">EDIT</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                        </form>
+                    </td>
                   </tr>
+                  @empty
+                      
+                  @endforelse
+                 
                  
                 </tbody>
               </table>

@@ -1,24 +1,25 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Login Register
-Route::get('/login', [AuthController::class, 'login'])->name('indexlogin');
+Route::get('/', [AuthController::class, 'login'])->name('indexlogin');
 Route::get('/registration', [AuthController::class, 'register'])->name('indexregister');
 
 // Dashboard Page
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');
 
 // Spare Part 
-Route::get('/listsparepart', [DashboardController::class, 'sparepart'])->name('indexsparepart');
-Route::get('/sparepartin', [DashboardController::class, 'sparepartin'])->name('sparepartin');
-Route::get('/sparepartout', [DashboardController::class, 'sparepartout'])->name('sparepartout');
+Route::get('/listsparepart', [SparepartController::class, 'index'])->name('indexsparepart');
+Route::get('/createlistsparepart', [SparepartController::class, 'create'])->name('createlistsparepart');
+Route::post('/createlistsparepartpost', [SparepartController::class, 'store'])->name('createlistsparepartpost');
+Route::get('/sparepartin', [SparepartController::class, 'sparepartin'])->name('sparepartin');
+Route::get('/sparepartout', [SparepartController::class, 'sparepartout'])->name('sparepartout');
 
 
 // Asset Tools
@@ -35,13 +36,27 @@ Route::get('/atkout', [DashboardController::class, 'atkout'])->name('atkout');
 Route::get('/supplier', [DashboardController::class, 'listsupplier'])->name('indexsupplier');
 
 // Users
-Route::get('/users', [DashboardController::class, 'listusers'])->name('indexusers');
+Route::get('/users', [UsersController::class, 'index'])->name('indexusers');
+Route::get('/createusers', [UsersController::class, 'create'])->name('createusers');
+Route::get('/editusers/{id}', [UsersController::class, 'edit'])->name('editusers');
+Route::post('/createuserspost', [UsersController::class, 'store'])->name('createuserspost');
+Route::put('/updateusers/{id}', [UsersController::class, 'update'])->name('updateuserspost');
+Route::delete('/deleteusers/{id}', [UsersController::class, 'destroy'])->name('deleteusers');
 
 // Brand
-Route::get('/brand', [DashboardController::class, 'listbrand'])->name('indexbrand');
+Route::get('/brand', [BrandController::class, 'index'])->name('indexbrand');
+Route::get('/createbrand', [BrandController::class, 'create'])->name('createbrand');
 
 // Warehouse
 Route::get('/warehouse', [DashboardController::class, 'listwarehouse'])->name('indexwarehouse');
 
 // Profile
 Route::get('/profile', [DashboardController::class, 'profile'])->name('indexprofile');
+
+Route::group(['middleware' => 'superadmin'], function () {
+    Route::get('superadmin/dashboard', [DashboardController::class, 'index'])->name('superadmindashboard.dashboard');
+});
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('admin/dashboard', [DashboardController::class, 'index']);
+});
