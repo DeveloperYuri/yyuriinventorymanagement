@@ -7,65 +7,17 @@
                 <div class="col-lg-10">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Add New Spare Part</h5>
+                            <h5 class="card-title">Add New Brand</h5>
 
                             <!-- Horizontal Form -->
-                            <form action="{{ route('createlistsparepartpost') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('createbrandpost')}}" method="POST">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">IMAGE<span
-                                            style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="file" class="form-control" name="image" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Part Number</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="partnumber">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Description<span
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name<span
                                         style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="description" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Brand<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="brand_id" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Price<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="price" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Stock<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="stock" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Location<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="location" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Status<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="status" required>
+                                        <input type="text" class="form-control" id="inputText" name="name" required>
                                     </div>
                                 </div>
 
@@ -73,7 +25,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary">Save</button>
-                                        <a href="{{ route('indexsparepart')}}" class="btn btn-secondary">Back</a>
+                                        <a href="{{ route('indexbrand')}}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </div>
                             </form><!-- End Horizontal Form -->

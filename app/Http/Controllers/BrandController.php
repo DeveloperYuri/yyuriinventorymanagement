@@ -10,11 +10,11 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $brand = BrandModel::all();
+        $data['getRecord'] = BrandModel::getRecord($request);
 
-        return view('dashboard.brand.listbrand', compact('brand'));
+        return view('dashboard.brand.listbrand', $data);
 
     }
 
@@ -31,7 +31,16 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = request()->validate([
+            'name' =>'required',
+        ]);
+
+        $user = new BrandModel();
+
+        $user->name = trim($request->name);
+        $user->save();
+
+        return redirect('/brand')->with('success', 'Create New Brand Successfully');
     }
 
     /**
@@ -47,7 +56,9 @@ class BrandController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $brand = BrandModel::findOrFail($id);
+        
+        return view('dashboard.brand.editbrand', compact('brand'));
     }
 
     /**
@@ -55,7 +66,13 @@ class BrandController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $brand = BrandModel::findorFail($id);
+
+        $brand->update([
+            'name' => $request->name
+        ]);
+
+        return redirect('/brand')->with('success', 'Update Brand Sucessfully');
     }
 
     /**
@@ -63,6 +80,9 @@ class BrandController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $brand = BrandModel::findorFail($id);
+        $brand->delete();
+
+        return redirect('/brand')->with('error', 'Delete Brand Successfully');
     }
 }

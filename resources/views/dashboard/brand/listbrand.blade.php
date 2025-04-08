@@ -4,8 +4,19 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <a href="{{ route('')}}" class="btn btn-primary">Add Brand</a>
+      <a href="{{ route('createbrand')}}" class="btn btn-primary">Add Brand</a>
     </div><!-- End Page Title -->
+
+    <form method="get">
+      <div class="row">
+          <div class="col-4">
+              <input id="searchingname" type="text" class="form-control" value="{{ Request()->name }}" placeholder="Search Brand Name" name="name" >
+          </div>
+          <div class="col-2">
+              <button type="submit" class="btn btn-success mb-2">Search</button>
+          </div>
+      </div>
+  </form>
 
     <section class="section">
       <div class="row">
@@ -27,15 +38,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @forelse ($brand as $br)
+                  @forelse ($getRecord as $key => $br)
                   <tr>
-                    <th class="text-center" scope="row">{{ $loop->iteration }}</th>
+                    <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}</th>
                     <td class="text-center">{{ $br->name}}</td>
                     <td class="text-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action=""
+                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletebrand', $br->id)}}"
                             method="POST">
     
-                            <a href="" class="btn btn-sm btn-warning">EDIT</a>
+                            <a href="{{ route('editbrand', $br->id)}}" class="btn btn-sm btn-warning">EDIT</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -50,6 +61,12 @@
                 </tbody>
               </table>
               <!-- End Default Table Example -->
+
+              <div style="padding: 10px; float: right;">
+                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+
+            </div>
+
             </div>
           </div>
         </div>

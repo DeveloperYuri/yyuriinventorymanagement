@@ -7,19 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 
 
-class BrandModel extends Model
+class WarehouseModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'brand';
+    protected $table = 'warehouse';
 
     protected $fillable = [
-        'name'
+        'name',
+        'address',
+        'pic'
     ];
 
     static public function getRecord($request)
     {
-        $return = self::select('brand.*')
+        $return = self::select('warehouse.*')
             ->orderBy('id', 'desc');
 
             if (!empty(Request::get('name'))) {

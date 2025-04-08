@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 // Login Register
@@ -46,9 +47,13 @@ Route::delete('/deleteusers/{id}', [UsersController::class, 'destroy'])->name('d
 // Brand
 Route::get('/brand', [BrandController::class, 'index'])->name('indexbrand');
 Route::get('/createbrand', [BrandController::class, 'create'])->name('createbrand');
+Route::post('/createbrandpost', [BrandController::class, 'store'])->name('createbrandpost');
+Route::delete('/deletebrand/{id}', [BrandController::class, 'destroy'])->name('deletebrand');
+Route::get('/editbrand/{id}', [BrandController::class, 'edit'])->name('editbrand');
+Route::put('/updatebrand/{id}', [BrandController::class, 'update'])->name('updatebrand');
 
 // Warehouse
-Route::get('/warehouse', [DashboardController::class, 'listwarehouse'])->name('indexwarehouse');
+Route::get('/warehouse', [WarehouseController::class, 'index'])->name('indexwarehouse');
 
 // Profile
 Route::get('/profile', [DashboardController::class, 'profile'])->name('indexprofile');

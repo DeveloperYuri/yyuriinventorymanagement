@@ -52,10 +52,6 @@ class DashboardController extends Controller
         return view('dashboard.supplier.listsupplier');
     }
 
-    public function listbrand(){
-        return view('dashboard.brand.listbrand');
-    }
-
     public function listwarehouse(){
         return view('dashboard.warehouse.listwarehouse');
     }
