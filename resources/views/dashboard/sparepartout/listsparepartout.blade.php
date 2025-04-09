@@ -45,7 +45,7 @@
                                               <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletesparepartout', $sparepartout->id)}}"
                                                 method="POST">
                         
-                                                <a href="" class="btn btn-sm btn-warning">EDIT</a>
+                                                <a href="{{ route('editsparepartout', $sparepartout->id)}}" class="btn btn-sm btn-warning">EDIT</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

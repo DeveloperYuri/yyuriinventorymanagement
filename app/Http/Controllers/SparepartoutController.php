@@ -63,7 +63,9 @@ class SparepartoutController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $sparepartout = SparepartoutModel::findOrFail($id);
+        
+        return view('dashboard.sparepartout.editsparepartout', compact('sparepartout'));
     }
 
     /**
@@ -71,7 +73,18 @@ class SparepartoutController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $sparepartout = SparepartoutModel::findorFail($id);
+
+        $sparepartout->update([
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'stock' => $request->stock,
+            'location' => $request->location,
+            'user' => $request->user,
+            'note' => $request->note
+        ]);
+
+        return redirect('/listsparepartout')->with('success', 'Update Spare Part Out Sucessfully');
     }
 
     /**

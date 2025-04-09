@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssettoolsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
@@ -40,9 +41,26 @@ Route::get('/editsparepartout/{id}', [SparepartoutController::class, 'edit'])->n
 Route::put('/editsparepartout/{id}', [SparepartoutController::class, 'update'])->name('updatesparepartout');
 
 // Asset Tools
-Route::get('/listassettools', [DashboardController::class, 'listassettools'])->name('indexassettools');
-Route::get('/assettoolsin', [DashboardController::class, 'assettoolsin'])->name('assettoolsin');
-Route::get('/assettoolsout', [DashboardController::class, 'assettoolsout'])->name('assettoolsout');
+Route::get('/listassettools', [AssettoolsController::class, 'index'])->name('indexassettools');
+Route::get('/createassettools', [AssettoolsController::class, 'create'])->name('createassettools');
+Route::post('/createassettoolspost', [AssettoolsController::class, 'store'])->name('createassettoolspost');
+Route::delete('/deleteassettools/{id}', [AssettoolsController::class, 'destroy'])->name('deleteassettools');
+
+// Asset Tools IN
+Route::get('/listassettoolsin', [SparepartinController::class, 'index'])->name('indexsparepartin');
+Route::get('/createlistsparepartin', [SparepartinController::class, 'create'])->name('createlistsparepartin');
+Route::post('/createsparepartinpost', [SparepartinController::class, 'store'])->name('createsparepartinpost');
+Route::delete('/deletesparepartin/{id}', [SparepartinController::class, 'destroy'])->name('deletesparepartin');
+Route::get('/editsparepartin/{id}', [SparepartinController::class, 'edit'])->name('editsparepartin');
+Route::put('/editsparepartin/{id}', [SparepartinController::class, 'update'])->name('updatesparepartin');
+
+// Asset Tools OUT
+Route::get('/listsparepartin', [SparepartinController::class, 'index'])->name('indexsparepartin');
+Route::get('/createlistsparepartin', [SparepartinController::class, 'create'])->name('createlistsparepartin');
+Route::post('/createsparepartinpost', [SparepartinController::class, 'store'])->name('createsparepartinpost');
+Route::delete('/deletesparepartin/{id}', [SparepartinController::class, 'destroy'])->name('deletesparepartin');
+Route::get('/editsparepartin/{id}', [SparepartinController::class, 'edit'])->name('editsparepartin');
+Route::put('/editsparepartin/{id}', [SparepartinController::class, 'update'])->name('updatesparepartin');
 
 // ATK
 Route::get('/listatk', [DashboardController::class, 'listatk'])->name('indexatk');

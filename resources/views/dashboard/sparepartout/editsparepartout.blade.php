@@ -10,21 +10,22 @@
                             <h5 class="card-title">Edit Spare Part Out</h5>
 
                             <!-- Horizontal Form -->
-                            <form action="{{ route('updatesparepartoutpost') }}" method="POST">
+                            <form action="{{ route('updatesparepartout', $sparepartout->id) }}" method="POST">
+                                @method('PUT')
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="name" required>
+                                        <input type="text" class="form-control" id="inputText" name="name" value="{{ $sparepartout->name }}" required>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">brand</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="brand">
+                                        <input type="text" class="form-control" id="inputText" name="brand" value="{{ $sparepartout->brand }}">
                                     </div>
                                 </div>
 
@@ -32,7 +33,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Stock<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="stock" required>
+                                        <input type="text" class="form-control" id="inputText" name="stock" value="{{ $sparepartout->stock }}" required>
                                     </div>
                                 </div>
 
@@ -40,7 +41,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Location<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="location" required>
+                                        <input type="text" class="form-control" id="inputText" name="location" value="{{ $sparepartout->location }}" required>
                                     </div>
                                 </div>
 
@@ -48,7 +49,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Request By<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="user" required>
+                                        <input type="text" class="form-control" id="inputText" name="user" value="{{ $sparepartout->user }}" required>
                                     </div>
                                 </div>
 
@@ -56,7 +57,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Note
                                     </label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note">{{ $sparepartout->note }}</textarea>
                                     </div>
                                 </div>
 

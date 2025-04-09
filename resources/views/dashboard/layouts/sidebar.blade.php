@@ -54,12 +54,12 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('assettoolsin')}}">
+            <a href="">
               <i class="bi bi-circle"></i><span>Tools In</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('assettoolsout')}}">
+            <a href="">
               <i class="bi bi-circle"></i><span>Tools Out</span>
             </a>
           </li>

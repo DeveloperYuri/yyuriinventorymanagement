@@ -12,18 +12,6 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
 
-    public function listassettools(){
-        return view('dashboard.assettools.listassettools');
-    }
-
-    public function assettoolsin(){
-        return view('dashboard.assettools.assettoolsin');
-    }
-
-    public function assettoolsout(){
-        return view('dashboard.assettools.assettoolsout');
-    }
-
     public function listatk(){
         return view('dashboard.atk.listatk');
     }
