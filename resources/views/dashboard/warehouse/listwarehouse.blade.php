@@ -4,7 +4,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <a href="" class="btn btn-primary">Create New Warehouse</a>
+      <a href="{{ route('createwarehouse')}}" class="btn btn-primary">Create New Warehouse</a>
     </div><!-- End Page Title -->
 
     <form method="get">
@@ -47,10 +47,10 @@
                     <td class="text-center">{{ $wrh->address}}</td>
                     <td class="text-center">{{ $wrh->pic}}</td>
                     <td class="text-center">
-                      <form onsubmit="return confirm('Apakah Anda Yakin ?');" action=""
+                      <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletewarehouse', $wrh->id)}}"
                         method="POST">
 
-                        <a href="" class="btn btn-sm btn-warning">EDIT</a>
+                        <a href="{{ route('editwarehouse', $wrh->id)}}" class="btn btn-sm btn-warning">EDIT</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -65,6 +65,12 @@
                 </tbody>
               </table>
               <!-- End Default Table Example -->
+
+              <div style="padding: 10px; float: right;">
+                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+
+            </div>
+
             </div>
           </div>
         </div>

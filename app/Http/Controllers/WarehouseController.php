@@ -22,7 +22,7 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.warehouse.createwarehouse');
     }
 
     /**
@@ -30,7 +30,20 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = request()->validate([
+            'name' =>'required',
+            'address' =>'required',
+            'pic' =>'required',
+        ]);
+
+        $user = new WarehouseModel();
+
+        $user->name = trim($request->name);
+        $user->address = trim($request->address);
+        $user->pic = trim($request->pic);
+        $user->save();
+
+        return redirect('/warehouse')->with('success', 'Create New Warehouse Successfully');
     }
 
     /**
@@ -46,7 +59,9 @@ class WarehouseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $warehouse = WarehouseModel::findOrFail($id);
+        
+        return view('dashboard.warehouse.editwarehouse', compact('warehouse'));
     }
 
     /**
@@ -54,7 +69,15 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $warehouse = WarehouseModel::findorFail($id);
+
+        $warehouse->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'pic' => $request->pic
+        ]);
+
+        return redirect('/warehouse')->with('success', 'Update Warehouse Sucessfully');
     }
 
     /**
@@ -62,6 +85,9 @@ class WarehouseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $warehouse = WarehouseModel::findorFail($id);
+        $warehouse->delete();
+
+        return redirect('/warehouse')->with('error', 'Delete Warehouse Successfully');
     }
 }

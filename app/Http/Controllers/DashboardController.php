@@ -12,18 +12,6 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
 
-    public function sparepart(){
-        return view('dashboard.sparepart.listsparepart');
-    }
-
-    public function sparepartin(){
-        return view('dashboard.sparepart.sparepartin');
-    }
-
-    public function sparepartout(){
-        return view('dashboard.sparepart.sparepartout');
-    }
-
     public function listassettools(){
         return view('dashboard.assettools.listassettools');
     }
@@ -46,14 +34,6 @@ class DashboardController extends Controller
 
     public function atkout(){
         return view('dashboard.atk.atkout');
-    }
-
-    public function listsupplier(){
-        return view('dashboard.supplier.listsupplier');
-    }
-
-    public function listwarehouse(){
-        return view('dashboard.warehouse.listwarehouse');
     }
 
     public function profile(){

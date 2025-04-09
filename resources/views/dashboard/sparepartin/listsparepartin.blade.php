@@ -4,7 +4,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <a href="{{ route('createsupplier')}}" class="btn btn-primary">Create New Supplier</a>
+            <a href="{{ route('createlistsparepartin')}}" class="btn btn-primary">Create New Spare Part In</a>
         </div><!-- End Page Title -->
 
         <section class="section">
@@ -13,7 +13,7 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">List Supplier</h5>
+                            <h5 class="card-title">List Spare Part In</h5>
 
                             @include('_message')
 
@@ -23,26 +23,29 @@
                                     <tr>
                                         <th class="text-center" scope="col">No</th>
                                         <th class="text-center" scope="col">Name</th>
-                                        <th class="text-center" scope="col">Email</th>
-                                        <th class="text-center" scope="col">Address</th>
-                                        <th class="text-center" scope="col">Contact</th>
+                                        <th class="text-center" scope="col">Brand</th>
+                                        <th class="text-center" scope="col">Stock</th>
+                                        <th class="text-center" scope="col">Location</th>
+                                        <th class="text-center" scope="col">Receive By</th>
+                                        <th class="text-center" scope="col">Date</th>
                                         <th class="text-center" scope="col">Action</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($getRecord as $key => $supplier)
+                                    @forelse ($getRecord as $key => $sparepartin)
                                         <tr>
                                             <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}</th>
-                                            <td class="text-center">{{ $supplier->name }}</td>
-                                            <td class="text-center">{{ $supplier->email }}</td>
-                                            <td class="text-center">{{ $supplier->address }}</td>
-                                            <td class="text-center">{{ $supplier->contact }}</td>
+                                            <td class="text-center">{{ $sparepartin->name }}</td>
+                                            <td class="text-center">{{ $sparepartin->brand }}</td>
+                                            <td class="text-center">{{ $sparepartin->stock }}</td>
+                                            <td class="text-center">{{ $sparepartin->location }}</td>
+                                            <td class="text-center">{{ $sparepartin->user }}</td>
+                                            <td class="text-center">{{ $sparepartin->created_at }}</td>
                                             <td class="text-center">
-                                              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletesupplier', $supplier->id)}}"
+                                              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletesparepartin', $sparepartin->id)}}"
                                                 method="POST">
                         
-                                                <a href="{{ route('editsupplier', $supplier->id)}}" class="btn btn-sm btn-warning">EDIT</a>
+                                                <a href="{{ route('editsparepartin', $sparepartin->id)}}" class="btn btn-sm btn-warning">EDIT</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -51,7 +54,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td class="text-center" colspan="100%">Supplier Data Not Found</td>
+                                            <td class="text-center" colspan="100%">Spare Part In Data Not Found</td>
                                         </tr>
                                     @endforelse
 

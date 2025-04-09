@@ -29,12 +29,12 @@
             </a>
           </li>
           <li>
-            <a href="{{ route('sparepartin')}}">
+            <a href="{{ route('indexsparepartin')}}">
               <i class="bi bi-circle"></i><span>Spare Part In</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('sparepartout')}}">
+            <a href="{{ route('indexsparepartout')}}">
               <i class="bi bi-circle"></i><span>Spare Part Out</span>
             </a>
           </li>

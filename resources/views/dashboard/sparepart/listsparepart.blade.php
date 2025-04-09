@@ -23,7 +23,6 @@
                   <tr>
                     <th class="text-center" scope="col">No</th>
                     <th class="text-center" scope="col">Image</th>
-                    <th class="text-center" scope="col">Part Number</th>
                     <th class="text-center" scope="col">Description</th>
                     <th class="text-center" scope="col">Brand</th>
                     <th class="text-center" scope="col">Price</th>
@@ -41,7 +40,6 @@
                       <img src="{{ asset('/storage/sparepart/' . $sp->image) }}"
                                 class="rounded" style="width: 100px" height="70px">
                     </td>
-                    <td class="text-center">{{ $sp->partnumber }}</td>
                     <td class="text-center">{{ $sp->description }}</td>
                     <td class="text-center">{{ $sp->brand_id }}</td>
                     <td class="text-center">{{ $sp->price }}</td>

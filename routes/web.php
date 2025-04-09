@@ -4,6 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\SparepartinController;
+use App\Http\Controllers\SparepartoutController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +22,22 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdash
 Route::get('/listsparepart', [SparepartController::class, 'index'])->name('indexsparepart');
 Route::get('/createlistsparepart', [SparepartController::class, 'create'])->name('createlistsparepart');
 Route::post('/createlistsparepartpost', [SparepartController::class, 'store'])->name('createlistsparepartpost');
-Route::get('/sparepartin', [SparepartController::class, 'sparepartin'])->name('sparepartin');
-Route::get('/sparepartout', [SparepartController::class, 'sparepartout'])->name('sparepartout');
 
+// Spare Part IN
+Route::get('/listsparepartin', [SparepartinController::class, 'index'])->name('indexsparepartin');
+Route::get('/createlistsparepartin', [SparepartinController::class, 'create'])->name('createlistsparepartin');
+Route::post('/createsparepartinpost', [SparepartinController::class, 'store'])->name('createsparepartinpost');
+Route::delete('/deletesparepartin/{id}', [SparepartinController::class, 'destroy'])->name('deletesparepartin');
+Route::get('/editsparepartin/{id}', [SparepartinController::class, 'edit'])->name('editsparepartin');
+Route::put('/editsparepartin/{id}', [SparepartinController::class, 'update'])->name('updatesparepartin');
+
+// Spare Part OUT
+Route::get('/listsparepartout', [SparepartoutController::class, 'index'])->name('indexsparepartout');
+Route::get('/createsparepartout', [SparepartoutController::class, 'create'])->name('createsparepartout');
+Route::post('/createsparepartoutpost', [SparepartoutController::class, 'store'])->name('createsparepartoutpost');
+Route::delete('/deletesparepartout/{id}', [SparepartoutController::class, 'destroy'])->name('deletesparepartout');
+Route::get('/editsparepartout/{id}', [SparepartoutController::class, 'edit'])->name('editsparepartout');
+Route::put('/editsparepartout/{id}', [SparepartoutController::class, 'update'])->name('updatesparepartout');
 
 // Asset Tools
 Route::get('/listassettools', [DashboardController::class, 'listassettools'])->name('indexassettools');
@@ -34,7 +50,12 @@ Route::get('/atkin', [DashboardController::class, 'atkin'])->name('atkin');
 Route::get('/atkout', [DashboardController::class, 'atkout'])->name('atkout');
 
 // Supplier
-Route::get('/supplier', [DashboardController::class, 'listsupplier'])->name('indexsupplier');
+Route::get('/supplier', [SupplierController::class, 'index'])->name('indexsupplier');
+Route::get('/createsupplier', [SupplierController::class, 'create'])->name('createsupplier');
+Route::post('/createsupplierpost', [SupplierController::class, 'store'])->name('createsupplierpost');
+Route::delete('/deletesupplier/{id}', [SupplierController::class, 'destroy'])->name('deletesupplier');
+Route::get('/editsupplier/{id}', [SupplierController::class, 'edit'])->name('editsupplier');
+Route::put('/updatesupplier/{id}', [SupplierController::class, 'update'])->name('updatesupplier');
 
 // Users
 Route::get('/users', [UsersController::class, 'index'])->name('indexusers');
@@ -54,6 +75,11 @@ Route::put('/updatebrand/{id}', [BrandController::class, 'update'])->name('updat
 
 // Warehouse
 Route::get('/warehouse', [WarehouseController::class, 'index'])->name('indexwarehouse');
+Route::get('/createwarehouse', [WarehouseController::class, 'create'])->name('createwarehouse');
+Route::post('/createwarehousepost', [WarehouseController::class, 'store'])->name('createwarehousepost');
+Route::delete('/deletewarehouse/{id}', [WarehouseController::class, 'destroy'])->name('deletewarehouse');
+Route::get('/editwarehouse/{id}', [WarehouseController::class, 'edit'])->name('editwarehouse');
+Route::put('/updatewarehouse/{id}', [WarehouseController::class, 'update'])->name('updatewarehouse');
 
 // Profile
 Route::get('/profile', [DashboardController::class, 'profile'])->name('indexprofile');

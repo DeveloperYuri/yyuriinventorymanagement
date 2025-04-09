@@ -6,26 +6,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 
-
-class WarehouseModel extends Model
+class SupplierModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'warehouse';
+    protected $table = 'supplier';
 
     protected $fillable = [
         'name',
+        'email',
         'address',
-        'pic'
+        'contact',
+        'description'
     ];
 
     static public function getRecord($request)
     {
-        $return = self::select('warehouse.*')
+        $return = self::select('supplier.*')
             ->orderBy('id', 'desc');
 
             if (!empty(Request::get('name'))) {
-                $return = $return->where('warehouse.name', 'like', '%' . Request::get('name') . '%');
+                $return = $return->where('supplier.name', 'like', '%' . Request::get('name') . '%');
             }
 
         $return = $return->paginate(10);
