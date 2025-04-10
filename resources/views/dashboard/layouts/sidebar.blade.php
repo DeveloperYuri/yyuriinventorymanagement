@@ -126,11 +126,11 @@
               <i class="bi bi-circle"></i><span>Warehouse</span>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="#">
               <i class="bi bi-circle"></i><span>Profile</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </li>
       <!-- End Spare Part Sidebar -->
