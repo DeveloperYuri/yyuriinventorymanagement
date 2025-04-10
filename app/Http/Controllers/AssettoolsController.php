@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AssettoolsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class AssettoolsController extends Controller
 {
@@ -62,7 +64,8 @@ class AssettoolsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $assettools = AssettoolsModel::findOrFail($id);
+        return view('dashboard.assettools.editassettools', compact('assettools'));
     }
 
     /**
@@ -70,7 +73,47 @@ class AssettoolsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         //get product by ID
+         $assettools = AssettoolsModel::findOrFail($id);
+
+         //check if image is uploaded
+         if ($request->hasFile('image')) {
+ 
+             //upload new image
+             $image = $request->file('image');
+             $image->storeAs('assettools', $image->hashName(), 'public');
+ 
+             //delete old image
+             Storage::delete('public/assettools/' . $assettools->image);
+ 
+             //update product with new image
+             $assettools->update([
+                 'image'         => $image->hashName(),
+                 'name'   => $request->name,
+                 'brand'   => $request->brand,
+                 'price'   => $request->price,
+                 'stock'   => $request->stock,
+                 'location'   => $request->location,
+                 'status'   => $request->status,
+                 'note'   => $request->note,
+             ]);
+         } else {
+ 
+             //update product without image
+             $assettools->update([
+                 'name'   => $request->name,
+                 'brand'   => $request->brand,
+                 'price'   => $request->price,
+                 'stock'   => $request->stock,
+                 'location'   => $request->location,
+                 'status'   => $request->status,
+                 'note'   => $request->note,
+
+             ]);
+         }
+ 
+         //redirect to index
+         return redirect('/listassettools')->with('success', 'Update Spare Part Successfully');
     }
 
     /**
@@ -78,8 +121,10 @@ class AssettoolsController extends Controller
      */
     public function destroy(string $id)
     {
-        $brand = AssettoolsModel::findorFail($id);
-        $brand->delete();
+        $assettools = AssettoolsModel::findorFail($id);
+        Storage::delete('public/sparepart/' . $assettools->image);
+
+        $assettools->delete();
 
         return redirect('/listassettools')->with('error', 'Delete Supplier Successfully');
     }

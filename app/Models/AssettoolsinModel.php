@@ -10,7 +10,7 @@ class AssettoolsinModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'sparepartin';
+    protected $table = 'assettoolsin';
 
     protected $fillable = [
         'name',
@@ -23,11 +23,11 @@ class AssettoolsinModel extends Model
 
     static public function getRecord($request)
     {
-        $return = self::select('sparepartin.*')
+        $return = self::select('assettoolsin.*')
             ->orderBy('id', 'desc');
 
             if (!empty(Request::get('name'))) {
-                $return = $return->where('sparepartin.name', 'like', '%' . Request::get('name') . '%');
+                $return = $return->where('assettoolsin.name', 'like', '%' . Request::get('name') . '%');
             }
 
         $return = $return->paginate(10);

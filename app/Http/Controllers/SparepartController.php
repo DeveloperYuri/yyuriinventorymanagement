@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SparePartModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SparepartController extends Controller
 {
@@ -31,12 +32,14 @@ class SparepartController extends Controller
     public function store(Request $request)
     {
         $image = $request->file('image');
-        $image->storeAs('public/sparepart', $image->hashName());
+        $image->storeAs('sparepart', $image->hashName(), 'public');
+
+        // $image = $request->file('image');
+        // $image->storeAs('public/sparepart', $image->hashName());
 
         //create product
         SparePartModel::create([
             'image'         => $image->hashName(),
-            'partnumber'   => $request->partnumber,
             'description'   => $request->description,
             'brand_id'   => $request->brand_id,
             'price'   => $request->price,
@@ -62,7 +65,8 @@ class SparepartController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $sparepart = SparePartModel::findOrFail($id);
+        return view('dashboard.sparepart.editsparepart', compact('sparepart'));
     }
 
     /**
@@ -70,7 +74,44 @@ class SparepartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //get product by ID
+        $sparepart = SparePartModel::findOrFail($id);
+
+        //check if image is uploaded
+        if ($request->hasFile('image')) {
+
+            //upload new image
+            $image = $request->file('image');
+            $image->storeAs('sparepart', $image->hashName(), 'public');
+
+            //delete old image
+            Storage::delete('public/sparepart/' . $sparepart->image);
+
+            //update product with new image
+            $sparepart->update([
+                'image'         => $image->hashName(),
+                'description'   => $request->description,
+                'brand_id'   => $request->brand_id,
+                'price'   => $request->price,
+                'stock'   => $request->stock,
+                'location'   => $request->location,
+                'status'   => $request->status,
+            ]);
+        } else {
+
+            //update product without image
+            $sparepart->update([
+                'description'   => $request->description,
+                'brand_id'   => $request->brand_id,
+                'price'   => $request->price,
+                'stock'   => $request->stock,
+                'location'   => $request->location,
+                'status'   => $request->status,
+            ]);
+        }
+
+        //redirect to index
+        return redirect('/listsparepart')->with('success', 'Update Spare Part Successfully');
     }
 
     /**
@@ -78,6 +119,26 @@ class SparepartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $sparepart = SparePartModel::findOrFail($id);
+
+        // dd($sparepart);
+
+        // dd($sparepart->image);
+        // dd(Storage::files('public/sparepart'));
+
+        // dd([
+        //     'file_in_storage' => Storage::files('public/sparepart'),
+        //     'file_in_db' => $sparepart->image,
+        // ]);
+
+
+        //delete image
+        Storage::delete('public/sparepart/' . $sparepart->image);
+
+
+        //delete product
+        $sparepart->delete();
+
+        return redirect('/listsparepart')->with('error', 'Delete Spare Part In Successfully');
     }
 }

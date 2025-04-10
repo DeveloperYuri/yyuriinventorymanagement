@@ -32,7 +32,7 @@
                       <i class="bi bi-wrench"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6>{{ $getSparepart }}</h6>
                     </div>
                   </div>
                 </div>
@@ -44,14 +44,14 @@
             <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
                 <div class="card-body">
-                  <h5 class="card-title">Total Tools Part</h5>
+                  <h5 class="card-title">Total Asset Tools</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-tools"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6>{{ $getAssettools }}</h6>
                     </div>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                       <i class="bi bi-truck"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6>{{ $getSupplier }}</h6>
                     </div>
                   </div>
                 </div>

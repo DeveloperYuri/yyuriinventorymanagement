@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssettoolsModel;
+use App\Models\SparePartModel;
+use App\Models\SupplierModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,7 +12,11 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-        return view('dashboard.index');
+        $data['getSparepart'] = SparePartModel::count();
+        $data['getAssettools'] = AssettoolsModel::count();
+        $data['getSupplier'] = SupplierModel::count();
+
+        return view('dashboard.index', $data);
     }
 
     public function listatk(){

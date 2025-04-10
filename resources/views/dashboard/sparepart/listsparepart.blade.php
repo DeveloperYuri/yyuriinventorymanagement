@@ -48,10 +48,10 @@
                     <td class="text-center">{{ $sp->status }}</td>
 
                     <td class="text-center">
-                      <form onsubmit="return confirm('Apakah Anda Yakin ?');" action=""
+                      <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletesparepart', $sp->id)}}"
                           method="POST">
   
-                          <a href="" class="btn btn-sm btn-warning">EDIT</a>
+                          <a href="{{ route('editsparepart', $sp->id)}}" class="btn btn-sm btn-warning">EDIT</a>
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

@@ -50,7 +50,7 @@
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deleteassettools', $ast->id)}}"
                                                     method="POST">
 
-                                                    <a href="" class="btn btn-sm btn-warning">EDIT</a>
+                                                    <a href="{{ route('editassettools', $ast->id)}}" class="btn btn-sm btn-warning">EDIT</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
