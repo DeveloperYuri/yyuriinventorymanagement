@@ -22,12 +22,12 @@ class SuperAdminMiddleware
                 return $next($request);
             } else {
                 Auth::logout();
-                 return redirect(url('loginbaru'));
+                 return redirect(url('/'));
             }
             
         }else{
             Auth::logout();
-            return redirect(url('loginbaru'));
+            return redirect(url('/'));
         }
     }
 }

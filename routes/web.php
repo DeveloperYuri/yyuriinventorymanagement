@@ -21,7 +21,7 @@ Route::get('/', [AuthController::class, 'login'])->name('indexlogin');
 Route::get('/registration', [AuthController::class, 'register'])->name('indexregister');
 
 // Dashboard Page
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');
 
 // Spare Part 
 Route::get('/listsparepart', [SparepartController::class, 'index'])->name('indexsparepart');
@@ -118,27 +118,22 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');;
 
 
 Route::group(['middleware' => 'superadmin'], function () {
-    // echo "Masuk";
-    // Route::get('dashboard', [DashboardController::class, 'index']);
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');
-
     
+    Route::get('/dashboardsuperadmin', [DashboardController::class, 'index'])->name('indexdashboard');
+
 });
 
 Route::group(['middleware' => 'admin'], function () {
-    echo "Masuk";
-
-    // Route::get('dashboard', [DashboardController::class, 'index']);
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');
+    Route::get('/dashboardadmin', [DashboardController::class, 'index'])->name('indexdashboard');
 
 });
 
 Route::group(['middleware' => 'users'], function () {
-    // echo "Masuk";
-
-    // Route::get('dashboard', [BrandController::class, 'index']);
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');
+    Route::get('/dashboardusers', [DashboardController::class, 'index'])->name('indexdashboard');
 
 });
 
 
+    // Route::get('/dashboardadmin', [AuthController::class, 'loginadmin'])->name('logindashboardadmin');
+    // Route::get('/dashboarduser', [AuthController::class, 'loginuser'])->name('logindashboarduser');
+    // Route::get('/dashboardsuperadmin', [AuthController::class, 'loginsuperadmin'])->name('logindashboardsuperadmin');
