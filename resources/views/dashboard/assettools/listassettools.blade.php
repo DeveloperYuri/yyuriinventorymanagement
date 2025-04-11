@@ -29,7 +29,12 @@
                                         <th class="text-center" scope="col">Stock</th>
                                         <th class="text-center" scope="col">Location</th>
                                         <th class="text-center" scope="col">Status</th>
+
+                                        @if (Auth::user()->is_role == 2)
+
                                         <th class="text-center" scope="col">Action</th>
+                                        
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,6 +51,9 @@
                                             <td class="text-center">{{ $ast->stock }}</td>
                                             <td class="text-center">{{ $ast->location }}</td>
                                             <td class="text-center">{{ $ast->status }}</td>
+
+                                            @if (Auth::user()->is_role == 2)
+
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deleteassettools', $ast->id)}}"
                                                     method="POST">
@@ -56,6 +64,7 @@
                                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                                 </form>
                                             </td>
+                                            @endif
                                         </tr>
                                     @empty
                                     @endforelse

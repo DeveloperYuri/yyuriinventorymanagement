@@ -26,7 +26,12 @@
                                         <th class="text-center" scope="col">Email</th>
                                         <th class="text-center" scope="col">Address</th>
                                         <th class="text-center" scope="col">Contact</th>
+
+                                        @if (Auth::user()->is_role == 2)
+
                                         <th class="text-center" scope="col">Action</th>
+
+                                        @endif
 
                                     </tr>
                                 </thead>
@@ -38,6 +43,9 @@
                                             <td class="text-center">{{ $supplier->email }}</td>
                                             <td class="text-center">{{ $supplier->address }}</td>
                                             <td class="text-center">{{ $supplier->contact }}</td>
+                                            
+                                            @if (Auth::user()->is_role == 2)
+
                                             <td class="text-center">
                                               <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletesupplier', $supplier->id)}}"
                                                 method="POST">
@@ -48,6 +56,8 @@
                                                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                             </form>
                                             </td>
+
+                                            @endif
                                         </tr>
                                     @empty
                                         <tr>

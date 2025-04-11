@@ -4,7 +4,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('indexdashboard')}}">
+        <a class="nav-link collapsed" href="{{ route('indexdashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -49,7 +49,7 @@
         </a>
         <ul id="tools-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('indexassettoolsin')}}">
+            <a href="{{ route('indexassettools')}}">
               <i class="bi bi-circle"></i><span>List Tools</span>
             </a>
           </li>
@@ -102,12 +102,16 @@
       <!-- End Supplier Sidebar -->
 
       <!-- Start Users Sidebar -->
+      @if (Auth::user()->is_role == 2)
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('indexusers')}}">
           <i class="bi bi-person-circle"></i>
           <span>Users</span>
         </a>
       </li>
+
+      @endif
       <!-- End Users Sidebar -->
 
       <!-- Start Spare Part Sidebar -->

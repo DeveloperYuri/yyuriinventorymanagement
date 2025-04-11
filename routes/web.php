@@ -119,17 +119,17 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');;
 
 Route::group(['middleware' => 'superadmin'], function () {
     
-    Route::get('/dashboardsuperadmin', [DashboardController::class, 'index'])->name('indexdashboard');
+    Route::get('/dashboardsuperadmin', [DashboardController::class, 'index'])->name('indexdashboardsuperadmin');
 
 });
 
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('/dashboardadmin', [DashboardController::class, 'index'])->name('indexdashboard');
+    Route::get('/dashboardadmin', [DashboardController::class, 'index'])->name('indexdashboardadmin');
 
 });
 
 Route::group(['middleware' => 'users'], function () {
-    Route::get('/dashboardusers', [DashboardController::class, 'index'])->name('indexdashboard');
+    Route::get('/dashboardusers', [DashboardController::class, 'index'])->name('indexdashboarduser');
 
 });
 
