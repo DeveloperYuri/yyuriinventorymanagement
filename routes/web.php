@@ -6,9 +6,11 @@ use App\Http\Controllers\AssettoolsoutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ListSparePartController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\SparepartinController;
 use App\Http\Controllers\SparepartoutController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WarehouseController;
@@ -24,12 +26,12 @@ Route::get('/registration', [AuthController::class, 'register'])->name('indexreg
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');
 
 // Spare Part 
-Route::get('/listsparepart', [SparepartController::class, 'index'])->name('indexsparepart');
-Route::get('/createlistsparepart', [SparepartController::class, 'create'])->name('createlistsparepart');
-Route::post('/createlistsparepartpost', [SparepartController::class, 'store'])->name('createlistsparepartpost');
-Route::delete('/deletesparepart/{id}', [SparepartController::class, 'destroy'])->name('deletesparepart');
-Route::get('/editsparepart/{id}', [SparepartController::class, 'edit'])->name('editsparepart');
-Route::put('/updatesparepart/{id}', [SparepartController::class, 'update'])->name('updatesparepart');
+// Route::get('/listsparepart', [SparepartController::class, 'index'])->name('indexsparepart');
+// Route::get('/createlistsparepart', [SparepartController::class, 'create'])->name('createlistsparepart');
+// Route::post('/createlistsparepartpost', [SparepartController::class, 'store'])->name('createlistsparepartpost');
+// Route::delete('/deletesparepart/{id}', [SparepartController::class, 'destroy'])->name('deletesparepart');
+// Route::get('/editsparepart/{id}', [SparepartController::class, 'edit'])->name('editsparepart');
+// Route::put('/updatesparepart/{id}', [SparepartController::class, 'update'])->name('updatesparepart');
 
 // Spare Part IN
 Route::get('/listsparepartin', [SparepartinController::class, 'index'])->name('indexsparepartin');
@@ -52,7 +54,7 @@ Route::get('/listassettools', [AssettoolsController::class, 'index'])->name('ind
 Route::get('/createassettools', [AssettoolsController::class, 'create'])->name('createassettools');
 Route::post('/createassettoolspost', [AssettoolsController::class, 'store'])->name('createassettoolspost');
 Route::delete('/deleteassettools/{id}', [AssettoolsController::class, 'destroy'])->name('deleteassettools');
-Route::get('/editassettoolsin/{id}', [AssettoolsController::class, 'edit'])->name('editassettools');
+Route::get('/editassettools/{id}', [AssettoolsController::class, 'edit'])->name('editassettools');
 Route::put('/updateassettools/{id}', [AssettoolsController::class, 'update'])->name('updateassettools');
 
 // Asset Tools IN
@@ -137,3 +139,21 @@ Route::group(['middleware' => 'users'], function () {
     // Route::get('/dashboardadmin', [AuthController::class, 'loginadmin'])->name('logindashboardadmin');
     // Route::get('/dashboarduser', [AuthController::class, 'loginuser'])->name('logindashboarduser');
     // Route::get('/dashboardsuperadmin', [AuthController::class, 'loginsuperadmin'])->name('logindashboardsuperadmin');
+
+
+// Sparepart list In Out
+Route::get('/listsparepartbaru', [ListSparePartController::class, 'index'])->name('spare-parts.index');
+
+Route::get('/spare-parts/create', [ListSparePartController::class, 'create'])->name('spare-parts.create');
+Route::post('/spare-parts', [ListSparePartController::class, 'store'])->name('spare-parts.store');
+Route::get('/spare-parts/{id}/edit', [ListSparePartController::class, 'edit'])->name('spare-parts.edit');
+Route::put('/spare-parts/{id}', [ListSparePartController::class, 'update'])->name('spare-parts.update');
+Route::delete('/spare-parts/{id}', [ListSparePartController::class, 'destroy'])->name('spare-parts.destroy');
+
+Route::get('/stock-in', [StockController::class, 'stockInIndex'])->name('stock-in.index');
+Route::get('/stock-in/create', [StockController::class, 'stockInForm'])->name('stock-in.create');
+Route::post('/stock-in', [StockController::class, 'storeStockIn'])->name('stock-in.store');
+
+Route::get('/stock-out', [StockController::class, 'stockOutIndex'])->name('stock-out.index');
+Route::get('/stock-out/create', [StockController::class, 'stockOutForm'])->name('stock-out.create');
+Route::post('/stock-out', [StockController::class, 'storeStockOut'])->name('stock-out.store');

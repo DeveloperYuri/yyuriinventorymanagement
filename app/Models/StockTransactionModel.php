@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class StockTransactionModel extends Model
+{
+
+    use HasFactory;
+
+    protected $table = 'stock_transactions';
+
+    protected $fillable = ['spare_part_id', 'type', 'quantity'];
+
+    public function sparePart()
+    {
+        return $this->belongsTo(ListSparePartModel::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($transaction) {
+            $sparePart = $transaction->sparePart;
+            if ($transaction->type == 'in') {
+                $sparePart->increment('stock', $transaction->quantity);
+            } else {
+                $sparePart->decrement('stock', $transaction->quantity);
+            }
+        });
+    }
+}

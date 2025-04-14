@@ -24,17 +24,17 @@
         </a>
         <ul id="sparepart-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('indexsparepart')}}">
+            <a href="{{ route('spare-parts.index')}}">
               <i class="bi bi-circle"></i><span>List Spare Part</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('indexsparepartin')}}">
+            <a href="">
               <i class="bi bi-circle"></i><span>Spare Part In</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('indexsparepartout')}}">
+            <a href="">
               <i class="bi bi-circle"></i><span>Spare Part Out</span>
             </a>
           </li>
@@ -49,17 +49,17 @@
         </a>
         <ul id="tools-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('indexassettools')}}">
+            <a href="">
               <i class="bi bi-circle"></i><span>List Tools</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('indexassettoolsin')}}">
+            <a href="">
               <i class="bi bi-circle"></i><span>Tools In</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('indexassettoolsout')}}">
+            <a href="">
               <i class="bi bi-circle"></i><span>Tools Out</span>
             </a>
           </li>

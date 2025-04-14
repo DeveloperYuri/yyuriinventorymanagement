@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ListSparePartModel;
+use App\Models\StockTransactionModel;
+use Illuminate\Http\Request;
+
+class StockController extends Controller
+{
+    public function stockInIndex()
+    {
+        $transactions = StockTransactionModel::with('sparePart')->where('type', 'in')->orderByDesc('created_at', 'desc')->paginate(10);
+        return view('dashboard.stocks.in.index', compact('transactions'));
+    }
+
+    public function stockInForm()
+    {
+        $spareParts = ListSparePartModel::all();
+        return view('dashboard.stocks.in.create', compact('spareParts'));
+    }
+
+    public function storeStockIn(Request $request)
+    {
+        $request->validate([
+            'spare_part_id' => 'required|exists:spare_parts,id',
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        StockTransactionModel::create([
+            'spare_part_id' => $request->spare_part_id,
+            'type' => 'in',
+            'quantity' => $request->quantity
+        ]);
+
+        return redirect()->route('stock-in.index')->with('success', 'Stok masuk berhasil dicatat.');
+    }
+
+    public function stockOutIndex()
+    {
+        $transactions = StockTransactionModel::with('sparePart')->where('type', 'out')->orderByDesc('created_at', 'desc')->paginate(10);
+        return view('dashboard.stocks.out.index', compact('transactions'));
+    }
+
+    public function stockOutForm()
+    {
+        $spareParts = ListSparePartModel::all();
+        return view('dashboard.stocks.out.create', compact('spareParts'));
+    }
+
+    public function storeStockOut(Request $request)
+    {
+        $request->validate([
+            'spare_part_id' => 'required|exists:spare_parts,id',
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $sparePart = ListSparePartModel::find($request->spare_part_id);
+
+        if ($request->quantity > $sparePart->stock) {
+            return back()->withErrors('Jumlah keluar melebihi stok yang tersedia.');
+        }
+
+        StockTransactionModel::create([
+            'spare_part_id' => $request->spare_part_id,
+            'type' => 'out',
+            'quantity' => $request->quantity
+        ]);
+
+        return redirect()->route('stock-out.index')->with('success', 'Stok keluar berhasil dicatat.');
+    }
+}

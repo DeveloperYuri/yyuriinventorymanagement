@@ -10,70 +10,44 @@
                         <div class="card-body">
                             <h5 class="card-title">Edit Spare Part</h5>
 
-                            <!-- Horizontal Form -->
-                            <form action="{{ route('updatesparepart', $sparepart->id )}}" method="POST" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('spare-parts.update', $sparePart->id) }}" enctype="multipart/form-data">
+                                @csrf
                                 @method('PUT')
-                                {{ csrf_field() }}
 
                                 <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">IMAGE<span
-                                            style="color: red">*</span></label>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">IMAGE</label>
                                     <div class="col-sm-10">
-                                        <input type="file" class="form-control" name="image" value="{{ $sparepart->image }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Description<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="description" value="{{ $sparepart->description }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Brand<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="brand_id" value="{{ $sparepart->brand_id }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Price<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="price" value="{{ $sparepart->price }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Stock<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="stock" value="{{ $sparepart->stock }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Location<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="location" value="{{ $sparepart->location }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Status<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="status" value="{{ $sparepart->status }}" required>
+                                        @if($sparePart->image)
+                                        <img src="{{ asset('images/'.$sparePart->image) }}" alt="{{ $sparePart->name }}" width="100">
+                                    @else
+                                        <span class="text-muted">Tidak ada</span>
+                                    @endif
+                                    <br >
+                                    <label class="mt-2" >Ganti Gambar (Opsional)</label>
+                                    <input type="file" name="image" class="form-control" accept="image/*">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Spare Part</label>
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                        <a href="{{ route('indexsparepart')}}" class="btn btn-secondary">Back</a>
+                                        <input type="text" name="name" class="form-control" required value="{{ $sparePart->name }}">
                                     </div>
                                 </div>
-                            </form><!-- End Horizontal Form -->
 
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Harga</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="price" class="form-control" required value="{{ $sparePart->price }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <a href="{{ route('spare-parts.index')}}" class="btn btn-secondary">Back</a>
+                                </div>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
