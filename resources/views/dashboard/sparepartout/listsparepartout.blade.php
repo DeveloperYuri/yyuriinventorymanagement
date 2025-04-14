@@ -3,9 +3,13 @@
 @section('content')
     <main id="main" class="main">
 
+        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
         <div class="pagetitle">
-            <a href="{{ route('createsparepartout')}}" class="btn btn-primary">Create New Spare Part Out</a>
+            <a href="{{ route('stock-out.create') }}" class="btn btn-primary">Create New Spare Part Out</a>
         </div><!-- End Page Title -->
+
+        @endif
 
         <section class="section">
             <div class="row">
@@ -19,7 +23,23 @@
 
                             <!-- Default Table -->
                             <table class="table">
-                                <thead>
+
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Spare Part</th>
+                                    <th>Jumlah</th>
+                                </tr>
+                                @foreach ($transactions as $index => $in)
+                                    <tr>
+                                        <td>{{ $transactions->firstItem() + $index }}</td>
+                                        <td>{{ $in->created_at->format('d-m-Y') }}</td>
+                                        <td>{{ $in->sparePart->name }}</td>
+                                        <td>{{ $in->quantity }}</td>
+                                    </tr>
+                                @endforeach
+
+                                {{-- <thead>
                                     <tr>
                                         <th class="text-center" scope="col">No</th>
                                         <th class="text-center" scope="col">Name</th>
@@ -65,17 +85,17 @@
                                         <tr>
                                             <td class="text-center" colspan="100%">Spare Part Out Data Not Found</td>
                                         </tr>
-                                    @endforelse
+                                    @endforelse --}}
 
 
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
 
-                            <div style="padding: 10px; float: right;">
-                              {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-              
-                          </div>
+                            {{-- <div style="padding: 10px; float: right;">
+                                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+
+                            </div> --}}
                         </div>
                     </div>
                 </div>

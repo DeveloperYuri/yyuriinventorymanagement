@@ -3,9 +3,13 @@
 @section('content')
     <main id="main" class="main">
 
+        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
         <div class="pagetitle">
-            <a href="{{ route('createlistsparepartin')}}" class="btn btn-primary">Create New Spare Part In</a>
+            <a href="{{ route('stock-in.create')}}" class="btn btn-primary">Create New Spare Part In</a>
         </div><!-- End Page Title -->
+
+        @endif
 
         <section class="section">
             <div class="row">
@@ -19,7 +23,22 @@
 
                             <!-- Default Table -->
                             <table class="table">
-                                <thead>
+                                <tr>
+                                    <th class="text-center" >No</th>
+                                    <th class="text-center">Tanggal</th>
+                                    <th class="text-center">Spare Part</th>
+                                    <th class="text-center">Jumlah</th>
+                                </tr>
+                                @foreach ($transactions as $index => $in)
+                                    <tr>
+                                        <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
+                                        <td class="text-center">{{ $in->created_at->format('d-m-Y') }}</td>
+                                        <td class="text-center">{{ $in->sparePart->name }}</td>
+                                        <td class="text-center">{{ $in->quantity }}</td>
+                                    </tr>
+                                @endforeach
+                                
+                                {{-- <thead>
                                     <tr>
                                         <th class="text-center" scope="col">No</th>
                                         <th class="text-center" scope="col">Name</th>
@@ -65,17 +84,21 @@
                                         <tr>
                                             <td class="text-center" colspan="100%">Spare Part In Data Not Found</td>
                                         </tr>
-                                    @endforelse
+                                    @endforelse --}}
 
 
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
 
-                            <div style="padding: 10px; float: right;">
+                            <div class="d-flex justify-content-center">
+                                {{ $transactions->links() }}
+                            </div>
+
+                            {{-- <div style="padding: 10px; float: right;">
                               {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
               
-                          </div>
+                          </div> --}}
                         </div>
                     </div>
                 </div>

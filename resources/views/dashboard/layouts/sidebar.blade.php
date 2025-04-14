@@ -29,12 +29,12 @@
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="{{ route('stock-in.index')}}">
               <i class="bi bi-circle"></i><span>Spare Part In</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="{{ route('stock-out.index')}}">
               <i class="bi bi-circle"></i><span>Spare Part Out</span>
             </a>
           </li>

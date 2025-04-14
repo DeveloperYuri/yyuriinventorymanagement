@@ -11,13 +11,13 @@ class StockController extends Controller
     public function stockInIndex()
     {
         $transactions = StockTransactionModel::with('sparePart')->where('type', 'in')->orderByDesc('created_at', 'desc')->paginate(10);
-        return view('dashboard.stocks.in.index', compact('transactions'));
+        return view('dashboard.sparepartin.listsparepartin', compact('transactions'));
     }
 
     public function stockInForm()
     {
         $spareParts = ListSparePartModel::all();
-        return view('dashboard.stocks.in.create', compact('spareParts'));
+        return view('dashboard.sparepartin.createsparepartin', compact('spareParts'));
     }
 
     public function storeStockIn(Request $request)
@@ -39,13 +39,13 @@ class StockController extends Controller
     public function stockOutIndex()
     {
         $transactions = StockTransactionModel::with('sparePart')->where('type', 'out')->orderByDesc('created_at', 'desc')->paginate(10);
-        return view('dashboard.stocks.out.index', compact('transactions'));
+        return view('dashboard.sparepartout.listsparepartout', compact('transactions'));
     }
 
     public function stockOutForm()
     {
         $spareParts = ListSparePartModel::all();
-        return view('dashboard.stocks.out.create', compact('spareParts'));
+        return view('dashboard.sparepartout.createsparepartout', compact('spareParts'));
     }
 
     public function storeStockOut(Request $request)

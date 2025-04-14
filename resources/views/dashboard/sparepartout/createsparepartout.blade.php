@@ -10,10 +10,49 @@
                             <h5 class="card-title">Add New Spare Part Out</h5>
 
                             <!-- Horizontal Form -->
-                            <form action="{{ route('createsparepartoutpost') }}" method="POST">
+                            <form action="{{ route('stock-out.store') }}" method="POST">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Spare Part</label>
+                                    <div class="col-sm-10">
+                                        <select name="spare_part_id" class="form-control" required>
+                                            @foreach($spareParts as $part)
+                                                <option value="{{ $part->id }}">{{ $part->name }}</option>
+                                            @endforeach
+                                        </select>                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah Keluar</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="quantity" class="form-control" required min="1">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <a href="{{ route('stock-out.index') }}" class="btn btn-secondary">Back</a>
+                                    </div>
+                                </div>
+
+                                {{-- <div class="mb-3">
+                                    <label>Spare Part</label>
+                                    <select name="spare_part_id" class="form-control" required>
+                                        @foreach($spareParts as $part)
+                                            <option value="{{ $part->id }}">{{ $part->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+                        
+                                {{-- <div class="mb-3">
+                                    <label>Jumlah Keluar</label>
+                                    <input type="number" name="quantity" class="form-control" required min="1">
+                                </div> --}}
+
+                                {{-- <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
@@ -58,15 +97,9 @@
                                     <div class="col-sm-10">
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
-                                    <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                        <a href="{{ route('indexsparepartout') }}" class="btn btn-secondary">Back</a>
-                                    </div>
-                                </div>
+                                
                             </form><!-- End Horizontal Form -->
 
                         </div>

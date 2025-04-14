@@ -3,9 +3,13 @@
 @section('content')
     <main id="main" class="main">
 
+        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
         <div class="pagetitle">
             <a href="{{ route('spare-parts.create') }}" class="btn btn-primary">Add Spare Part</a>
         </div><!-- End Page Title -->
+
+        @endif
 
         <section class="section">
             <div class="row">
@@ -65,7 +69,12 @@
                                         <th class="text-center">Nama</th>
                                         <th class="text-center">Harga</th>
                                         <th class="text-center">Stok</th>
+
+                                        @if (Auth::user()->is_role == 2)
+
                                         <th class="text-center">Aksi</th>
+
+                                        @endif
 
                                         {{-- <th class="text-center" scope="col">No</th>
                                         <th class="text-center" scope="col">Image</th>
@@ -96,6 +105,9 @@
                                             <td class="text-center">{{ $part->name }}</td>
                                             <td class="text-center">Rp {{ number_format($part->price, 0, ',', '.') }}</td>
                                             <td class="text-center">{{ $part->stock }}</td>
+                                            
+                                            @if (Auth::user()->is_role == 2)
+
                                             <td class="text-center">
                                                 <a href="{{ route('spare-parts.edit', $part->id) }}"
                                                     class="btn btn-sm btn-warning">Edit</a>
@@ -107,6 +119,9 @@
                                                     <button class="btn btn-sm btn-danger">Hapus</button>
                                                 </form>
                                             </td>
+
+                                            @endif
+
                                         </tr>
                                     @endforeach
 
