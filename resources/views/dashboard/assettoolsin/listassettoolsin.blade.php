@@ -4,7 +4,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <a href="{{ route('createassettoolsin')}}" class="btn btn-primary">Create New Asset Tools In</a>
+            <a href="{{ route('asset-in.create')}}" class="btn btn-primary">Create New Asset Tools In</a>
         </div><!-- End Page Title -->
 
         <section class="section">
@@ -21,6 +21,13 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Tanggal</th>
+                                        <th class="text-center">Spare Part</th>
+                                        <th class="text-center">Jumlah</th>
+                                    </tr>
+
+                                    {{-- <tr>
                                         <th class="text-center" scope="col">No</th>
                                         <th class="text-center" scope="col">Name</th>
                                         <th class="text-center" scope="col">Brand</th>
@@ -33,10 +40,22 @@
                                         <th class="text-center" scope="col">Action</th>
 
                                         @endif
-                                    </tr>
+                                    </tr> --}}
                                 </thead>
                                 <tbody>
-                                    @forelse ($getRecord as $key => $assettoolsin)
+
+                                    @foreach ($transactions as $index => $assetin)
+                                        <tr>
+                                            <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
+                                            <td class="text-center">{{ $assetin->created_at->format('d-m-Y') }}</td>
+                                            {{-- <td class="text-center">{{ $assetin->assetTools->name }}</td> --}}
+                                            {{-- <td class="text-center">{{ $assetin->sparePart->name }}</td> --}}
+
+                                            <td class="text-center">{{ $assetin->quantity }}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    {{-- @forelse ($getRecord as $key => $assettoolsin)
                                         <tr>
                                             <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}</th>
                                             <td class="text-center">{{ $assettoolsin->name }}</td>
@@ -65,17 +84,17 @@
                                         <tr>
                                             <td class="text-center" colspan="100%">Asset Tools In Data Not Found</td>
                                         </tr>
-                                    @endforelse
+                                    @endforelse --}}
 
 
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
 
-                            <div style="padding: 10px; float: right;">
-                              {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-              
-                          </div>
+                            {{-- <div style="padding: 10px; float: right;">
+                                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+
+                            </div> --}}
                         </div>
                     </div>
                 </div>

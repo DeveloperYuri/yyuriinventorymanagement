@@ -49,12 +49,12 @@
         </a>
         <ul id="tools-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="">
+            <a href="{{ route('asset-tools.index')}}">
               <i class="bi bi-circle"></i><span>List Tools</span>
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="{{ route('asset-in.index')}}">
               <i class="bi bi-circle"></i><span>Tools In</span>
             </a>
           </li>

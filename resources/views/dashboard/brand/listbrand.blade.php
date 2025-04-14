@@ -3,9 +3,13 @@
 @section('content')
   <main id="main" class="main">
 
+    @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
     <div class="pagetitle">
       <a href="{{ route('createbrand')}}" class="btn btn-primary">Add Brand</a>
     </div><!-- End Page Title -->
+
+    @endif
 
     <form method="get">
       <div class="row">

@@ -4,7 +4,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <a href="{{ route('createassettools')}}" class="btn btn-primary">Add Asset Tools</a>
+            <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
         </div><!-- End Page Title -->
 
         <section class="section">
@@ -21,6 +21,18 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Gambar</th>
+                                        <th class="text-center">Nama</th>
+                                        <th class="text-center">Harga</th>
+                                        <th class="text-center">Stok</th>
+
+                                        @if (Auth::user()->is_role == 2)
+                                            <th class="text-center">Aksi</th>
+                                        @endif
+
+                                    </tr>
+                                    {{-- <tr>
                                         <th class="text-center" scope="col">No</th>
                                         <th class="text-center" scope="col">Image</th>
                                         <th class="text-center" scope="col">Name</th>
@@ -35,10 +47,42 @@
                                         <th class="text-center" scope="col">Action</th>
                                         
                                         @endif
-                                    </tr>
+                                    </tr> --}}
                                 </thead>
                                 <tbody>
-                                    @forelse ($assettools as $key => $ast)
+                                    @foreach ($assetTools as $index => $asset)
+                                        <tr>
+                                            <td class="text-center">{{ $assetTools->firstItem() + $index }}</td>
+                                            <td class="text-center">
+                                                @if ($asset->image)
+                                                    <img src="{{ asset('images/' . $asset->image) }}"
+                                                        alt="{{ $asset->name }}" width="60">
+                                                @else
+                                                    <span class="text-muted">Tidak ada</span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{ $asset->name }}</td>
+                                            <td class="text-center">Rp {{ number_format($asset->price, 0, ',', '.') }}</td>
+                                            <td class="text-center">{{ $asset->stock }}</td>
+
+                                            @if (Auth::user()->is_role == 2)
+                                                <td class="text-center">
+                                                    <a href="{{ route('asset-tools.edit', $asset->id)}}"
+                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                    <form action="{{ route('asset-tools.destroy', $asset->id )}}"
+                                                        method="POST" style="display:inline-block;"
+                                                        onsubmit="return confirm('Yakin ingin hapus spare asset ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-sm btn-danger">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            @endif
+
+                                        </tr>
+                                    @endforeach
+
+                                    {{-- @forelse ($assettools as $key => $ast)
                                         <tr>
                                             <th class="text-center" scope="row">{{ $loop->iteration }}</th>
                                             <td class="text-center">
@@ -67,7 +111,7 @@
                                             @endif
                                         </tr>
                                     @empty
-                                    @endforelse
+                                    @endforelse --}}
 
 
                                 </tbody>

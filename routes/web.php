@@ -6,10 +6,12 @@ use App\Http\Controllers\AssettoolsoutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ListAssetToolsController;
 use App\Http\Controllers\ListSparePartController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\SparepartinController;
 use App\Http\Controllers\SparepartoutController;
+use App\Http\Controllers\StockAssetToolsController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UsersController;
@@ -157,3 +159,27 @@ Route::post('/stock-in', [StockController::class, 'storeStockIn'])->name('stock-
 Route::get('/stock-out', [StockController::class, 'stockOutIndex'])->name('stock-out.index');
 Route::get('/stock-out/create', [StockController::class, 'stockOutForm'])->name('stock-out.create');
 Route::post('/stock-out', [StockController::class, 'storeStockOut'])->name('stock-out.store');
+
+// Asset Tools In Out
+Route::get('/listAssettoolsbaru', [ListAssetToolsController::class, 'index'])->name('asset-tools.index');
+Route::get('/asset-tools/create', [ListAssetToolsController::class, 'create'])->name('asset-tools.create');
+Route::post('/asset-tools', [ListAssetToolsController::class, 'store'])->name('asset-tools.store');
+Route::get('/asset-tools/{id}/edit', [ListAssetToolsController::class, 'edit'])->name('asset-tools.edit');
+Route::put('/asset-tools/{id}', [ListAssetToolsController::class, 'update'])->name('asset-tools.update');
+Route::delete('/asset-tools/{id}', [ListAssetToolsController::class, 'destroy'])->name('asset-tools.destroy');
+
+// Route::get('/asset-in', [StockAssetToolsController::class, 'assetInIndex'])->name('asset-in.index');
+// Route::get('/asset-in/create', [StockAssetToolsController::class, 'assetInForm'])->name('asset-in.create');
+// Route::post('/asset-in', [StockAssetToolsController::class, 'storeAssetIn'])->name('asset-in.store');
+
+// Route::get('/asset-out', [StockAssetToolsController::class, 'assetOutIndex'])->name('asset-out.index');
+// Route::get('/asset-out/create', [StockAssetToolsController::class, 'assetOutForm'])->name('asset-out.create');
+// Route::post('/asset-out', [StockAssetToolsController::class, 'storeAssetOut'])->name('asset-out.store');
+
+Route::get('/asset-in', [StockAssetToolsController::class, 'stockInIndex'])->name('asset-in.index');
+Route::get('/asset-in/create', [StockAssetToolsController::class, 'stockInForm'])->name('asset-in.create');
+Route::post('/asset-in', [StockAssetToolsController::class, 'storeStockIn'])->name('asset-in.store');
+
+Route::get('/asset-out', [StockAssetToolsController::class, 'stockOutIndex'])->name('asset-out.index');
+Route::get('/asset-out/create', [StockAssetToolsController::class, 'stockOutForm'])->name('asset-out.create');
+Route::post('/asset-out', [StockAssetToolsController::class, 'storeStockOut'])->name('asset-out.store');
