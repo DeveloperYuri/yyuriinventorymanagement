@@ -11,6 +11,7 @@ use App\Http\Controllers\ListSparePartController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\SparepartinController;
 use App\Http\Controllers\SparepartoutController;
+use App\Http\Controllers\StockAssetController;
 use App\Http\Controllers\StockAssetToolsController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
@@ -168,18 +169,10 @@ Route::get('/asset-tools/{id}/edit', [ListAssetToolsController::class, 'edit'])-
 Route::put('/asset-tools/{id}', [ListAssetToolsController::class, 'update'])->name('asset-tools.update');
 Route::delete('/asset-tools/{id}', [ListAssetToolsController::class, 'destroy'])->name('asset-tools.destroy');
 
-// Route::get('/asset-in', [StockAssetToolsController::class, 'assetInIndex'])->name('asset-in.index');
-// Route::get('/asset-in/create', [StockAssetToolsController::class, 'assetInForm'])->name('asset-in.create');
-// Route::post('/asset-in', [StockAssetToolsController::class, 'storeAssetIn'])->name('asset-in.store');
+Route::get('/asset-in', [StockAssetController::class, 'stockInIndex'])->name('asset-in.index');
+Route::get('/asset-in/create', [StockAssetController::class, 'stockInForm'])->name('asset-in.create');
+Route::post('/asset-in', [StockAssetController::class, 'storeStockIn'])->name('asset-in.store');
 
-// Route::get('/asset-out', [StockAssetToolsController::class, 'assetOutIndex'])->name('asset-out.index');
-// Route::get('/asset-out/create', [StockAssetToolsController::class, 'assetOutForm'])->name('asset-out.create');
-// Route::post('/asset-out', [StockAssetToolsController::class, 'storeAssetOut'])->name('asset-out.store');
-
-Route::get('/asset-in', [StockAssetToolsController::class, 'stockInIndex'])->name('asset-in.index');
-Route::get('/asset-in/create', [StockAssetToolsController::class, 'stockInForm'])->name('asset-in.create');
-Route::post('/asset-in', [StockAssetToolsController::class, 'storeStockIn'])->name('asset-in.store');
-
-Route::get('/asset-out', [StockAssetToolsController::class, 'stockOutIndex'])->name('asset-out.index');
-Route::get('/asset-out/create', [StockAssetToolsController::class, 'stockOutForm'])->name('asset-out.create');
-Route::post('/asset-out', [StockAssetToolsController::class, 'storeStockOut'])->name('asset-out.store');
+Route::get('/asset-out', [StockAssetController::class, 'stockOutIndex'])->name('asset-out.index');
+Route::get('/asset-out/create', [StockAssetController::class, 'stockOutForm'])->name('asset-out.create');
+Route::post('/asset-out', [StockAssetController::class, 'storeStockOut'])->name('asset-out.store');

@@ -15,6 +15,6 @@ class ListAssetToolsModel extends Model
     
     public function transactions()
     {
-        return $this->hasMany(StockAssetToolsTransactionsModel::class);
+        return $this->hasMany(StockAssetTransactionModel::class);
     }
 }

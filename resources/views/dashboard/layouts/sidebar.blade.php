@@ -59,7 +59,7 @@
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="{{ route('asset-out.index') }}">
               <i class="bi bi-circle"></i><span>Tools Out</span>
             </a>
           </li>

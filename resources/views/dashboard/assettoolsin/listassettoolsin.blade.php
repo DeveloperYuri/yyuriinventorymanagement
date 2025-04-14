@@ -23,7 +23,7 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Tanggal</th>
-                                        <th class="text-center">Spare Part</th>
+                                        <th class="text-center">Name</th>
                                         <th class="text-center">Jumlah</th>
                                     </tr>
 
@@ -48,7 +48,7 @@
                                         <tr>
                                             <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
                                             <td class="text-center">{{ $assetin->created_at->format('d-m-Y') }}</td>
-                                            {{-- <td class="text-center">{{ $assetin->assetTools->name }}</td> --}}
+                                            <td class="text-center">{{ $assetin->assetTools->name }}</td>
                                             {{-- <td class="text-center">{{ $assetin->sparePart->name }}</td> --}}
 
                                             <td class="text-center">{{ $assetin->quantity }}</td>
@@ -90,6 +90,10 @@
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
+
+                            <div class="d-flex justify-content-center">
+                                {{ $transactions->links() }}
+                            </div>
 
                             {{-- <div style="padding: 10px; float: right;">
                                 {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}

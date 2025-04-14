@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asset_tools_transactions', function (Blueprint $table) {
+        Schema::create('stock_asset_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asset_tools_id')->constrained()->onDelete('cascade');
             $table->enum('type', ['in', 'out']);
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asset_tools_transactions');
+        Schema::dropIfExists('stock_asset_transactions');
     }
 };
