@@ -74,7 +74,7 @@
 
     <hr>
 
-    <h3 style="text-align: center;">Laporan Asset Keluar</h3>
+    <h3 style="text-align: center;">Laporan Asset Keluar baru</h3>
 
     <table>
         <thead>
