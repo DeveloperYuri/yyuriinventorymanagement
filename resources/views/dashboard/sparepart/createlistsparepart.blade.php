@@ -28,13 +28,7 @@
                                         <input type="text" class="form-control" id="inputText" name="name" required>
                                     </div>
                                 </div>
-                                {{-- <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Brand<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="brand_id" required>
-                                    </div>
-                                </div> --}}
+
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Price<span
                                         style="color: red">*</span></label>
@@ -49,21 +43,7 @@
                                         <input type="text" class="form-control" id="inputText" name="stock" required>
                                     </div>
                                 </div>
-                                {{-- <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Location<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="location" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Status<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="status" required>
-                                    </div>
-                                </div> --}}
-
+                                
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-10">

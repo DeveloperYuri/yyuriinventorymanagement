@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssettoolsModel;
+use App\Models\ListAssetToolsModel;
+use App\Models\ListSparePartModel;
 use App\Models\SparePartModel;
 use App\Models\SupplierModel;
 use App\Models\User;
@@ -12,8 +14,8 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-        $data['getSparepart'] = SparePartModel::count();
-        $data['getAssettools'] = AssettoolsModel::count();
+        $data['getSparepart'] = ListSparePartModel::count();
+        $data['getAssettools'] = ListAssetToolsModel::count();
         $data['getSupplier'] = SupplierModel::count();
 
         return view('dashboard.index', $data);

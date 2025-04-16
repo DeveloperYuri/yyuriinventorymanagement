@@ -3,9 +3,13 @@
 @section('content')
     <main id="main" class="main">
 
+        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
         <div class="pagetitle">
             <a href="{{ route('asset-in.create')}}" class="btn btn-primary">Create New Asset Tools In</a>
-        </div><!-- End Page Title -->
+        </div>
+
+        @endif
 
         <section class="section">
             <div class="row">
@@ -26,21 +30,6 @@
                                         <th class="text-center">Name</th>
                                         <th class="text-center">Jumlah</th>
                                     </tr>
-
-                                    {{-- <tr>
-                                        <th class="text-center" scope="col">No</th>
-                                        <th class="text-center" scope="col">Name</th>
-                                        <th class="text-center" scope="col">Brand</th>
-                                        <th class="text-center" scope="col">Stock</th>
-                                        <th class="text-center" scope="col">Location</th>
-                                        <th class="text-center" scope="col">Receive By</th>
-                                        <th class="text-center" scope="col">Date</th>
-                                        @if (Auth::user()->is_role == 2)
-
-                                        <th class="text-center" scope="col">Action</th>
-
-                                        @endif
-                                    </tr> --}}
                                 </thead>
                                 <tbody>
 
@@ -49,43 +38,9 @@
                                             <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
                                             <td class="text-center">{{ $assetin->created_at->format('d-m-Y') }}</td>
                                             <td class="text-center">{{ $assetin->assetTools->name }}</td>
-                                            {{-- <td class="text-center">{{ $assetin->sparePart->name }}</td> --}}
-
                                             <td class="text-center">{{ $assetin->quantity }}</td>
                                         </tr>
                                     @endforeach
-
-                                    {{-- @forelse ($getRecord as $key => $assettoolsin)
-                                        <tr>
-                                            <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}</th>
-                                            <td class="text-center">{{ $assettoolsin->name }}</td>
-                                            <td class="text-center">{{ $assettoolsin->brand }}</td>
-                                            <td class="text-center">{{ $assettoolsin->stock }}</td>
-                                            <td class="text-center">{{ $assettoolsin->location }}</td>
-                                            <td class="text-center">{{ $assettoolsin->user_id }}</td>
-                                            <td class="text-center">{{ $assettoolsin->created_at }}</td>
-                                            
-                                            @if (Auth::user()->is_role == 2)
-
-                                            <td class="text-center">
-                                              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deleteassettoolsin', $assettoolsin->id)}}"
-                                                method="POST">
-                        
-                                                <a href="{{ route('editassettoolsin', $assettoolsin->id)}}" class="btn btn-sm btn-warning">EDIT</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                            </form>
-                                            </td>
-
-                                            @endif
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td class="text-center" colspan="100%">Asset Tools In Data Not Found</td>
-                                        </tr>
-                                    @endforelse --}}
-
 
                                 </tbody>
                             </table>
@@ -95,10 +50,6 @@
                                 {{ $transactions->links() }}
                             </div>
 
-                            {{-- <div style="padding: 10px; float: right;">
-                                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-
-                            </div> --}}
                         </div>
                     </div>
                 </div>

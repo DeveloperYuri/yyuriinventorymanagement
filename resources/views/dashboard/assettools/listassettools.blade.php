@@ -3,9 +3,13 @@
 @section('content')
     <main id="main" class="main">
 
+        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
         <div class="pagetitle">
             <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
-        </div><!-- End Page Title -->
+        </div>
+
+        @endif
 
         <section class="section">
             <div class="row">
@@ -32,22 +36,7 @@
                                         @endif
 
                                     </tr>
-                                    {{-- <tr>
-                                        <th class="text-center" scope="col">No</th>
-                                        <th class="text-center" scope="col">Image</th>
-                                        <th class="text-center" scope="col">Name</th>
-                                        <th class="text-center" scope="col">Brand</th>
-                                        <th class="text-center" scope="col">Price</th>
-                                        <th class="text-center" scope="col">Stock</th>
-                                        <th class="text-center" scope="col">Location</th>
-                                        <th class="text-center" scope="col">Status</th>
 
-                                        @if (Auth::user()->is_role == 2)
-
-                                        <th class="text-center" scope="col">Action</th>
-                                        
-                                        @endif
-                                    </tr> --}}
                                 </thead>
                                 <tbody>
                                     @foreach ($assetTools as $index => $asset)
@@ -71,7 +60,7 @@
                                                         class="btn btn-sm btn-warning">Edit</a>
                                                     <form action="{{ route('asset-tools.destroy', $asset->id )}}"
                                                         method="POST" style="display:inline-block;"
-                                                        onsubmit="return confirm('Yakin ingin hapus spare asset ini?')">
+                                                        onsubmit="return confirm('Yakin ingin hapus Asset Tools ini?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger">Hapus</button>
@@ -82,41 +71,14 @@
                                         </tr>
                                     @endforeach
 
-                                    {{-- @forelse ($assettools as $key => $ast)
-                                        <tr>
-                                            <th class="text-center" scope="row">{{ $loop->iteration }}</th>
-                                            <td class="text-center">
-                                                <img src="{{ asset('/storage/assettools/' . $ast->image) }}" class="rounded"
-                                                    style="width: 100px" height="70px">
-                                            </td>
-                                            <td class="text-center">{{ $ast->name }}</td>
-                                            <td class="text-center">{{ $ast->brand }}</td>
-                                            <td class="text-center">{{ $ast->price }}</td>
-                                            <td class="text-center">{{ $ast->stock }}</td>
-                                            <td class="text-center">{{ $ast->location }}</td>
-                                            <td class="text-center">{{ $ast->status }}</td>
-
-                                            @if (Auth::user()->is_role == 2)
-
-                                            <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deleteassettools', $ast->id)}}"
-                                                    method="POST">
-
-                                                    <a href="{{ route('editassettools', $ast->id)}}" class="btn btn-sm btn-warning">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                                </form>
-                                            </td>
-                                            @endif
-                                        </tr>
-                                    @empty
-                                    @endforelse --}}
-
-
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
+
+                            <div class="d-flex justify-content-center">
+                                {{ $assetTools->links() }}
+                            </div>
+
                         </div>
                     </div>
                 </div>

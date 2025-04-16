@@ -29,13 +29,6 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">IMAGE<span
-                                            style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="file" class="form-control" name="image" value="{{ $assetTools->image }}" required>
-                                    </div>
-                                </div> --}}
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name<span
                                         style="color: red">*</span></label>
@@ -43,13 +36,7 @@
                                         <input type="text" class="form-control" id="inputText" name="name" value="{{ $assetTools->name }}" required>
                                     </div>
                                 </div>
-                                {{-- <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Brand<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="brand" value="{{ $assetTools->brand }}" required>
-                                    </div>
-                                </div> --}}
+
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Price<span
                                         style="color: red">*</span></label>
@@ -57,36 +44,7 @@
                                         <input type="text" class="form-control" id="inputText" name="price" value="{{ $assetTools->price }}" required>
                                     </div>
                                 </div>
-                                {{-- <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Stock<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="stock" value="{{ $assetTools->stock }}" required>
-                                    </div>
-                                </div> --}}
-
-                                {{-- <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Location<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="location" value="{{ $assetTools->location }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Status<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="status" value="{{ $assettools->status }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Note
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note">{{ $assettools->note }}</textarea>
-                                    </div>
-                                </div> --}}
-
+                                
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-10">
