@@ -4,11 +4,9 @@
     <main id="main" class="main">
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-        <div class="pagetitle">
-            <a href="{{ route('spare-parts.create') }}" class="btn btn-primary">Add Spare Part</a>
-        </div><!-- End Page Title -->
-
+            <div class="pagetitle">
+                <a href="{{ route('spare-parts.create') }}" class="btn btn-primary">Add Spare Part</a>
+            </div><!-- End Page Title -->
         @endif
 
         <section class="section">
@@ -17,7 +15,18 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">List Spare Part</h5>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">List Spare Part</h5>
+
+                                @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
+                                <a href="{{ route('sparepart.cetakpdf') }}" class="btn btn-success" target="_blank">Cetak
+                                    PDF</a>
+
+                                @endif
+                                
+                            </div>
 
                             @include('_message')
 
@@ -32,9 +41,7 @@
                                         <th class="text-center">Stok</th>
 
                                         @if (Auth::user()->is_role == 2)
-
-                                        <th class="text-center">Aksi</th>
-
+                                            <th class="text-center">Aksi</th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -45,8 +52,8 @@
                                             <td class="text-center">{{ $spareParts->firstItem() + $index }}</td>
                                             <td class="text-center">
                                                 @if ($part->image)
-                                                    <img src="{{ asset('images/' . $part->image) }}" alt="{{ $part->name }}"
-                                                        width="60">
+                                                    <img src="{{ asset('images/' . $part->image) }}"
+                                                        alt="{{ $part->name }}" width="60">
                                                 @else
                                                     <span class="text-muted">Tidak ada</span>
                                                 @endif
@@ -54,21 +61,19 @@
                                             <td class="text-center">{{ $part->name }}</td>
                                             <td class="text-center">Rp {{ number_format($part->price, 0, ',', '.') }}</td>
                                             <td class="text-center">{{ $part->stock }}</td>
-                                            
+
                                             @if (Auth::user()->is_role == 2)
-
-                                            <td class="text-center">
-                                                <a href="{{ route('spare-parts.edit', $part->id) }}"
-                                                    class="btn btn-sm btn-warning">Edit</a>
-                                                <form action="{{ route('spare-parts.destroy', $part->id) }}" method="POST"
-                                                    style="display:inline-block;"
-                                                    onsubmit="return confirm('Yakin ingin hapus spare part ini?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger">Hapus</button>
-                                                </form>
-                                            </td>
-
+                                                <td class="text-center">
+                                                    <a href="{{ route('spare-parts.edit', $part->id) }}"
+                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                    <form action="{{ route('spare-parts.destroy', $part->id) }}"
+                                                        method="POST" style="display:inline-block;"
+                                                        onsubmit="return confirm('Yakin ingin hapus spare part ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-sm btn-danger">Hapus</button>
+                                                    </form>
+                                                </td>
                                             @endif
 
                                         </tr>
@@ -81,7 +86,7 @@
                             <div class="d-flex justify-content-center">
                                 {{ $spareParts->links() }}
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

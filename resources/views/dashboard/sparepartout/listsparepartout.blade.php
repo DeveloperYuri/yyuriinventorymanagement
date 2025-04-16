@@ -4,11 +4,9 @@
     <main id="main" class="main">
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-        <div class="pagetitle">
-            <a href="{{ route('stock-out.create') }}" class="btn btn-primary">Create New Spare Part Out</a>
-        </div><!-- End Page Title -->
-
+            <div class="pagetitle">
+                <a href="{{ route('stock-out.create') }}" class="btn btn-primary">Create New Spare Part Out</a>
+            </div><!-- End Page Title -->
         @endif
 
         <section class="section">
@@ -17,7 +15,18 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">List Spare Part Out</h5>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <h5 class="card-title">List Spare Part Out</h5>
+
+                                @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
+                                <a href="{{ route('export.stock-out') }}" class="btn btn-success">Cetak PDF</a>
+
+                                @endif
+
+                            </div>
 
                             @include('_message')
 
@@ -46,7 +55,7 @@
                             <div class="d-flex justify-content-center">
                                 {{ $transactions->links() }}
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

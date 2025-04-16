@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ListSparePartModel;
-use App\Models\StockTransactionModel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class ListSparePartController extends Controller
 {
@@ -84,5 +85,12 @@ class ListSparePartController extends Controller
         $sparePart->delete();
 
         return redirect()->route('spare-parts.index')->with('error', 'Spare part berhasil dihapus.');
+    }
+
+    public function cetakPDF()
+    {
+        $spareparts = ListSparePartModel::all();
+        $pdf = Pdf::loadView('sparepartpdf.sparepart', compact('spareparts'));
+        return $pdf->download('laporan_sparepart.pdf');
     }
 }

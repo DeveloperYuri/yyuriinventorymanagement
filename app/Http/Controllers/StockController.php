@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ListSparePartModel;
 use App\Models\StockTransactionModel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StockController extends Controller
 {
@@ -68,5 +69,19 @@ class StockController extends Controller
         ]);
 
         return redirect()->route('stock-out.index')->with('success', 'Stok keluar berhasil dicatat.');
+    }
+
+    public function exportStockInPDF()
+    {
+        $stockIns = StockTransactionModel::where('type', 'in')->with('sparePart')->get();
+        $pdf = Pdf::loadView('sparepartpdf.stock_in', compact('stockIns'));
+        return $pdf->download('laporan_stok_masuk.pdf');
+    }
+
+    public function exportStockOutPDF()
+    {
+        $stockOuts = StockTransactionModel::where('type', 'out')->with('sparePart')->get();
+        $pdf = Pdf::loadView('sparepartpdf.stock_out', compact('stockOuts'));
+        return $pdf->download('laporan_stok_keluar.pdf');
     }
 }

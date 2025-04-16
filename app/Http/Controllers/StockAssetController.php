@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ListAssetToolsModel;
 use App\Models\StockAssetTransactionModel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StockAssetController extends Controller
 {
@@ -73,4 +74,17 @@ class StockAssetController extends Controller
         return redirect()->route('asset-out.index')->with('success', 'Stok keluar berhasil dicatat.');
     }
 
+    public function exportStockInPDF()
+    {
+        $stockIns = StockAssetTransactionModel::where('type', 'in')->with('assetTools')->get();
+        $pdf = Pdf::loadView('assettoolspdf.stock_in', compact('stockIns'));
+        return $pdf->download('laporan_asset_masuk.pdf');
+    }
+
+    public function exportStockOutPDF()
+    {
+        $stockOuts = StockAssetTransactionModel::where('type', 'out')->with('assetTools')->get();
+        $pdf = Pdf::loadView('assettoolspdf.stock_out', compact('stockOuts'));
+        return $pdf->download('laporan_asset_keluar.pdf');
+    }
 }

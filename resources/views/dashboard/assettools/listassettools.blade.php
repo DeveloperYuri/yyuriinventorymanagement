@@ -4,11 +4,9 @@
     <main id="main" class="main">
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-        <div class="pagetitle">
-            <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
-        </div>
-
+            <div class="pagetitle">
+                <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
+            </div>
         @endif
 
         <section class="section">
@@ -17,7 +15,18 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">List Asset Tools</h5>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <h5 class="card-title">List Asset Tools</h5>
+
+                                @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+                                    <a href="{{ route('assettools.cetakpdf') }}" class="btn btn-success"
+                                        target="_blank">Cetak
+                                        PDF</a>
+                                @endif
+
+                            </div>
 
                             @include('_message')
 
@@ -56,9 +65,9 @@
 
                                             @if (Auth::user()->is_role == 2)
                                                 <td class="text-center">
-                                                    <a href="{{ route('asset-tools.edit', $asset->id)}}"
+                                                    <a href="{{ route('asset-tools.edit', $asset->id) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
-                                                    <form action="{{ route('asset-tools.destroy', $asset->id )}}"
+                                                    <form action="{{ route('asset-tools.destroy', $asset->id) }}"
                                                         method="POST" style="display:inline-block;"
                                                         onsubmit="return confirm('Yakin ingin hapus Asset Tools ini?')">
                                                         @csrf

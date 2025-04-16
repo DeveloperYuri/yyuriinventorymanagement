@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ListAssetToolsModel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ListAssetToolsController extends Controller
 {
@@ -83,6 +84,13 @@ class ListAssetToolsController extends Controller
         $assetTools->delete();
 
         return redirect()->route('asset-tools.index')->with('error', 'Asset Tools berhasil dihapus.');
+    }
+
+    public function cetakPDF()
+    {
+        $assettools = ListAssetToolsModel::all();
+        $pdf = Pdf::loadView('assettoolspdf.assettools', compact('assettools'));
+        return $pdf->download('laporan_assettools.pdf');
     }
 
 }

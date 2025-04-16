@@ -4,11 +4,9 @@
     <main id="main" class="main">
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-        <div class="pagetitle">
-            <a href="{{ route('asset-out.create')}}" class="btn btn-primary">Create New Asset Tools Out</a>
-        </div>
-
+            <div class="pagetitle">
+                <a href="{{ route('asset-out.create') }}" class="btn btn-primary">Create New Asset Tools Out</a>
+            </div>
         @endif
 
         <section class="section">
@@ -17,7 +15,18 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">List Asset Tools Out</h5>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <h5 class="card-title">List Asset Tools Out</h5>
+
+                                @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+                                    <a href="{{ route('export.asset-stock-out') }}" class="btn btn-success"
+                                        target="_blank">Cetak
+                                        PDF</a>
+                                @endif
+
+                            </div>
 
                             @include('_message')
 

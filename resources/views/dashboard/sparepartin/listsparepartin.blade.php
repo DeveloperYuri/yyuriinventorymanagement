@@ -4,11 +4,9 @@
     <main id="main" class="main">
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-        <div class="pagetitle">
-            <a href="{{ route('stock-in.create')}}" class="btn btn-primary">Create New Spare Part In</a>
-        </div><!-- End Page Title -->
-
+            <div class="pagetitle">
+                <a href="{{ route('stock-in.create') }}" class="btn btn-primary">Create New Spare Part In</a>
+            </div><!-- End Page Title -->
         @endif
 
         <section class="section">
@@ -17,14 +15,25 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">List Spare Part In</h5>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                <h5 class="card-title">List Spare Part In</h5>
+
+                                @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+
+                                <a href="{{ route('export.stock-in') }}" class="btn btn-success">Cetak PDF</a>
+
+                                @endif
+                                
+                            </div>
 
                             @include('_message')
 
                             <!-- Default Table -->
                             <table class="table">
                                 <tr>
-                                    <th class="text-center" >No</th>
+                                    <th class="text-center">No</th>
                                     <th class="text-center">Tanggal</th>
                                     <th class="text-center">Spare Part</th>
                                     <th class="text-center">Jumlah</th>

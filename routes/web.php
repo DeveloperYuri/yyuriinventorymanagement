@@ -89,14 +89,17 @@ Route::post('/spare-parts', [ListSparePartController::class, 'store'])->name('sp
 Route::get('/spare-parts/{id}/edit', [ListSparePartController::class, 'edit'])->name('spare-parts.edit');
 Route::put('/spare-parts/{id}', [ListSparePartController::class, 'update'])->name('spare-parts.update');
 Route::delete('/spare-parts/{id}', [ListSparePartController::class, 'destroy'])->name('spare-parts.destroy');
+Route::get('/sparepart/pdf', [ListSparePartController::class, 'cetakPDF'])->name('sparepart.cetakpdf');
 
 Route::get('/stock-in', [StockController::class, 'stockInIndex'])->name('stock-in.index');
 Route::get('/stock-in/create', [StockController::class, 'stockInForm'])->name('stock-in.create');
 Route::post('/stock-in', [StockController::class, 'storeStockIn'])->name('stock-in.store');
+Route::get('export-stock-in', [StockController::class, 'exportStockInPDF'])->name('export.stock-in');
 
 Route::get('/stock-out', [StockController::class, 'stockOutIndex'])->name('stock-out.index');
 Route::get('/stock-out/create', [StockController::class, 'stockOutForm'])->name('stock-out.create');
 Route::post('/stock-out', [StockController::class, 'storeStockOut'])->name('stock-out.store');
+Route::get('export-stock-out', [StockController::class, 'exportStockOutPDF'])->name('export.stock-out');
 
 // Asset Tools In Out
 Route::get('/listAssettoolsbaru', [ListAssetToolsController::class, 'index'])->name('asset-tools.index');
@@ -105,11 +108,15 @@ Route::post('/asset-tools', [ListAssetToolsController::class, 'store'])->name('a
 Route::get('/asset-tools/{id}/edit', [ListAssetToolsController::class, 'edit'])->name('asset-tools.edit');
 Route::put('/asset-tools/{id}', [ListAssetToolsController::class, 'update'])->name('asset-tools.update');
 Route::delete('/asset-tools/{id}', [ListAssetToolsController::class, 'destroy'])->name('asset-tools.destroy');
+Route::get('/assettool/pdf', [ListAssetToolsController::class, 'cetakPDF'])->name('assettools.cetakpdf');
+
 
 Route::get('/asset-in', [StockAssetController::class, 'stockInIndex'])->name('asset-in.index');
 Route::get('/asset-in/create', [StockAssetController::class, 'stockInForm'])->name('asset-in.create');
 Route::post('/asset-in', [StockAssetController::class, 'storeStockIn'])->name('asset-in.store');
+Route::get('export-asset-stock-in', [StockAssetController::class, 'exportStockInPDF'])->name('export.asset-stock-in');
 
 Route::get('/asset-out', [StockAssetController::class, 'stockOutIndex'])->name('asset-out.index');
 Route::get('/asset-out/create', [StockAssetController::class, 'stockOutForm'])->name('asset-out.create');
 Route::post('/asset-out', [StockAssetController::class, 'storeStockOut'])->name('asset-out.store');
+Route::get('export-asset-stock-out', [StockAssetController::class, 'exportStockOutPDF'])->name('export.asset-stock-out');
