@@ -88,6 +88,6 @@ class WarehouseController extends Controller
         $warehouse = WarehouseModel::findorFail($id);
         $warehouse->delete();
 
-        return redirect('/warehouse')->with('error', 'Delete Warehouse Successfully');
+        return redirect('/warehouse')->with('success', 'Delete Warehouse Successfully');
     }
 }

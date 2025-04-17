@@ -45,7 +45,7 @@ class SupplierController extends Controller
         $supplier->description = trim($request->description);
         $supplier->save();
 
-        return redirect('/supplier')->with('success', 'Create New Brand Successfully');
+        return redirect('/supplier')->with('success', 'Create New Supplier Successfully');
     }
 
     /**
@@ -92,6 +92,6 @@ class SupplierController extends Controller
         $brand = SupplierModel::findorFail($id);
         $brand->delete();
 
-        return redirect('/supplier')->with('error', 'Delete Supplier Successfully');
+        return redirect('/supplier')->with('success', 'Delete Supplier Successfully');
     }
 }

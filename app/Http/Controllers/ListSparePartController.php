@@ -84,7 +84,7 @@ class ListSparePartController extends Controller
 
         $sparePart->delete();
 
-        return redirect()->route('spare-parts.index')->with('error', 'Spare part berhasil dihapus.');
+        return redirect()->route('spare-parts.index')->with('success', 'Spare part berhasil dihapus.');
     }
 
     public function cetakPDF()

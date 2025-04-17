@@ -21,14 +21,22 @@
                                 <h5 class="card-title">List Spare Part In</h5>
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-                                <a href="{{ route('export.stock-in') }}" class="btn btn-success">Cetak PDF</a>
-
+                                    <a href="{{ route('export.stock-in') }}" class="btn btn-success">Cetak PDF</a>
                                 @endif
-                                
+
                             </div>
 
-                            @include('_message')
+                            @if (session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil!',
+                                        text: '{{ session('success') }}',
+                                        timer: 2000, // 2000 ms = 2 detik
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
 
                             <!-- Default Table -->
                             <table class="table">

@@ -83,6 +83,6 @@ class BrandController extends Controller
         $brand = BrandModel::findorFail($id);
         $brand->delete();
 
-        return redirect('/brand')->with('error', 'Delete Brand Successfully');
+        return redirect('/brand')->with('success', 'Delete Brand Successfully');
     }
 }

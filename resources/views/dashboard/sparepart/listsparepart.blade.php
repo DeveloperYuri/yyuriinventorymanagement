@@ -20,16 +20,25 @@
                                 <h5 class="card-title mb-0">List Spare Part</h5>
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-                                <a href="{{ route('sparepart.cetakpdf') }}" class="btn btn-success" target="_blank">Cetak
-                                    PDF</a>
-
+                                    <a href="{{ route('sparepart.cetakpdf') }}" class="btn btn-success"
+                                        target="_blank">Cetak
+                                        PDF</a>
                                 @endif
-                                
+
                             </div>
 
-                            @include('_message')
-
+                            @if (session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil!',
+                                        text: '{{ session('success') }}',
+                                        timer: 2000, // 2000 ms = 2 detik
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
+                            
                             <!-- Default Table -->
                             <table class="table">
                                 <thead>
@@ -67,11 +76,11 @@
                                                     <a href="{{ route('spare-parts.edit', $part->id) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
                                                     <form action="{{ route('spare-parts.destroy', $part->id) }}"
-                                                        method="POST" style="display:inline-block;"
-                                                        onsubmit="return confirm('Yakin ingin hapus spare part ini?')">
+                                                        method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-sm btn-danger">Hapus</button>
+                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                            onclick="confirmDelete(this.form)">Hapus</button>
                                                     </form>
                                                 </td>
                                             @endif
@@ -81,6 +90,25 @@
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
+
+                            @push('scripts')
+                                <script>
+                                    function confirmDelete(form) {
+                                        Swal.fire({
+                                            title: 'Yakin ingin hapus?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, hapus!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit();
+                                            }
+                                        });
+                                    }
+                                </script>
+                            @endpush
 
                             <!-- PAGINATION LINK -->
                             <div class="d-flex justify-content-center">
@@ -92,6 +120,7 @@
                 </div>
             </div>
         </section>
+
 
     </main><!-- End #main -->
 @endsection

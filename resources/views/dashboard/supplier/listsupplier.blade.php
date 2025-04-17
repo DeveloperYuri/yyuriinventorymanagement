@@ -4,11 +4,9 @@
     <main id="main" class="main">
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-        <div class="pagetitle">
-            <a href="{{ route('createsupplier')}}" class="btn btn-primary">Create New Supplier</a>
-        </div><!-- End Page Title -->
-
+            <div class="pagetitle">
+                <a href="{{ route('createsupplier') }}" class="btn btn-primary">Create New Supplier</a>
+            </div><!-- End Page Title -->
         @endif
 
         <section class="section">
@@ -19,8 +17,18 @@
                         <div class="card-body">
                             <h5 class="card-title">List Supplier</h5>
 
-                            @include('_message')
-
+                            @if (session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil!',
+                                        text: '{{ session('success') }}',
+                                        timer: 2000, // 2000 ms = 2 detik
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
+                            
                             <!-- Default Table -->
                             <table class="table">
                                 <thead>
@@ -32,9 +40,7 @@
                                         <th class="text-center" scope="col">Contact</th>
 
                                         @if (Auth::user()->is_role == 2)
-
-                                        <th class="text-center" scope="col">Action</th>
-
+                                            <th class="text-center" scope="col">Action</th>
                                         @endif
 
                                     </tr>
@@ -47,20 +53,20 @@
                                             <td class="text-center">{{ $supplier->email }}</td>
                                             <td class="text-center">{{ $supplier->address }}</td>
                                             <td class="text-center">{{ $supplier->contact }}</td>
-                                            
+
                                             @if (Auth::user()->is_role == 2)
+                                                <td class="text-center">
+                                                    <form
+                                                        action="{{ route('deletesupplier', $supplier->id) }}"
+                                                        method="POST">
 
-                                            <td class="text-center">
-                                              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deletesupplier', $supplier->id)}}"
-                                                method="POST">
-                        
-                                                <a href="{{ route('editsupplier', $supplier->id)}}" class="btn btn-sm btn-warning">EDIT</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                            </form>
-                                            </td>
-
+                                                        <a href="{{ route('editsupplier', $supplier->id) }}"
+                                                            class="btn btn-sm btn-warning">EDIT</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">HAPUS</button>
+                                                    </form>
+                                                </td>
                                             @endif
                                         </tr>
                                     @empty
@@ -74,10 +80,29 @@
                             </table>
                             <!-- End Default Table Example -->
 
+                            @push('scripts')
+                                <script>
+                                    function confirmDelete(form) {
+                                        Swal.fire({
+                                            title: 'Yakin ingin hapus?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, hapus!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit();
+                                            }
+                                        });
+                                    }
+                                </script>
+                            @endpush
+
                             <div style="padding: 10px; float: right;">
-                              {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-              
-                          </div>
+                                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+
+                            </div>
                         </div>
                     </div>
                 </div>

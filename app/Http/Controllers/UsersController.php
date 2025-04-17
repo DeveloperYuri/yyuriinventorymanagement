@@ -105,7 +105,7 @@ class UsersController extends Controller
         $users = User::findOrFail($id);
         $users->delete();
 
-        return redirect('/users')->with('error', 'Delete Users Successfully');
+        return redirect('/users')->with('success', 'Delete Users Successfully');
 
     }
 }

@@ -4,7 +4,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <a href="{{ route('createusers') }}" class="btn btn-primary">Create New</a>
+            <a href="{{ route('createusers') }}" class="btn btn-primary">Create New Users</a>
         </div><!-- End Page Title -->
 
         <section class="section">
@@ -15,8 +15,18 @@
                         <div class="card-body">
                             <h5 class="card-title">List Users</h5>
 
-                            @include('_message')
-
+                            @if (session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil!',
+                                        text: '{{ session('success') }}',
+                                        timer: 2000, // 2000 ms = 2 detik
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
+                            
                             <!-- Default Table -->
                             <table class="table">
                                 <thead>
@@ -44,13 +54,14 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('deleteusers', $u->id)}}"
-                                                    method="POST">
+                                                <form
+                                                    action="{{ route('deleteusers', $u->id) }}" method="POST">
 
-                                                    <a href="{{ route('editusers', $u->id)}}" class="btn btn-sm btn-warning">EDIT</a>
+                                                    <a href="{{ route('editusers', $u->id) }}"
+                                                        class="btn btn-sm btn-warning">EDIT</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">HAPUS</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -64,6 +75,26 @@
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
+
+                            @push('scripts')
+                                <script>
+                                    function confirmDelete(form) {
+                                        Swal.fire({
+                                            title: 'Yakin ingin hapus?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, hapus!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit();
+                                            }
+                                        });
+                                    }
+                                </script>
+                            @endpush
+
                         </div>
                     </div>
                 </div>
