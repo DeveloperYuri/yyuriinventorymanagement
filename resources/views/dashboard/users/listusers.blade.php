@@ -26,55 +26,58 @@
                                     });
                                 </script>
                             @endif
-                            
+
                             <!-- Default Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" scope="col">No</th>
-                                        <th class="text-center" scope="col">Name</th>
-                                        <th class="text-center" scope="col">Email</th>
-                                        <th class="text-center" scope="col">Role</th>
-                                        <th class="text-center" scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($users as $u)
+                            <div class="table-responsive">
+
+                                <table class="table table-hover align-middle">
+                                    <thead>
                                         <tr>
-                                            <th class="text-center" scope="row">{{ $loop->iteration }}</th>
-                                            <td class="text-center">{{ $u->name }}</td>
-                                            <td class="text-center">{{ $u->email }}</td>
-                                            <td class="text-center">
-                                                @if ($u->is_role == '0')
-                                                    Users
-                                                @elseif ($u->is_role == '1')
-                                                    Admin
-                                                @else
-                                                    Super Admin
-                                                @endif
-                                            </td>
-                                            <td class="text-center">
-                                                <form
-                                                    action="{{ route('deleteusers', $u->id) }}" method="POST">
-
-                                                    <a href="{{ route('editusers', $u->id) }}"
-                                                        class="btn btn-sm btn-warning">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">HAPUS</button>
-                                                </form>
-                                            </td>
+                                            <th class="text-center" scope="col">No</th>
+                                            <th class="text-center" scope="col">Name</th>
+                                            <th class="text-center" scope="col">Email</th>
+                                            <th class="text-center" scope="col">Role</th>
+                                            <th class="text-center" scope="col">Action</th>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td class="text-center" colspan="100%">Users Not Found</td>
-                                        </tr>
-                                    @endforelse
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($users as $u)
+                                            <tr>
+                                                <th class="text-center" scope="row">{{ $loop->iteration }}</th>
+                                                <td class="text-center">{{ $u->name }}</td>
+                                                <td class="text-center">{{ $u->email }}</td>
+                                                <td class="text-center">
+                                                    @if ($u->is_role == '0')
+                                                        Users
+                                                    @elseif ($u->is_role == '1')
+                                                        Admin
+                                                    @else
+                                                        Super Admin
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('deleteusers', $u->id) }}" method="POST">
+
+                                                        <a href="{{ route('editusers', $u->id) }}"
+                                                            class="btn btn-sm btn-warning mt-1">EDIT</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                            onclick="confirmDelete(this.form)">HAPUS</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td class="text-center" colspan="100%">Users Not Found</td>
+                                            </tr>
+                                        @endforelse
 
 
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             @push('scripts')
                                 <script>

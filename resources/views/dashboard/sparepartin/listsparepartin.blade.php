@@ -39,24 +39,27 @@
                             @endif
 
                             <!-- Default Table -->
-                            <table class="table">
-                                <tr>
-                                    <th class="text-center">No</th>
-                                    <th class="text-center">Tanggal</th>
-                                    <th class="text-center">Spare Part</th>
-                                    <th class="text-center">Jumlah</th>
-                                </tr>
-                                @foreach ($transactions as $index => $in)
+                            <div class="table-responsive">
+
+                                <table class="table table-hover align-middle">
                                     <tr>
-                                        <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
-                                        <td class="text-center">{{ $in->created_at->format('d-m-Y') }}</td>
-                                        <td class="text-center">{{ $in->sparePart->name }}</td>
-                                        <td class="text-center">{{ $in->quantity }}</td>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Tanggal</th>
+                                        <th class="text-center">Spare Part</th>
+                                        <th class="text-center">Jumlah</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    @foreach ($transactions as $index => $in)
+                                        <tr>
+                                            <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
+                                            <td class="text-center">{{ $in->created_at->format('d-m-Y') }}</td>
+                                            <td class="text-center">{{ $in->sparePart->name }}</td>
+                                            <td class="text-center">{{ $in->quantity }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             <div class="d-flex justify-content-center">
                                 {{ $transactions->links() }}

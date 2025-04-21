@@ -41,29 +41,32 @@
                             @endif
 
                             <!-- Default Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">Tanggal</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Jumlah</th>
-                                    </tr>
+                            <div class="table-responsive">
 
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($transactions as $index => $assetout)
+                                <table class="table table-hover align-middle">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
-                                            <td class="text-center">{{ $assetout->created_at->format('d-m-Y') }}</td>
-                                            <td class="text-center">{{ $assetout->assetTools->name }}</td>
-                                            <td class="text-center">{{ $assetout->quantity }}</td>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Tanggal</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Jumlah</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach ($transactions as $index => $assetout)
+                                            <tr>
+                                                <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
+                                                <td class="text-center">{{ $assetout->created_at->format('d-m-Y') }}</td>
+                                                <td class="text-center">{{ $assetout->assetTools->name }}</td>
+                                                <td class="text-center">{{ $assetout->quantity }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             <div class="d-flex justify-content-center">
                                 {{ $transactions->links() }}

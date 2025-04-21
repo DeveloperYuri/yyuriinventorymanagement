@@ -21,9 +21,7 @@
                                 <h5 class="card-title">List Spare Part Out</h5>
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-
-                                <a href="{{ route('export.stock-out') }}" class="btn btn-success">Cetak PDF</a>
-
+                                    <a href="{{ route('export.stock-out') }}" class="btn btn-success">Cetak PDF</a>
                                 @endif
 
                             </div>
@@ -41,26 +39,29 @@
                             @endif
 
                             <!-- Default Table -->
-                            <table class="table">
+                            <div class="table-responsive">
 
-                                <tr>
-                                    <th>No</th>
-                                    <th>Tanggal</th>
-                                    <th>Spare Part</th>
-                                    <th>Jumlah</th>
-                                </tr>
-                                @foreach ($transactions as $index => $in)
+                                <table class="table table-hover align-middle">
+
                                     <tr>
-                                        <td>{{ $transactions->firstItem() + $index }}</td>
-                                        <td>{{ $in->created_at->format('d-m-Y') }}</td>
-                                        <td>{{ $in->sparePart->name }}</td>
-                                        <td>{{ $in->quantity }}</td>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Spare Part</th>
+                                        <th>Jumlah</th>
                                     </tr>
-                                @endforeach
+                                    @foreach ($transactions as $index => $in)
+                                        <tr>
+                                            <td>{{ $transactions->firstItem() + $index }}</td>
+                                            <td>{{ $in->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ $in->sparePart->name }}</td>
+                                            <td>{{ $in->quantity }}</td>
+                                        </tr>
+                                    @endforeach
 
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             <div class="d-flex justify-content-center">
                                 {{ $transactions->links() }}

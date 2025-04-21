@@ -38,58 +38,62 @@
                                     });
                                 </script>
                             @endif
-                            
+
                             <!-- Default Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">Gambar</th>
-                                        <th class="text-center">Nama</th>
-                                        <th class="text-center">Harga</th>
-                                        <th class="text-center">Stok</th>
+                            <div class="table-responsive">
 
-                                        @if (Auth::user()->is_role == 2)
-                                            <th class="text-center">Aksi</th>
-                                        @endif
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($spareParts as $index => $part)
+                                <table class="table table-hover align-middle">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $spareParts->firstItem() + $index }}</td>
-                                            <td class="text-center">
-                                                @if ($part->image)
-                                                    <img src="{{ asset('images/' . $part->image) }}"
-                                                        alt="{{ $part->name }}" width="60">
-                                                @else
-                                                    <span class="text-muted">Tidak ada</span>
-                                                @endif
-                                            </td>
-                                            <td class="text-center">{{ $part->name }}</td>
-                                            <td class="text-center">Rp {{ number_format($part->price, 0, ',', '.') }}</td>
-                                            <td class="text-center">{{ $part->stock }}</td>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Gambar</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Harga</th>
+                                            <th class="text-center">Stok</th>
 
                                             @if (Auth::user()->is_role == 2)
-                                                <td class="text-center">
-                                                    <a href="{{ route('spare-parts.edit', $part->id) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
-                                                    <form action="{{ route('spare-parts.destroy', $part->id) }}"
-                                                        method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="confirmDelete(this.form)">Hapus</button>
-                                                    </form>
-                                                </td>
+                                                <th class="text-center">Aksi</th>
                                             @endif
-
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach ($spareParts as $index => $part)
+                                            <tr>
+                                                <td class="text-center">{{ $spareParts->firstItem() + $index }}</td>
+                                                <td class="text-center">
+                                                    @if ($part->image)
+                                                        <img src="{{ asset('images/' . $part->image) }}"
+                                                            alt="{{ $part->name }}" width="60">
+                                                    @else
+                                                        <span class="text-muted">Tidak ada</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">{{ $part->name }}</td>
+                                                <td class="text-center">Rp {{ number_format($part->price, 0, ',', '.') }}
+                                                </td>
+                                                <td class="text-center">{{ $part->stock }}</td>
+
+                                                @if (Auth::user()->is_role == 2)
+                                                    <td class="text-center">
+                                                        <a href="{{ route('spare-parts.edit', $part->id) }}"
+                                                            class="btn btn-sm btn-warning mt-1">Edit</a>
+                                                        <form action="{{ route('spare-parts.destroy', $part->id) }}"
+                                                            method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                                onclick="confirmDelete(this.form)">Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                @endif
+
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             @push('scripts')
                                 <script>

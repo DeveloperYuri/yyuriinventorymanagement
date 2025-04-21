@@ -42,38 +42,42 @@
                             @endif
 
                             <!-- Default Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" scope="col">No</th>
-                                        <th class="text-center" scope="col">Name</th>
-                                        <th class="text-center" scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($getRecord as $key => $br)
+                            <div class="table-responsive">
+
+                                <table class="table table-hover align-middle">
+                                    <thead>
                                         <tr>
-                                            <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}</th>
-                                            <td class="text-center">{{ $br->name }}</td>
-                                            <td class="text-center">
-                                                <form
-                                                    action="{{ route('deletebrand', $br->id) }}" method="POST">
-
-                                                    <a href="{{ route('editbrand', $br->id) }}"
-                                                        class="btn btn-sm btn-warning">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">HAPUS</button>
-                                                </form>
-                                            </td>
+                                            <th class="text-center" scope="col">No</th>
+                                            <th class="text-center" scope="col">Name</th>
+                                            <th class="text-center" scope="col">Action</th>
                                         </tr>
-                                    @empty
-                                    @endforelse
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($getRecord as $key => $br)
+                                            <tr>
+                                                <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}
+                                                </th>
+                                                <td class="text-center">{{ $br->name }}</td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('deletebrand', $br->id) }}" method="POST">
+
+                                                        <a href="{{ route('editbrand', $br->id) }}"
+                                                            class="btn btn-sm btn-warning mt-1">EDIT</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                            onclick="confirmDelete(this.form)">HAPUS</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                        @endforelse
 
 
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             @push('scripts')
                                 <script>

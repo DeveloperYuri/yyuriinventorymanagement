@@ -41,57 +41,63 @@
                             @endif
 
                             <!-- Default Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">Gambar</th>
-                                        <th class="text-center">Nama</th>
-                                        <th class="text-center">Harga</th>
-                                        <th class="text-center">Stok</th>
+                            <div class="table-responsive">
 
-                                        @if (Auth::user()->is_role == 2)
-                                            <th class="text-center">Aksi</th>
-                                        @endif
-
-                                    </tr>
-
-                                </thead>
-                                <tbody>
-                                    @foreach ($assetTools as $index => $asset)
+                                <table class="table table-hover align-middle">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $assetTools->firstItem() + $index }}</td>
-                                            <td class="text-center">
-                                                @if ($asset->image)
-                                                    <img src="{{ asset('images/' . $asset->image) }}"
-                                                        alt="{{ $asset->name }}" width="60">
-                                                @else
-                                                    <span class="text-muted">Tidak ada</span>
-                                                @endif
-                                            </td>
-                                            <td class="text-center">{{ $asset->name }}</td>
-                                            <td class="text-center">Rp {{ number_format($asset->price, 0, ',', '.') }}</td>
-                                            <td class="text-center">{{ $asset->stock }}</td>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Gambar</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Harga</th>
+                                            <th class="text-center">Stok</th>
 
                                             @if (Auth::user()->is_role == 2)
-                                                <td class="text-center">
-                                                    <a href="{{ route('asset-tools.edit', $asset->id) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
-                                                    <form action="{{ route('asset-tools.destroy', $asset->id) }}"
-                                                        method="POST" style="display:inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">Hapus</button>
-                                                    </form>
-                                                </td>
+                                                <th class="text-center">Aksi</th>
                                             @endif
 
                                         </tr>
-                                    @endforeach
 
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($assetTools as $index => $asset)
+                                            <tr>
+                                                <td class="text-center">{{ $assetTools->firstItem() + $index }}</td>
+                                                <td class="text-center">
+                                                    @if ($asset->image)
+                                                        <img src="{{ asset('images/' . $asset->image) }}"
+                                                            alt="{{ $asset->name }}" width="60">
+                                                    @else
+                                                        <span class="text-muted">Tidak ada</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">{{ $asset->name }}</td>
+                                                <td class="text-center">Rp {{ number_format($asset->price, 0, ',', '.') }}
+                                                </td>
+                                                <td class="text-center">{{ $asset->stock }}</td>
+
+                                                @if (Auth::user()->is_role == 2)
+                                                    <td class="text-center">
+                                                        <a href="{{ route('asset-tools.edit', $asset->id) }}"
+                                                            class="btn btn-sm btn-warning mt-1">Edit</a>
+                                                        <form action="{{ route('asset-tools.destroy', $asset->id) }}"
+                                                            method="POST" style="display:inline-block;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                                onclick="confirmDelete(this.form)">Hapus</button>
+                                                        </form>
+                                                    </td>
+                                                @endif
+
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
+
                             @push('scripts')
                                 <script>
                                     function confirmDelete(form) {

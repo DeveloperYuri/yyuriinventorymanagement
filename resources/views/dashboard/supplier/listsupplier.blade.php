@@ -28,57 +28,61 @@
                                     });
                                 </script>
                             @endif
-                            
+
                             <!-- Default Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" scope="col">No</th>
-                                        <th class="text-center" scope="col">Name</th>
-                                        <th class="text-center" scope="col">Email</th>
-                                        <th class="text-center" scope="col">Address</th>
-                                        <th class="text-center" scope="col">Contact</th>
+                            <div class="table-responsive">
 
-                                        @if (Auth::user()->is_role == 2)
-                                            <th class="text-center" scope="col">Action</th>
-                                        @endif
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($getRecord as $key => $supplier)
+                                <table class="table table-hover align-middle">
+                                    <thead>
                                         <tr>
-                                            <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}</th>
-                                            <td class="text-center">{{ $supplier->name }}</td>
-                                            <td class="text-center">{{ $supplier->email }}</td>
-                                            <td class="text-center">{{ $supplier->address }}</td>
-                                            <td class="text-center">{{ $supplier->contact }}</td>
+                                            <th class="text-center" scope="col">No</th>
+                                            <th class="text-center" scope="col">Name</th>
+                                            <th class="text-center" scope="col">Email</th>
+                                            <th class="text-center" scope="col">Address</th>
+                                            <th class="text-center" scope="col">Contact</th>
 
                                             @if (Auth::user()->is_role == 2)
-                                                <td class="text-center">
-                                                    <form
-                                                        action="{{ route('deletesupplier', $supplier->id) }}"
-                                                        method="POST">
-
-                                                        <a href="{{ route('editsupplier', $supplier->id) }}"
-                                                            class="btn btn-sm btn-warning">EDIT</a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">HAPUS</button>
-                                                    </form>
-                                                </td>
+                                                <th class="text-center" scope="col">Action</th>
                                             @endif
+
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td class="text-center" colspan="100%">Supplier Data Not Found</td>
-                                        </tr>
-                                    @endforelse
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($getRecord as $key => $supplier)
+                                            <tr>
+                                                <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}
+                                                </th>
+                                                <td class="text-center">{{ $supplier->name }}</td>
+                                                <td class="text-center">{{ $supplier->email }}</td>
+                                                <td class="text-center">{{ $supplier->address }}</td>
+                                                <td class="text-center">{{ $supplier->contact }}</td>
+
+                                                @if (Auth::user()->is_role == 2)
+                                                    <td class="text-center">
+                                                        <form action="{{ route('deletesupplier', $supplier->id) }}"
+                                                            method="POST">
+
+                                                            <a href="{{ route('editsupplier', $supplier->id) }}"
+                                                                class="btn btn-sm btn-warning mt-1">EDIT</a>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                                onclick="confirmDelete(this.form)">HAPUS</button>
+                                                        </form>
+                                                    </td>
+                                                @endif
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td class="text-center" colspan="100%">Supplier Data Not Found</td>
+                                            </tr>
+                                        @endforelse
 
 
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             @push('scripts')
                                 <script>

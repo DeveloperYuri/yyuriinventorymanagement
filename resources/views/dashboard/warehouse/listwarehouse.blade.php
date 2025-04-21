@@ -42,61 +42,65 @@
                             @endif
 
                             <!-- Default Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" scope="col">No</th>
-                                        <th class="text-center" scope="col">Name</th>
-                                        <th class="text-center" scope="col">Address</th>
-                                        <th class="text-center" scope="col">PIC</th>
-                                        <th class="text-center" scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($getRecord as $key => $wrh)
+                            <div class="table-responsive">
+
+                                <table class="table table-hover align-middle">
+                                    <thead>
                                         <tr>
-                                            <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}</th>
-                                            <td class="text-center">{{ $wrh->name }}</td>
-                                            <td class="text-center">{{ $wrh->address }}</td>
-                                            <td class="text-center">{{ $wrh->pic }}</td>
-                                            <td class="text-center">
-                                                <form
-                                                    action="{{ route('deletewarehouse', $wrh->id) }}" method="POST">
-
-                                                    <a href="{{ route('editwarehouse', $wrh->id) }}"
-                                                        class="btn btn-sm btn-warning">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">HAPUS</button>
-                                                </form>
-                                            </td>
+                                            <th class="text-center" scope="col">No</th>
+                                            <th class="text-center" scope="col">Name</th>
+                                            <th class="text-center" scope="col">Address</th>
+                                            <th class="text-center" scope="col">PIC</th>
+                                            <th class="text-center" scope="col">Action</th>
                                         </tr>
-                                    @empty
-                                    @endforelse
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($getRecord as $key => $wrh)
+                                            <tr>
+                                                <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}
+                                                </th>
+                                                <td class="text-center">{{ $wrh->name }}</td>
+                                                <td class="text-center">{{ $wrh->address }}</td>
+                                                <td class="text-center">{{ $wrh->pic }}</td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('deletewarehouse', $wrh->id) }}" method="POST">
+
+                                                        <a href="{{ route('editwarehouse', $wrh->id) }}"
+                                                            class="btn btn-sm btn-warning mt-1">EDIT</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                            onclick="confirmDelete(this.form)">HAPUS</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                        @endforelse
 
 
-                                </tbody>
-                            </table>
-                            <!-- End Default Table Example -->
+                                    </tbody>
+                                </table>
+                                <!-- End Default Table Example -->
+                            </div>
 
                             @push('scripts')
-                            <script>
-                                function confirmDelete(form) {
-                                    Swal.fire({
-                                        title: 'Yakin ingin hapus?',
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#d33',
-                                        cancelButtonColor: '#3085d6',
-                                        confirmButtonText: 'Ya, hapus!'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            form.submit();
-                                        }
-                                    });
-                                }
-                            </script>
-                        @endpush
+                                <script>
+                                    function confirmDelete(form) {
+                                        Swal.fire({
+                                            title: 'Yakin ingin hapus?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, hapus!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit();
+                                            }
+                                        });
+                                    }
+                                </script>
+                            @endpush
 
 
                             <div style="padding: 10px; float: right;">
