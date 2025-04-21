@@ -28,8 +28,18 @@
 
                             </div>
 
-                            @include('_message')
-
+                            @if (session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil!',
+                                        text: '{{ session('success') }}',
+                                        timer: 2000, // 2000 ms = 2 detik
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
+                            
                             <!-- Default Table -->
                             <table class="table">
                                 <thead>

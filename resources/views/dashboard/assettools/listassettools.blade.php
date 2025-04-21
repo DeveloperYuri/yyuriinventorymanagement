@@ -28,7 +28,17 @@
 
                             </div>
 
-                            @include('_message')
+                            @if (session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil!',
+                                        text: '{{ session('success') }}',
+                                        timer: 2000, // 2000 ms = 2 detik
+                                        showConfirmButton: false
+                                    });
+                                </script>
+                            @endif
 
                             <!-- Default Table -->
                             <table class="table">
@@ -68,11 +78,10 @@
                                                     <a href="{{ route('asset-tools.edit', $asset->id) }}"
                                                         class="btn btn-sm btn-warning">Edit</a>
                                                     <form action="{{ route('asset-tools.destroy', $asset->id) }}"
-                                                        method="POST" style="display:inline-block;"
-                                                        onsubmit="return confirm('Yakin ingin hapus Asset Tools ini?')">
+                                                        method="POST" style="display:inline-block;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-sm btn-danger">Hapus</button>
+                                                        <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(this.form)">Hapus</button>
                                                     </form>
                                                 </td>
                                             @endif
@@ -83,6 +92,24 @@
                                 </tbody>
                             </table>
                             <!-- End Default Table Example -->
+                            @push('scripts')
+                                <script>
+                                    function confirmDelete(form) {
+                                        Swal.fire({
+                                            title: 'Yakin ingin hapus?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, hapus!'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit();
+                                            }
+                                        });
+                                    }
+                                </script>
+                            @endpush
 
                             <div class="d-flex justify-content-center">
                                 {{ $assetTools->links() }}

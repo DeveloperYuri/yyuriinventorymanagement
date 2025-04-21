@@ -83,7 +83,7 @@ class ListAssetToolsController extends Controller
 
         $assetTools->delete();
 
-        return redirect()->route('asset-tools.index')->with('error', 'Asset Tools berhasil dihapus.');
+        return redirect()->route('asset-tools.index')->with('success', 'Asset Tools berhasil dihapus.');
     }
 
     public function cetakPDF()
