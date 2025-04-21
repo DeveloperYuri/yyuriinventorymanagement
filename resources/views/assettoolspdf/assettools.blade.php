@@ -22,7 +22,7 @@
 <body>
 
     <div class="header">
-        <img src="{{ public_path('assets/img/logobaru.png') }}" alt="Logo Perusahaan">
+        <img src="https://www.baby-dee.co.id/assets/img/logobaru.png" alt="Logo Perusahaan">
 
         <h1>PT. Joenoes Ikamulya</h1>
         <p>Jl. Pulogadung No.43, RW.9, Jatinegara, Kec. Cakung</p>
