@@ -9,20 +9,22 @@
             </div><!-- End Page Title -->
         @endif
 
-        <form method="get">
-            <div class="row">
-                <div class="col-4">
-                    <input id="searchingname" type="text" class="form-control" value="{{ Request()->name }}"
-                        placeholder="Search Brand Name" name="name">
+        <div class="mt-4">
+            <form method="get">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <input id="searchingtitle" type="text" class="form-control"
+                            value="{{ Request()->name }}" placeholder="Searching Brand" name="name">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
                 </div>
-                <div class="col-2">
-                    <button type="submit" class="btn btn-success mb-2">Search</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
 
         <section class="section">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-lg-12">
 
                     <div class="card">

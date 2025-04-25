@@ -9,8 +9,22 @@
             </div><!-- End Page Title -->
         @endif
 
+        <div class="mt-4">
+            <form method="get">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <input id="searchingtitle" type="text" class="form-control"
+                            value="{{ Request()->name }}" placeholder="Searching Supplierr" name="name">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <section class="section">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-lg-12">
 
                     <div class="card">

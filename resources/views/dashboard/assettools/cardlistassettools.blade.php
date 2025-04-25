@@ -3,18 +3,33 @@
 @section('content')
     <main id="main" class="main">
 
-        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-            <div class="pagetitle d-flex justify-content-between align-items-center">
+        <div class="pagetitle d-flex justify-content-between align-items-center">
+            @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                 <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
-                <a href="{{ route('asset-tools.index') }}" class="btn btn-secondary"><i class="bi bi-list"></i></a>
-            </div>
-        @endif
+            @endif
+
+            <a href="{{ route('asset-tools.index') }}" class="btn btn-secondary"><i class="bi bi-list"></i></a>
+        </div>
+
+        <div class="mt-4">
+            <form method="get">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <input id="searchingtitle" type="text" class="form-control"
+                            value="{{ Request()->name }}" placeholder="Searching Asset" name="name">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <section class="section">
 
             <div class="row">
 
-                @foreach ($assetTools as $index => $asset)
+                @foreach ($getRecordCard as $index => $asset)
                     <div class="col-lg-4 mt-3">
                         <!-- Card with titles, buttons, and links -->
                         <div class="card h-100">
@@ -34,18 +49,20 @@
                                 <h5 class="card-title text-center">{{ $asset->name }}</h5>
                                 <p class="card-text mb-1">Rp {{ number_format($asset->price, 0, ',', '.') }}</p>
                                 <p class="card-text">Stock : {{ $asset->stock }}</p>
-                                <div class="d-flex gap-2 mt-2">
-                                    <a href="{{ route('asset-tools.edit', $asset->id) }}"
-                                        class="btn btn-sm btn-warning mt-1">Edit</a>
+                                @if (Auth::user()->is_role == 2)
+                                    <div class="d-flex gap-2 mt-2">
+                                        <a href="{{ route('asset-tools.edit', $asset->id) }}"
+                                            class="btn btn-sm btn-warning mt-1">Edit</a>
 
-                                    <form action="{{ route('asset-tools.destroy', $asset->id) }}" method="POST"
-                                        style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger mt-1"
-                                            onclick="confirmDelete(this.form)">Hapus</button>
-                                    </form>
-                                </div>
+                                        <form action="{{ route('asset-tools.destroy', $asset->id) }}" method="POST"
+                                            style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                onclick="confirmDelete(this.form)">Hapus</button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div>
                         </div><!-- End Card with titles, buttons, and links -->
 
@@ -55,7 +72,7 @@
 
             <!-- PAGINATION LINK -->
             <div class="d-flex justify-content-center mt-5">
-                {{ $assetTools->links() }}
+                {{ $getRecordCard->links() }}
             </div>
 
             @push('scripts')

@@ -9,16 +9,16 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ListSparePartController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $spareParts = ListSparePartModel::paginate(10); // tampilkan 10 per halaman
-        return view('dashboard.sparepart.listsparepart', compact('spareParts'));
+        $data['getRecord'] = ListSparePartModel::getRecord($request);
+        return view('dashboard.sparepart.listsparepart', $data);
     }
 
-    public function cardindex()
+    public function cardindex(Request $request)
     {
-        $spareParts = ListSparePartModel::paginate(9); // tampilkan 10 per halaman
-        return view('dashboard.sparepart.cardlistsparepart', compact('spareParts'));
+        $data['getRecordCard'] = ListSparePartModel::getRecordCard($request);
+        return view('dashboard.sparepart.cardlistsparepart', $data);
     }
 
     public function create()

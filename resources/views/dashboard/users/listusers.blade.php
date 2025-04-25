@@ -7,8 +7,22 @@
             <a href="{{ route('createusers') }}" class="btn btn-primary">Create New Users</a>
         </div><!-- End Page Title -->
 
+        <div class="mt-4">
+            <form method="get">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <input id="searchingtitle" type="text" class="form-control"
+                            value="{{ Request()->name }}" placeholder="Searching Users" name="name">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <section class="section">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-lg-12">
 
                     <div class="card">
@@ -41,7 +55,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($users as $u)
+                                        @forelse ($getRecord as $u)
                                             <tr>
                                                 <th class="text-center" scope="row">{{ $loop->iteration }}</th>
                                                 <td class="text-center">{{ $u->name }}</td>
@@ -77,6 +91,10 @@
                                     </tbody>
                                 </table>
                                 <!-- End Default Table Example -->
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                {{ $getRecord->links() }}
                             </div>
 
                             @push('scripts')

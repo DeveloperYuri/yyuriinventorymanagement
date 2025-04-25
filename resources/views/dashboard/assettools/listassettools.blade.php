@@ -3,16 +3,31 @@
 @section('content')
     <main id="main" class="main">
 
-        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-            <div class="pagetitle d-flex justify-content-between align-items-center">
+        <div class="pagetitle d-flex justify-content-between align-items-center">
+            @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                 <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
-                <a href="{{ route('card-list-asset-tools.index') }}" class="btn btn-secondary"><i class="bi bi-card-list"></i></a>
+            @endif
 
-            </div>
-        @endif
+            <a href="{{ route('card-list-asset-tools.index') }}" class="btn btn-secondary"><i class="bi bi-card-list"></i></a>
+
+        </div>
+
+        <div class="mt-4">
+            <form method="get">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <input id="searchingtitle" type="text" class="form-control"
+                            value="{{ Request()->name }}" placeholder="Searching Asset" name="name">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <section class="section">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-lg-12">
 
                     <div class="card">
@@ -62,9 +77,9 @@
 
                                     </thead>
                                     <tbody>
-                                        @foreach ($assetTools as $index => $asset)
+                                        @foreach ($getRecord as $index => $asset)
                                             <tr>
-                                                <td class="text-center">{{ $assetTools->firstItem() + $index }}</td>
+                                                <td class="text-center">{{ $getRecord->firstItem() + $index }}</td>
                                                 <td class="text-center">
                                                     @if ($asset->image)
                                                         <img src="{{ asset('images/' . $asset->image) }}"
@@ -120,7 +135,7 @@
                             @endpush
 
                             <div class="d-flex justify-content-center">
-                                {{ $assetTools->links() }}
+                                {{ $getRecord->links() }}
                             </div>
 
                         </div>

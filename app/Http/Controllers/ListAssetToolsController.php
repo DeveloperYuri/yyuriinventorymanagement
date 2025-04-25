@@ -8,17 +8,18 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class ListAssetToolsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $assetTools = ListAssetToolsModel::paginate(10); // tampilkan 10 per halaman
-        return view('dashboard.assettools.listassettools', compact('assetTools'));
+        $data['getRecord'] = ListAssetToolsModel::getRecord($request);
+        return view('dashboard.assettools.listassettools', $data);
     }
 
-    public function cardindex()
+    public function cardindex(Request $request)
     {
-        $assetTools = ListAssetToolsModel::paginate(9); // tampilkan 10 per halaman
-        return view('dashboard.assettools.cardlistassettools', compact('assetTools'));
+        $data['getRecordCard'] = ListAssetToolsModel::getRecordCard($request);
+        return view('dashboard.assettools.cardlistassettools', $data);
     }
+
 
     public function create()
     {
@@ -98,5 +99,4 @@ class ListAssetToolsController extends Controller
         $pdf = Pdf::loadView('assettoolspdf.assettools', compact('assettools'));
         return $pdf->download('laporan_assettools.pdf');
     }
-
 }

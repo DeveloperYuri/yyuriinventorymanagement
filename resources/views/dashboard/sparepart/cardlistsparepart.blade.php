@@ -3,18 +3,33 @@
 @section('content')
     <main id="main" class="main">
 
-        @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
             <div class="pagetitle d-flex justify-content-between align-items-center">
-                <a href="{{ route('spare-parts.create') }}" class="btn btn-primary">Add Spare Part</a>
+                @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
+                 <a href="{{ route('spare-parts.create') }}" class="btn btn-primary">Add Spare Part</a>
+                @endif
+
                 <a href="{{ route('spare-parts.index') }}" class="btn btn-secondary"><i class="bi bi-list"></i></a>
             </div>
-        @endif
+
+            <div class="mt-4">
+                <form method="get">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <input id="searchingtitle" type="text" class="form-control"
+                                value="{{ Request()->name }}" placeholder="Searching Spare Part" name="name">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-dark">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
         <section class="section">
 
             <div class="row">
 
-                @foreach ($spareParts as $index => $part)
+                @foreach ($getRecordCard as $index => $part)
                     <div class="col-lg-4 mt-3">
                         <!-- Card with titles, buttons, and links -->
                         <div class="card h-100">
@@ -34,6 +49,8 @@
                                 <h5 class="card-title text-center">{{ $part->name }}</h5>
                                 <p class="card-text mb-1">Price : Rp {{ number_format($part->price, 0, ',', '.') }}</p>
                                 <p class="card-text">Stock : {{ $part->stock }}</p>
+                                @if (Auth::user()->is_role == 2)
+
                                 <div class="d-flex gap-2 mt-2">
                                     <a href="{{ route('spare-parts.edit', $part->id) }}"
                                         class="btn btn-sm btn-warning">Edit</a>
@@ -45,6 +62,7 @@
                                             onclick="confirmDelete(this.form)">Hapus</button>
                                     </form>
                                 </div>
+                                @endif
                             </div>
                         </div><!-- End Card with titles, buttons, and links -->
 
@@ -54,7 +72,7 @@
 
             <!-- PAGINATION LINK -->
             <div class="d-flex justify-content-center mt-5">
-                {{ $spareParts->links() }}
+                {{ $getRecordCard->links() }}
             </div>
 
             @push('scripts')

@@ -12,11 +12,17 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $users = User::all();
+    // public function index()
+    // {
+    //     $users = User::all();
 
-        return view('dashboard.users.listusers', compact('users'));
+    //     return view('dashboard.users.listusers', compact('users'));
+    // }
+
+    public function index(Request $request)
+    {
+        $data['getRecord'] = User::getRecord($request);
+        return view('dashboard.users.listusers', $data);
     }
 
     /**
