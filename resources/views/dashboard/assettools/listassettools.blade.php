@@ -4,8 +4,10 @@
     <main id="main" class="main">
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-            <div class="pagetitle">
+            <div class="pagetitle d-flex justify-content-between align-items-center">
                 <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
+                <a href="{{ route('card-list-asset-tools.index') }}" class="btn btn-secondary"><i class="bi bi-card-list"></i></a>
+
             </div>
         @endif
 

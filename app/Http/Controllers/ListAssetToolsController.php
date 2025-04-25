@@ -14,6 +14,12 @@ class ListAssetToolsController extends Controller
         return view('dashboard.assettools.listassettools', compact('assetTools'));
     }
 
+    public function cardindex()
+    {
+        $assetTools = ListAssetToolsModel::paginate(9); // tampilkan 10 per halaman
+        return view('dashboard.assettools.cardlistassettools', compact('assetTools'));
+    }
+
     public function create()
     {
         return view('dashboard.assettools.createassettools');

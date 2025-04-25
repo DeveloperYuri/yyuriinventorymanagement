@@ -82,7 +82,8 @@ Route::group(['middleware' => 'users'], function () {
 });
 
 // Sparepart list In Out
-Route::get('/listsparepartbaru', [ListSparePartController::class, 'index'])->name('spare-parts.index');
+Route::get('/sparepart', [ListSparePartController::class, 'index'])->name('spare-parts.index');
+Route::get('/cardlistsparepart', [ListSparePartController::class, 'cardindex'])->name('card-list-spare-parts.index');
 
 Route::get('/spare-parts/create', [ListSparePartController::class, 'create'])->name('spare-parts.create');
 Route::post('/spare-parts', [ListSparePartController::class, 'store'])->name('spare-parts.store');
@@ -91,18 +92,19 @@ Route::put('/spare-parts/{id}', [ListSparePartController::class, 'update'])->nam
 Route::delete('/spare-parts/{id}', [ListSparePartController::class, 'destroy'])->name('spare-parts.destroy');
 Route::get('/sparepart/pdf', [ListSparePartController::class, 'cetakPDF'])->name('sparepart.cetakpdf');
 
-Route::get('/stock-in', [StockController::class, 'stockInIndex'])->name('stock-in.index');
-Route::get('/stock-in/create', [StockController::class, 'stockInForm'])->name('stock-in.create');
-Route::post('/stock-in', [StockController::class, 'storeStockIn'])->name('stock-in.store');
+Route::get('/sparepart-in', [StockController::class, 'stockInIndex'])->name('stock-in.index');
+Route::get('/sparepart-in/create', [StockController::class, 'stockInForm'])->name('stock-in.create');
+Route::post('/sparepart-in', [StockController::class, 'storeStockIn'])->name('stock-in.store');
 Route::get('export-stock-in', [StockController::class, 'exportStockInPDF'])->name('export.stock-in');
 
-Route::get('/stock-out', [StockController::class, 'stockOutIndex'])->name('stock-out.index');
-Route::get('/stock-out/create', [StockController::class, 'stockOutForm'])->name('stock-out.create');
-Route::post('/stock-out', [StockController::class, 'storeStockOut'])->name('stock-out.store');
+Route::get('/sparepart-out', [StockController::class, 'stockOutIndex'])->name('stock-out.index');
+Route::get('/sparepart-out/create', [StockController::class, 'stockOutForm'])->name('stock-out.create');
+Route::post('/sparepart-out', [StockController::class, 'storeStockOut'])->name('stock-out.store');
 Route::get('export-stock-out', [StockController::class, 'exportStockOutPDF'])->name('export.stock-out');
 
 // Asset Tools In Out
-Route::get('/listAssettoolsbaru', [ListAssetToolsController::class, 'index'])->name('asset-tools.index');
+Route::get('/Assettools', [ListAssetToolsController::class, 'index'])->name('asset-tools.index');
+Route::get('/cardlistAssettools', [ListAssetToolsController::class, 'cardindex'])->name('card-list-asset-tools.index');
 Route::get('/asset-tools/create', [ListAssetToolsController::class, 'create'])->name('asset-tools.create');
 Route::post('/asset-tools', [ListAssetToolsController::class, 'store'])->name('asset-tools.store');
 Route::get('/asset-tools/{id}/edit', [ListAssetToolsController::class, 'edit'])->name('asset-tools.edit');

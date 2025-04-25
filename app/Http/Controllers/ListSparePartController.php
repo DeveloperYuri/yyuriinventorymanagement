@@ -15,6 +15,12 @@ class ListSparePartController extends Controller
         return view('dashboard.sparepart.listsparepart', compact('spareParts'));
     }
 
+    public function cardindex()
+    {
+        $spareParts = ListSparePartModel::paginate(9); // tampilkan 10 per halaman
+        return view('dashboard.sparepart.cardlistsparepart', compact('spareParts'));
+    }
+
     public function create()
     {
         return view('dashboard.sparepart.createlistsparepart');
