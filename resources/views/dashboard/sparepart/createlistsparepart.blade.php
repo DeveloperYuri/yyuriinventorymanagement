@@ -36,13 +36,6 @@
                                         <input type="text" class="form-control" id="inputText" name="price" required>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Stock<span
-                                        style="color: red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputText" name="stock" required>
-                                    </div>
-                                </div>
                                 
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label"></label>

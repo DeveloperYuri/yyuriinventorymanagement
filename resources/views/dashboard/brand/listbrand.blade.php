@@ -13,8 +13,8 @@
             <form method="get">
                 <div class="row g-2 align-items-center">
                     <div class="col">
-                        <input id="searchingtitle" type="text" class="form-control"
-                            value="{{ Request()->name }}" placeholder="Searching Brand" name="name">
+                        <input id="searchingtitle" type="text" class="form-control" value="{{ Request()->name }}"
+                            placeholder="Searching Brand" name="name">
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-dark">Search</button>
@@ -51,7 +51,9 @@
                                         <tr>
                                             <th class="text-center" scope="col">No</th>
                                             <th class="text-center" scope="col">Name</th>
-                                            <th class="text-center" scope="col">Action</th>
+                                            @if (Auth::user()->is_role == 2)
+                                                <th class="text-center" scope="col">Action</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,17 +62,20 @@
                                                 <th class="text-center" scope="row">{{ $getRecord->firstItem() + $key }}
                                                 </th>
                                                 <td class="text-center">{{ $br->name }}</td>
-                                                <td class="text-center">
-                                                    <form action="{{ route('deletebrand', $br->id) }}" method="POST">
 
-                                                        <a href="{{ route('editbrand', $br->id) }}"
-                                                            class="btn btn-sm btn-warning mt-1">EDIT</a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-sm btn-danger mt-1"
-                                                            onclick="confirmDelete(this.form)">HAPUS</button>
-                                                    </form>
-                                                </td>
+                                                @if (Auth::user()->is_role == 2)
+                                                    <td class="text-center">
+                                                        <form action="{{ route('deletebrand', $br->id) }}" method="POST">
+
+                                                            <a href="{{ route('editbrand', $br->id) }}"
+                                                                class="btn btn-sm btn-warning mt-1">EDIT</a>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                                onclick="confirmDelete(this.form)">HAPUS</button>
+                                                        </form>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @empty
                                         @endforelse
