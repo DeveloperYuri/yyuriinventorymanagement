@@ -93,6 +93,9 @@
 
                                                 @if (Auth::user()->is_role == 2)
                                                     <td class="text-center">
+                                                        <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}" class="btn btn-info btn-sm">
+                                                            History Detail
+                                                        </a>
                                                         <a href="{{ route('spare-parts.edit', $part->id) }}"
                                                             class="btn btn-sm btn-warning mt-1">Edit</a>
                                                         <form action="{{ route('spare-parts.destroy', $part->id) }}"

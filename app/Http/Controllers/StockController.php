@@ -123,4 +123,47 @@ class StockController extends Controller
         $pdf = Pdf::loadView('sparepartpdf.stock_history', compact('transactions'))->setPaper('A4', 'portrait');
         return $pdf->download('laporan_riwayat_stok.pdf');
     }
+
+    public function viewHistoryPerItem(Request $request, $id)
+    {
+        $sparePart = ListSparePartModel::findOrFail($id);
+
+        $query = StockTransactionModel::where('spare_part_id', $id)
+            ->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->paginate(10);
+        
+        return view('dashboard.sparepart.detailsparepart', compact('sparePart', 'transactions'));
+    }
+
+    public function exportHistoryPerItemPDF($id, Request $request)
+    {
+        $sparePart = ListSparePartModel::findOrFail($id);
+
+        $query = StockTransactionModel::where('spare_part_id', $id)->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->get();
+
+        $pdf = Pdf::loadView('sparepartpdf.detailsparepart', compact('sparePart', 'transactions'))
+            ->setPaper('A4', 'portrait');
+
+        return $pdf->download('riwayat_sparepart_' . $sparePart->name . '.pdf');
+    }
+
 }
