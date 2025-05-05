@@ -16,7 +16,8 @@
              $isSparePartActive =
                  request()->routeIs('spare-parts.*') ||
                  request()->routeIs('stock-in.*') ||
-                 request()->routeIs('stock-out.*');
+                 request()->routeIs('stock-out.*') ||
+                 request()->routeIs('sparepart.history');
          @endphp
 
          <li class="nav-item">
@@ -44,6 +45,12 @@
                          <i class="bi bi-circle"></i><span>Spare Part Out</span>
                      </a>
                  </li>
+                 <li>
+                    <a href="{{ route('sparepart.history') }}"
+                        class="{{ request()->routeIs('sparepart.history') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>History In/Out</span>
+                    </a>
+                </li>
              </ul>
          </li>
          <!-- End Spare Part Sidebar -->
@@ -80,6 +87,11 @@
                      <a href="{{ route('asset-out.index') }}"
                          class="{{ request()->routeIs('asset-out.*') ? 'active' : '' }}">
                          <i class="bi bi-circle"></i><span>Tools Out</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="{{ route('sparepart.history') }}">
+                         <i class="bi bi-circle"></i><span>History In/Out</span>
                      </a>
                  </li>
              </ul>

@@ -102,6 +102,9 @@ Route::get('/sparepart-out/create', [StockController::class, 'stockOutForm'])->n
 Route::post('/sparepart-out', [StockController::class, 'storeStockOut'])->name('stock-out.store');
 Route::get('export-stock-out', [StockController::class, 'exportStockOutPDF'])->name('export.stock-out');
 
+Route::get('/spareparthistory', [StockController::class, 'history'])->name('sparepart.history');
+Route::get('/spareparthistory/pdf', [StockController::class, 'exportHistoryPDF'])->name('sparepart.history.pdf');
+
 // Asset Tools In Out
 Route::get('/Assettools', [ListAssetToolsController::class, 'index'])->name('asset-tools.index');
 Route::get('/cardlistAssettools', [ListAssetToolsController::class, 'cardindex'])->name('card-list-asset-tools.index');

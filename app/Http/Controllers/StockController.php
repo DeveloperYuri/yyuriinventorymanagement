@@ -25,13 +25,15 @@ class StockController extends Controller
     {
         $request->validate([
             'spare_part_id' => 'required|exists:spare_parts,id',
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1',
+            'user' => 'required|string|max:255'
         ]);
 
         StockTransactionModel::create([
             'spare_part_id' => $request->spare_part_id,
             'type' => 'in',
-            'quantity' => $request->quantity
+            'quantity' => $request->quantity,
+            'user' => $request->user
         ]);
 
         return redirect()->route('stock-in.index')->with('success', 'Stok masuk berhasil dicatat.');
@@ -53,7 +55,8 @@ class StockController extends Controller
     {
         $request->validate([
             'spare_part_id' => 'required|exists:spare_parts,id',
-            'quantity' => 'required|integer|min:1'
+            'quantity' => 'required|integer|min:1',
+            'user' => 'required|string|max:255'
         ]);
 
         $sparePart = ListSparePartModel::find($request->spare_part_id);
@@ -65,7 +68,8 @@ class StockController extends Controller
         StockTransactionModel::create([
             'spare_part_id' => $request->spare_part_id,
             'type' => 'out',
-            'quantity' => $request->quantity
+            'quantity' => $request->quantity,
+            'user' => $request->user
         ]);
 
         return redirect()->route('stock-out.index')->with('success', 'Stok keluar berhasil dicatat.');
@@ -83,5 +87,40 @@ class StockController extends Controller
         $stockOuts = StockTransactionModel::where('type', 'out')->with('sparePart')->get();
         $pdf = Pdf::loadView('sparepartpdf.stock_out', compact('stockOuts'));
         return $pdf->download('laporan_stok_keluar.pdf');
+    }
+
+    public function history(Request $request)
+    {
+        $query = StockTransactionModel::with('sparePart')->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->paginate(20);
+
+        return view('dashboard.spareparthistory.history', compact('transactions'));
+    }
+
+    public function exportHistoryPDF(Request $request)
+    {
+        $query = StockTransactionModel::with('sparePart')->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->get();
+
+        $pdf = Pdf::loadView('sparepartpdf.stock_history', compact('transactions'))->setPaper('A4', 'portrait');
+        return $pdf->download('laporan_riwayat_stok.pdf');
     }
 }
