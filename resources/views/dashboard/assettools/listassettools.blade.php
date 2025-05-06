@@ -95,6 +95,9 @@
 
                                                 @if (Auth::user()->is_role == 2)
                                                     <td class="text-center">
+                                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}" class="btn btn-info btn-sm mt-1">
+                                                            History Detail
+                                                        </a>
                                                         <a href="{{ route('asset-tools.edit', $asset->id) }}"
                                                             class="btn btn-sm btn-warning mt-1">Edit</a>
                                                         <form action="{{ route('asset-tools.destroy', $asset->id) }}"

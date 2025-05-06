@@ -47,9 +47,10 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Tanggal</th>
-                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Name Asset</th>
+                                            <th class="text-center">Penerima</th>
                                             <th class="text-center">Jumlah</th>
+                                            <th class="text-center">Tanggal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,9 +58,10 @@
                                         @foreach ($transactions as $index => $assetin)
                                             <tr>
                                                 <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
-                                                <td class="text-center">{{ $assetin->created_at->format('d-m-Y') }}</td>
                                                 <td class="text-center">{{ $assetin->assetTools->name }}</td>
+                                                <td class="text-center">{{ $assetin->user }}</td>
                                                 <td class="text-center">{{ $assetin->quantity }}</td>
+                                                <td class="text-center">{{ $assetin->created_at->format('d-m-Y') }}</td>
                                             </tr>
                                         @endforeach
 

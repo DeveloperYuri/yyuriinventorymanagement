@@ -130,5 +130,5 @@ Route::get('export-asset-stock-out', [StockAssetController::class, 'exportStockO
 
 Route::get('/assettoolshistory', [StockAssetController::class, 'history'])->name('assettools.history');
 Route::get('/assettoolhistory/pdf', [StockAssetController::class, 'exportHistoryPDF'])->name('assettools.history.pdf');
-Route::get('/assettool/history/{id}', [StockAssetController::class, 'viewHistoryPerItem'])->name('assettools.history');
-Route::get('/assettool/{id}/history/pdf', [StockAssetController::class, 'exportHistoryPerItemPDF'])->name('assettools.history.pdf');
+Route::get('/assettool/history/{id}', [StockAssetController::class, 'viewHistoryPerItem'])->name('assettoolsdetail.history');
+Route::get('/assettool/{id}/history/pdf', [StockAssetController::class, 'exportHistoryPerItemPDF'])->name('assettoolsdetail.history.pdf');

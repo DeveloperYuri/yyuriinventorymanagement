@@ -31,17 +31,17 @@
 
     <hr>
 
-    <h3 style="text-align: center;">Laporan Stok Masuk</h3>
+    <h3 style="text-align: center;">Laporan History Spare Part In/Out</h3>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Spare Part</th>
-                <th>Jenis</th>
-                <th>Jumlah</th>
                 <th>User</th>
+                <th>Jumlah</th>
                 <th>Tanggal</th>
+                <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -49,10 +49,10 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->sparePart->name ?? '-' }}</td>
-                <td>{{ $item->type === 'in' ? 'Masuk' : 'Keluar' }}</td>
-                <td>{{ $item->quantity }}</td>
                 <td>{{ $item->user }}</td>
-                <td>{{ $item->created_at->format('d-m-Y H:i') }}</td>
+                <td>{{ $item->quantity }}</td>
+                <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                <td>{{ $item->type === 'in' ? 'Masuk' : 'Keluar' }}</td>
             </tr>
         @endforeach
         </tbody>

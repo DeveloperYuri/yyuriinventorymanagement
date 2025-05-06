@@ -75,13 +75,14 @@
 
     <hr>
 
-    <h3 style="text-align: center;">Laporan Asset Keluar baru</h3>
+    <h3 style="text-align: center;">Laporan Asset Keluar</h3>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Asset</th>
+                <th>Diminta oleh</th>
                 <th>Jumlah Keluar</th>
                 <th>Tanggal Keluar</th>
             </tr>
@@ -91,6 +92,7 @@
                 <tr>
                     <td>{{ $no + 1 }}</td>
                     <td>{{ $item->assetTools->name }}</td>
+                    <td>{{ $item->user }}</td>
                     <td>{{ $item->quantity }}</td>
                     <td>{{ $item->created_at->format('d-m-Y') }}</td>
                 </tr>

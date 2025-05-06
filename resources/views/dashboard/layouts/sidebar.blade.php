@@ -46,11 +46,11 @@
                      </a>
                  </li>
                  <li>
-                    <a href="{{ route('sparepart.history') }}"
-                        class="{{ request()->routeIs('sparepart.history') ? 'active' : '' }}">
-                        <i class="bi bi-circle"></i><span>History In/Out</span>
-                    </a>
-                </li>
+                     <a href="{{ route('sparepart.history') }}"
+                         class="{{ request()->routeIs('sparepart.history') ? 'active' : '' }}">
+                         <i class="bi bi-circle"></i><span>History In/Out</span>
+                     </a>
+                 </li>
              </ul>
          </li>
          <!-- End Spare Part Sidebar -->
@@ -61,7 +61,8 @@
              $isAssetToolsActive =
                  request()->routeIs('asset-tools.*') ||
                  request()->routeIs('asset-in.*') ||
-                 request()->routeIs('asset-out.*');
+                 request()->routeIs('asset-out.*') ||
+                 request()->routeIs('assettools.history');
          @endphp
 
          <li class="nav-item">
@@ -74,24 +75,25 @@
                  <li>
                      <a href="{{ route('asset-tools.index') }}"
                          class="{{ request()->routeIs('asset-tools.*') ? 'active' : '' }}">
-                         <i class="bi bi-circle"></i><span>List Tools</span>
+                         <i class="bi bi-circle"></i><span>List Asset Tools</span>
                      </a>
                  </li>
                  <li>
                      <a href="{{ route('asset-in.index') }}"
                          class="{{ request()->routeIs('asset-in.*') ? 'active' : '' }}">
-                         <i class="bi bi-circle"></i><span>Tools In</span>
+                         <i class="bi bi-circle"></i><span>Asset Tools In</span>
                      </a>
                  </li>
                  <li>
                      <a href="{{ route('asset-out.index') }}"
                          class="{{ request()->routeIs('asset-out.*') ? 'active' : '' }}">
-                         <i class="bi bi-circle"></i><span>Tools Out</span>
+                         <i class="bi bi-circle"></i><span>Asset Tools Out</span>
                      </a>
                  </li>
                  <li>
-                     <a href="{{ route('sparepart.history') }}">
-                         <i class="bi bi-circle"></i><span>History In/Out</span>
+                     <a href="{{ route('assettools.history') }}"
+                         class="{{ request()->routeIs('assettools.history') ? 'active' : '' }}">
+                         <i class="bi bi-circle"></i><span>Asset History In/Out</span>
                      </a>
                  </li>
              </ul>

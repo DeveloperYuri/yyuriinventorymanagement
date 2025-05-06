@@ -75,7 +75,7 @@
 
     <hr>
 
-    <h3 style="text-align: center;">Laporan Stok Keluar</h3>
+    <h3 style="text-align: center;">Laporan Stok Keluar Spare Part</h3>
 
     <table>
         <thead>

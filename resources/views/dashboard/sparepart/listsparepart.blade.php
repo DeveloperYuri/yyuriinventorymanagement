@@ -93,7 +93,7 @@
 
                                                 @if (Auth::user()->is_role == 2)
                                                     <td class="text-center">
-                                                        <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}" class="btn btn-info btn-sm">
+                                                        <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}" class="btn btn-info btn-sm mt-1">
                                                             History Detail
                                                         </a>
                                                         <a href="{{ route('spare-parts.edit', $part->id) }}"

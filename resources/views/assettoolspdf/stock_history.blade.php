@@ -22,8 +22,7 @@
 <body>
 
     <div class="header">
-        <img src="https://www.baby-dee.co.id/assets/img/logobaru.png" alt="Logo Perusahaan">
-
+        <img src="{{ public_path('assets/img/logobaru.png') }}" alt="Logo Perusahaan">
         <h1>PT. Joenoes Ikamulya</h1>
         <p>Jl. Pulogadung No.43, RW.9, Jatinegara, Kec. Cakung</p>
         <p>Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13930</p>
@@ -32,41 +31,45 @@
 
     <hr>
 
-    <h3 style="text-align: center;">Laporan Asset Masuk</h3>
+    <h3 style="text-align: center;">Laporan History Asset Tools In/Out</h3>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Asset</th>
-                <th>Penerima</th>
-                <th>Jumlah Masuk</th>
-                <th>Tanggal Masuk</th>
+                <th>Nama Asset Tools</th>
+                <th>User</th>
+                <th>Jumlah</th>
+                <th>Tanggal</th>
+                <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($stockIns as $no => $item)
+            @foreach($transactions as $index => $item)
             <tr>
-                <td>{{ $no+1 }}</td>
-                <td>{{ $item->assetTools->name }}</td>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $item->assetTools->name ?? '-' }}</td>
                 <td>{{ $item->user }}</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                <td>{{ $item->type === 'in' ? 'Masuk' : 'Keluar' }}</td>
             </tr>
-            @endforeach
+        @endforeach
         </tbody>
     </table>
 
     <div class="footer">
         <div class="left">
-            <p>Dicetak: {{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
+            <p>Dicetak: {{ \Carbon\Carbon::now()->format('d-m-Y H:i') }}</p>
         </div>
         <div class="right">
             <p>Jakarta, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
             <br><br><br>
-            <p style="text-decoration: underline;">( ____________ )</p>
+            <p style="text-decoration: underline;">(___________________)</p>
         </div>
     </div>
 
 </body>
 </html>
+
+

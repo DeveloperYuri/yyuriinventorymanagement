@@ -32,6 +32,13 @@
                                 </div>
 
                                 <div class="row mb-3">
+                                    <label for="user" class="col-sm-2 col-form-label">Diminta oleh</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="user" id="user" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary">Save</button>

@@ -15,8 +15,8 @@
             <form method="get">
                 <div class="row g-2 align-items-center">
                     <div class="col">
-                        <input id="searchingtitle" type="text" class="form-control"
-                            value="{{ Request()->name }}" placeholder="Searching Asset" name="name">
+                        <input id="searchingtitle" type="text" class="form-control" value="{{ Request()->name }}"
+                            placeholder="Searching Asset" name="name">
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-dark">Search</button>
@@ -50,7 +50,32 @@
                                 <p class="card-text mb-1">Rp {{ number_format($asset->price, 0, ',', '.') }}</p>
                                 <p class="card-text">Stock : {{ $asset->stock }}</p>
                                 @if (Auth::user()->is_role == 2)
-                                    <div class="d-flex gap-2 mt-2">
+                                    <div class="d-flex flex-wrap gap-2 mt-2 align-items-center">
+                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}"
+                                            class="btn btn-info btn-sm">
+                                            History Detail
+                                        </a>
+
+                                        <a href="{{ route('asset-tools.edit', $asset->id) }}"
+                                            class="btn btn-warning btn-sm">
+                                            Edit
+                                        </a>
+
+                                        <form action="{{ route('asset-tools.destroy', $asset->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-danger btn-sm"
+                                                onclick="confirmDelete(this.form)">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    {{-- <div class="d-flex gap-2 mt-2">
+                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}" class="btn btn-info btn-sm">
+                                            History Detail
+                                        </a>
+
                                         <a href="{{ route('asset-tools.edit', $asset->id) }}"
                                             class="btn btn-sm btn-warning mt-1">Edit</a>
 
@@ -61,7 +86,7 @@
                                             <button type="button" class="btn btn-sm btn-danger mt-1"
                                                 onclick="confirmDelete(this.form)">Hapus</button>
                                         </form>
-                                    </div>
+                                    </div> --}}
                                 @endif
                             </div>
                         </div><!-- End Card with titles, buttons, and links -->
