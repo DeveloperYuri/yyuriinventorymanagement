@@ -128,8 +128,7 @@ class StockController extends Controller
     {
         $sparePart = ListSparePartModel::findOrFail($id);
 
-        $query = StockTransactionModel::where('spare_part_id', $id)
-            ->orderByDesc('created_at');
+        $query = StockTransactionModel::where('spare_part_id', $id);
 
         if ($request->start_date) {
             $query->whereDate('created_at', '>=', $request->start_date);
@@ -139,9 +138,16 @@ class StockController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $transactions = $query->paginate(10);
-        
-        return view('dashboard.sparepart.detailsparepart', compact('sparePart', 'transactions'));
+        // Perhitungan total dari semua data (tidak terpengaruh pagination)
+        $allTransactions = $query->get();
+        $totalStock = $allTransactions->reduce(function ($carry, $item) {
+            return $carry + ($item->type === 'in' ? $item->quantity : -$item->quantity);
+        }, 0);
+
+        // Pagination
+        $transactions = $query->orderByDesc('created_at')->paginate(20);
+
+        return view('dashboard.sparepart.detailsparepart', compact('sparePart', 'transactions', 'totalStock'));
     }
 
     public function exportHistoryPerItemPDF($id, Request $request)
@@ -158,12 +164,22 @@ class StockController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
+        // Ambil semua transaksi tanpa pagination untuk PDF
         $transactions = $query->get();
 
-        $pdf = Pdf::loadView('sparepartpdf.detailsparepart', compact('sparePart', 'transactions'))
-            ->setPaper('A4', 'portrait');
+        // Perhitungan total stok (tidak terpengaruh pagination)
+        $totalStock = $transactions->reduce(function ($carry, $item) {
+            return $carry + ($item->type === 'in' ? $item->quantity : -$item->quantity);
+        }, 0);
+
+        $startDate = $request->start_date ? \Carbon\Carbon::parse($request->start_date)->format('d F Y') : null;
+        $endDate = $request->end_date ? \Carbon\Carbon::parse($request->end_date)->format('d F Y') : null;
+
+        // Buat PDF dengan data transaksi dan total stok
+        $pdf = Pdf::loadView('sparepartpdf.detailsparepart', compact('sparePart', 'transactions', 'startDate', 'endDate'))
+        ->setPaper('A4', 'portrait');
 
         return $pdf->download('riwayat_sparepart_' . $sparePart->name . '.pdf');
     }
-
+    
 }

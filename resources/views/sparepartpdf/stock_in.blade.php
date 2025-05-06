@@ -32,13 +32,14 @@
 
     <hr>
 
-    <h3 style="text-align: center;">Laporan Stok Masuk</h3>
+    <h3 style="text-align: center;">Laporan Stok Masuk Spare Part</h3>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Sparepart</th>
+                <th>Penerima</th>
                 <th>Jumlah Masuk</th>
                 <th>Tanggal Masuk</th>
             </tr>
@@ -48,6 +49,7 @@
             <tr>
                 <td>{{ $no+1 }}</td>
                 <td>{{ $item->sparePart->name }}</td>
+                <td>{{ $item->user }}</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ $item->created_at->format('d-m-Y') }}</td>
             </tr>

@@ -128,4 +128,7 @@ Route::get('/asset-out/create', [StockAssetController::class, 'stockOutForm'])->
 Route::post('/asset-out', [StockAssetController::class, 'storeStockOut'])->name('asset-out.store');
 Route::get('export-asset-stock-out', [StockAssetController::class, 'exportStockOutPDF'])->name('export.asset-stock-out');
 
-
+Route::get('/assettoolshistory', [StockAssetController::class, 'history'])->name('assettools.history');
+Route::get('/assettoolhistory/pdf', [StockAssetController::class, 'exportHistoryPDF'])->name('assettools.history.pdf');
+Route::get('/assettool/history/{id}', [StockAssetController::class, 'viewHistoryPerItem'])->name('assettools.history');
+Route::get('/assettool/{id}/history/pdf', [StockAssetController::class, 'exportHistoryPerItemPDF'])->name('assettools.history.pdf');

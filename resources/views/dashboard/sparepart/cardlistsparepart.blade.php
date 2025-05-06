@@ -52,6 +52,10 @@
                                 @if (Auth::user()->is_role == 2)
 
                                 <div class="d-flex gap-2 mt-2">
+                                    <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}" class="btn btn-info btn-sm">
+                                        History Detail
+                                    </a>
+                                    
                                     <a href="{{ route('spare-parts.edit', $part->id) }}"
                                         class="btn btn-sm btn-warning">Edit</a>
 

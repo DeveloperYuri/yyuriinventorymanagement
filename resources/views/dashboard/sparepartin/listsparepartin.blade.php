@@ -44,18 +44,18 @@
                                 <table class="table table-hover align-middle">
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th class="text-center">Tanggal</th>
                                         <th class="text-center">Spare Part</th>
-                                        <th class="text-center">Jumlah</th>
                                         <th class="text-center">Penerima</th>
+                                        <th class="text-center">Jumlah</th>
+                                        <th class="text-center">Tanggal</th>
                                     </tr>
                                     @foreach ($transactions as $index => $in)
                                         <tr>
                                             <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
-                                            <td class="text-center">{{ $in->created_at->format('d-m-Y') }}</td>
                                             <td class="text-center">{{ $in->sparePart->name }}</td>
-                                            <td class="text-center">{{ $in->quantity }}</td>
                                             <td class="text-center">{{ $in->user }}</td>
+                                            <td class="text-center">{{ $in->quantity }}</td>
+                                            <td class="text-center">{{ $in->created_at->format('d-m-Y') }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

@@ -63,15 +63,18 @@
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Nama Spare Part</th>
-                                        <th class="text-center">Jenis</th>
-                                        <th class="text-center">Jumlah</th>
                                         <th class="text-center">User</th>
+                                        <th class="text-center">Jumlah</th>
                                         <th class="text-center">Tanggal</th>
+                                        <th class="text-center">Keterangan</th>
                                     </tr>
                                     @foreach ($transactions as $index => $item)
                                         <tr>
                                             <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
                                             <td class="text-center">{{ $item->sparePart->name ?? '-' }}</td>
+                                            <td class="text-center">{{ $item->user }}</td>
+                                            <td class="text-center">{{ $item->quantity }}</td>
+                                            <td class="text-center">{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td class="text-center">
                                                 @if ($item->type == 'in')
                                                     <span class="badge bg-success">Masuk</span>
@@ -79,9 +82,7 @@
                                                     <span class="badge bg-danger">Keluar</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-center">{{ $item->user }}</td>
-                                            <td class="text-center">{{ $item->created_at->format('d-m-Y H:i') }}</td>
+                                            
                                         </tr>
                                     @endforeach
                                     </tbody>
