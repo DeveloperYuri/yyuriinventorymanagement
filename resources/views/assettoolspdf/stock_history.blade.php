@@ -60,7 +60,7 @@
 
     <div class="footer">
         <div class="left">
-            <p>Dicetak: {{ \Carbon\Carbon::now()->format('d-m-Y H:i') }}</p>
+            <p>Dicetak: {{ \Carbon\Carbon::now()->format('d-m-Y') }}</p>
         </div>
         <div class="right">
             <p>Jakarta, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>

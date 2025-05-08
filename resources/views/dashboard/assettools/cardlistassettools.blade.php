@@ -70,23 +70,6 @@
                                             </button>
                                         </form>
                                     </div>
-
-                                    {{-- <div class="d-flex gap-2 mt-2">
-                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}" class="btn btn-info btn-sm">
-                                            History Detail
-                                        </a>
-
-                                        <a href="{{ route('asset-tools.edit', $asset->id) }}"
-                                            class="btn btn-sm btn-warning mt-1">Edit</a>
-
-                                        <form action="{{ route('asset-tools.destroy', $asset->id) }}" method="POST"
-                                            style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger mt-1"
-                                                onclick="confirmDelete(this.form)">Hapus</button>
-                                        </form>
-                                    </div> --}}
                                 @endif
                             </div>
                         </div><!-- End Card with titles, buttons, and links -->

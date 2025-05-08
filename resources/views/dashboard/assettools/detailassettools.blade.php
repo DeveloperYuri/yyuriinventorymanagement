@@ -28,6 +28,12 @@
                     <a href="{{ route('assettoolsdetail.history.pdf', ['id' => $assetTools->id]) }}?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}"
                         class="btn btn-success">Cetak PDF</a>
                 </div>
+                <div>
+                    <a href="{{ route('assettoolsdetail.history.excel', ['id' => $assetTools->id, 'start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                        class="btn btn-success" target="_blank">
+                        Export XLX
+                    </a>
+                </div>
             @endif
 
         </div>
@@ -77,7 +83,7 @@
                                                         {{ $item->type == 'in' ? 'Masuk' : 'Keluar' }}
                                                     </span>
                                                 </td>
-                                                
+
                                             </tr>
                                         @endforeach
 

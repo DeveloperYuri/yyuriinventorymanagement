@@ -106,6 +106,8 @@ Route::get('/spareparthistory', [StockController::class, 'history'])->name('spar
 Route::get('/spareparthistory/pdf', [StockController::class, 'exportHistoryPDF'])->name('sparepart.history.pdf');
 Route::get('/sparepart/history/{id}', [StockController::class, 'viewHistoryPerItem'])->name('sparepartdetail.history');
 Route::get('/sparepart/{id}/history/pdf', [StockController::class, 'exportHistoryPerItemPDF'])->name('sparepartdetail.history.pdf');
+Route::get('/sparepart/{id}/export-excel', [StockController::class, 'exportHistoryPerItemExcel'])->name('sparepartdetail.history.excel');
+Route::get('/export-history-excel', [StockController::class, 'exportHistoryExcel'])->name('sparepart.history.excel');
 
 // Asset Tools In Out
 Route::get('/Assettools', [ListAssetToolsController::class, 'index'])->name('asset-tools.index');
@@ -132,3 +134,5 @@ Route::get('/assettoolshistory', [StockAssetController::class, 'history'])->name
 Route::get('/assettoolhistory/pdf', [StockAssetController::class, 'exportHistoryPDF'])->name('assettools.history.pdf');
 Route::get('/assettool/history/{id}', [StockAssetController::class, 'viewHistoryPerItem'])->name('assettoolsdetail.history');
 Route::get('/assettool/{id}/history/pdf', [StockAssetController::class, 'exportHistoryPerItemPDF'])->name('assettoolsdetail.history.pdf');
+Route::get('/assettools/{id}/export-excel', [StockAssetController::class, 'exportHistoryPerItemExcel'])->name('assettoolsdetail.history.excel');
+Route::get('/assettools-export-history-excel', [StockAssetController::class, 'exportHistoryExcel'])->name('assettools.history.excel');

@@ -26,7 +26,13 @@
             @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                 <div>
                     <a href="{{ route('sparepartdetail.history.pdf', ['id' => $sparePart->id]) }}?start_date={{ request('start_date') }}&end_date={{ request('end_date') }}"
-                        class="btn btn-success">Cetak PDF</a>
+                        class="btn btn-success">Print PDF</a>
+                </div>
+                <div>
+                    <a href="{{ route('sparepartdetail.history.excel', ['id' => $sparePart->id, 'start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                        class="btn btn-success" target="_blank">
+                        Export XLX
+                    </a>
                 </div>
             @endif
 
@@ -79,7 +85,7 @@
                                                         {{ $item->type == 'in' ? 'Masuk' : 'Keluar' }}
                                                     </span>
                                                 </td>
-                                                
+
                                             </tr>
                                         @endforeach
 

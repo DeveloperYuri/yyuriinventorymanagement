@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SparePartHistoryInOutExport;
 use App\Models\ListSparePartModel;
 use App\Models\StockTransactionModel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\SparePartHistoryPerItemExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
 
 class StockController extends Controller
 {
@@ -180,6 +184,38 @@ class StockController extends Controller
         ->setPaper('A4', 'portrait');
 
         return $pdf->download('riwayat_sparepart_' . $sparePart->name . '.pdf');
+    }
+
+    public function exportHistoryPerItemExcel($id, Request $request)
+    {
+        $sparePart = ListSparePartModel::findOrFail($id);
+        $query = StockTransactionModel::where('spare_part_id', $id)->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->get();
+
+        $startDate = $request->start_date ? Carbon::parse($request->start_date)->format('d F Y') : null;
+        $endDate = $request->end_date ? Carbon::parse($request->end_date)->format('d F Y') : null;
+
+        return Excel::download(
+            new SparePartHistoryPerItemExport($sparePart, $transactions, $startDate, $endDate),
+            'riwayat_sparepart_peritem' . $sparePart->name . '.xlsx'
+        );
+    }
+
+    public function exportHistoryExcel(Request $request)
+    {
+        return Excel::download(
+            new SparePartHistoryInOutExport($request->start_date, $request->end_date),
+            'laporan_riwayat_sparepartinout.xlsx'
+        );
     }
     
 }

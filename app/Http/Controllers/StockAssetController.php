@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AssetToolsHistoryInOutExport;
+use App\Exports\AssetToolsHistoryPerItemExport;
 use App\Models\ListAssetToolsModel;
 use App\Models\StockAssetTransactionModel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
 
 class StockAssetController extends Controller
 {
@@ -183,5 +187,37 @@ class StockAssetController extends Controller
         ->setPaper('A4', 'portrait');
 
         return $pdf->download('riwayat_detail_assettools' . $assetTools->name . '.pdf');
+    }
+
+    public function exportHistoryPerItemExcel($id, Request $request)
+    {
+        $assetTools = ListAssetToolsModel::findOrFail($id);
+        $query = StockAssetTransactionModel::where('asset_tools_id', $id)->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->get();
+
+        $startDate = $request->start_date ? Carbon::parse($request->start_date)->format('d F Y') : null;
+        $endDate = $request->end_date ? Carbon::parse($request->end_date)->format('d F Y') : null;
+
+        return Excel::download(
+            new AssetToolsHistoryPerItemExport($assetTools, $transactions, $startDate, $endDate),
+            'riwayat_assettools_peritem' . $assetTools->name . '.xlsx'
+        );
+    }
+
+    public function exportHistoryExcel(Request $request)
+    {
+        return Excel::download(
+            new AssetToolsHistoryInOutExport($request->start_date, $request->end_date),
+            'laporan_riwayat_assettoolsinout.xlsx'
+        );
     }
 }
