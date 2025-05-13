@@ -21,9 +21,13 @@
                                 <h5 class="card-title">List Asset Tools Out</h5>
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-                                    <a href="{{ route('export.asset-stock-out') }}" class="btn btn-success"
-                                        target="_blank">Cetak
-                                        PDF</a>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('export.asset-stock-out') }}" class="btn btn-success"
+                                            target="_blank">Cetak
+                                            PDF</a>
+                                        <a href="{{ route('assetstockout.export.excel') }}" class="btn btn-success">Export
+                                            XLX</a>
+                                    </div>
                                 @endif
 
                             </div>

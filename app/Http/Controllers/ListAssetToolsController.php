@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AssetToolsExport;
 use App\Models\ListAssetToolsModel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListAssetToolsController extends Controller
 {
@@ -98,5 +100,10 @@ class ListAssetToolsController extends Controller
         $assettools = ListAssetToolsModel::all();
         $pdf = Pdf::loadView('assettoolspdf.assettools', compact('assettools'));
         return $pdf->download('laporan_assettools.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new AssetToolsExport, 'laporan_assettools.xlsx');
     }
 }

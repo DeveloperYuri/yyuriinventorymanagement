@@ -16,8 +16,8 @@
             <form method="get">
                 <div class="row g-2 align-items-center">
                     <div class="col">
-                        <input id="searchingtitle" type="text" class="form-control"
-                            value="{{ Request()->name }}" placeholder="Searching Asset" name="name">
+                        <input id="searchingtitle" type="text" class="form-control" value="{{ Request()->name }}"
+                            placeholder="Searching Asset" name="name">
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-dark">Search</button>
@@ -38,9 +38,13 @@
                                 <h5 class="card-title">List Asset Tools</h5>
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-                                    <a href="{{ route('assettools.cetakpdf') }}" class="btn btn-success"
-                                        target="_blank">Cetak
-                                        PDF</a>
+                                    <div class="d-flex gap-2">
+
+                                        <a href="{{ route('assettools.cetakpdf') }}" class="btn btn-success"
+                                            target="_blank">Cetak
+                                            PDF</a>
+                                        <a href="{{ route('assettools.export') }}" class="btn btn-success">Export Excel</a>
+                                    </div>
                                 @endif
 
                             </div>
@@ -95,7 +99,8 @@
 
                                                 @if (Auth::user()->is_role == 2)
                                                     <td class="text-center">
-                                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}" class="btn btn-info btn-sm mt-1">
+                                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}"
+                                                            class="btn btn-info btn-sm mt-1">
                                                             History Detail
                                                         </a>
                                                         <a href="{{ route('asset-tools.edit', $asset->id) }}"

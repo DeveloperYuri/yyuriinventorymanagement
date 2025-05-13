@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exports\AssetToolsHistoryInOutExport;
 use App\Exports\AssetToolsHistoryPerItemExport;
+use App\Exports\AssetToolsInExport;
+use App\Exports\AssetToolsOutExport;
 use App\Models\ListAssetToolsModel;
 use App\Models\StockAssetTransactionModel;
 use Illuminate\Http\Request;
@@ -94,6 +96,16 @@ class StockAssetController extends Controller
         $stockOuts = StockAssetTransactionModel::where('type', 'out')->with('assetTools')->get();
         $pdf = Pdf::loadView('assettoolspdf.stock_out', compact('stockOuts'));
         return $pdf->download('laporan_asset_keluar.pdf');
+    }
+
+    public function exportStockInExcel()
+    {
+        return Excel::download(new AssetToolsInExport, 'laporan_asset_masuk.xlsx');
+    }
+
+    public function exportStockOutExcel()
+    {
+        return Excel::download(new AssetToolsOutExport, 'laporan_stok_keluar.xlsx');
     }
 
     public function history(Request $request)

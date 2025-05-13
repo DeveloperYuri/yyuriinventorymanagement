@@ -31,27 +31,4 @@ class StockAssetTransactionModel extends Model
             }
         });
     }
-
-    // use HasFactory;
-
-    // protected $table = 'stock_asset_transactions';
-
-    // protected $fillable = ['asset_tools_id', 'type', 'quantity'];
-
-    // public function sparePart()
-    // {
-    //     return $this->belongsTo(ListAssetToolsModel::class);
-    // }
-
-    // protected static function booted()
-    // {
-    //     static::created(function ($transaction) {
-    //         $sparePart = $transaction->sparePart;
-    //         if ($transaction->type == 'in') {
-    //             $sparePart->increment('stock', $transaction->quantity);
-    //         } else {
-    //             $sparePart->decrement('stock', $transaction->quantity);
-    //         }
-    //     });
-    // }
 }

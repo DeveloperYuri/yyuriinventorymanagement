@@ -122,7 +122,7 @@ Route::get('/asset-tools/{id}/edit', [ListAssetToolsController::class, 'edit'])-
 Route::put('/asset-tools/{id}', [ListAssetToolsController::class, 'update'])->name('asset-tools.update');
 Route::delete('/asset-tools/{id}', [ListAssetToolsController::class, 'destroy'])->name('asset-tools.destroy');
 Route::get('/assettool/pdf', [ListAssetToolsController::class, 'cetakPDF'])->name('assettools.cetakpdf');
-
+Route::get('/export-assettools', [ListAssetToolsController::class, 'exportExcel'])->name('assettools.export');
 
 Route::get('/asset-in', [StockAssetController::class, 'stockInIndex'])->name('asset-in.index');
 Route::get('/asset-in/create', [StockAssetController::class, 'stockInForm'])->name('asset-in.create');
@@ -140,3 +140,6 @@ Route::get('/assettool/history/{id}', [StockAssetController::class, 'viewHistory
 Route::get('/assettool/{id}/history/pdf', [StockAssetController::class, 'exportHistoryPerItemPDF'])->name('assettoolsdetail.history.pdf');
 Route::get('/assettools/{id}/export-excel', [StockAssetController::class, 'exportHistoryPerItemExcel'])->name('assettoolsdetail.history.excel');
 Route::get('/assettools-export-history-excel', [StockAssetController::class, 'exportHistoryExcel'])->name('assettools.history.excel');
+
+Route::get('/export-asset-stock-in-excel', [StockAssetController::class, 'exportStockInExcel'])->name('assetstockin.export.excel');
+Route::get('/export-asset-stock-out-excel', [StockAssetController::class, 'exportStockOutExcel'])->name('assetstockout.export.excel');
