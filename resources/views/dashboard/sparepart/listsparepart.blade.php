@@ -15,8 +15,8 @@
             <form method="get">
                 <div class="row g-2 align-items-center">
                     <div class="col">
-                        <input id="searchingtitle" type="text" class="form-control"
-                            value="{{ Request()->name }}" placeholder="Searching Spare Part" name="name">
+                        <input id="searchingtitle" type="text" class="form-control" value="{{ Request()->name }}"
+                            placeholder="Searching Spare Part" name="name">
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-dark">Search</button>
@@ -37,9 +37,11 @@
                                 <h5 class="card-title mb-0">List Spare Part</h5>
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-                                    <a href="{{ route('sparepart.cetakpdf') }}" class="btn btn-success"
-                                        target="_blank">Cetak
-                                        PDF</a>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('sparepart.cetakpdf') }}" class="btn btn-success"
+                                            target="_blank">Print PDF</a>
+                                        <a href="{{ route('sparepart.export') }}" class="btn btn-success">Export Excel</a>
+                                    </div>
                                 @endif
 
                             </div>
@@ -93,7 +95,8 @@
 
                                                 @if (Auth::user()->is_role == 2)
                                                     <td class="text-center">
-                                                        <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}" class="btn btn-info btn-sm mt-1">
+                                                        <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}"
+                                                            class="btn btn-info btn-sm mt-1">
                                                             History Detail
                                                         </a>
                                                         <a href="{{ route('spare-parts.edit', $part->id) }}"

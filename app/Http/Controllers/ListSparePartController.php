@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SparepartExport;
 use App\Models\ListSparePartModel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListSparePartController extends Controller
 {
@@ -98,5 +99,10 @@ class ListSparePartController extends Controller
         $spareparts = ListSparePartModel::all();
         $pdf = Pdf::loadView('sparepartpdf.sparepart', compact('spareparts'));
         return $pdf->download('laporan_sparepart.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new SparepartExport, 'laporan_sparepart.xlsx');
     }
 }

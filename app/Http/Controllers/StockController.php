@@ -8,6 +8,8 @@ use App\Models\StockTransactionModel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\SparePartHistoryPerItemExport;
+use App\Exports\StockSparePartInExport;
+use App\Exports\StockSparePartOutExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Carbon;
 
@@ -84,6 +86,16 @@ class StockController extends Controller
         $stockIns = StockTransactionModel::where('type', 'in')->with('sparePart')->get();
         $pdf = Pdf::loadView('sparepartpdf.stock_in', compact('stockIns'));
         return $pdf->download('laporan_stok_masuk.pdf');
+    }
+
+    public function exportStockInExcel()
+    {
+        return Excel::download(new StockSparePartInExport, 'laporan_stok_masuk.xlsx');
+    }
+
+    public function exportStockOutExcel()
+    {
+        return Excel::download(new StockSparePartOutExport, 'laporan_stok_keluar.xlsx');
     }
 
     public function exportStockOutPDF()
@@ -181,7 +193,7 @@ class StockController extends Controller
 
         // Buat PDF dengan data transaksi dan total stok
         $pdf = Pdf::loadView('sparepartpdf.detailsparepart', compact('sparePart', 'transactions', 'startDate', 'endDate'))
-        ->setPaper('A4', 'portrait');
+            ->setPaper('A4', 'portrait');
 
         return $pdf->download('riwayat_sparepart_' . $sparePart->name . '.pdf');
     }
@@ -217,5 +229,4 @@ class StockController extends Controller
             'laporan_riwayat_sparepartinout.xlsx'
         );
     }
-    
 }

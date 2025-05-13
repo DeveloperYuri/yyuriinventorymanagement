@@ -21,7 +21,10 @@
                                 <h5 class="card-title">List Spare Part Out</h5>
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-                                    <a href="{{ route('export.stock-out') }}" class="btn btn-success">Cetak PDF</a>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('export.stock-out') }}" class="btn btn-success">Cetak PDF</a>
+                                        <a href="{{ route('stockout.export.excel') }}" class="btn btn-success">Export XLX</a>
+                                    </div>
                                 @endif
 
                             </div>

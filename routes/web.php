@@ -91,6 +91,7 @@ Route::get('/spare-parts/{id}/edit', [ListSparePartController::class, 'edit'])->
 Route::put('/spare-parts/{id}', [ListSparePartController::class, 'update'])->name('spare-parts.update');
 Route::delete('/spare-parts/{id}', [ListSparePartController::class, 'destroy'])->name('spare-parts.destroy');
 Route::get('/sparepart/pdf', [ListSparePartController::class, 'cetakPDF'])->name('sparepart.cetakpdf');
+Route::get('/export-sparepart', [ListSparePartController::class, 'exportExcel'])->name('sparepart.export');
 
 Route::get('/sparepart-in', [StockController::class, 'stockInIndex'])->name('stock-in.index');
 Route::get('/sparepart-in/create', [StockController::class, 'stockInForm'])->name('stock-in.create');
@@ -108,6 +109,9 @@ Route::get('/sparepart/history/{id}', [StockController::class, 'viewHistoryPerIt
 Route::get('/sparepart/{id}/history/pdf', [StockController::class, 'exportHistoryPerItemPDF'])->name('sparepartdetail.history.pdf');
 Route::get('/sparepart/{id}/export-excel', [StockController::class, 'exportHistoryPerItemExcel'])->name('sparepartdetail.history.excel');
 Route::get('/export-history-excel', [StockController::class, 'exportHistoryExcel'])->name('sparepart.history.excel');
+
+Route::get('/export-stock-in-excel', [StockController::class, 'exportStockInExcel'])->name('stockin.export.excel');
+Route::get('/export-stock-out-excel', [StockController::class, 'exportStockOutExcel'])->name('stockout.export.excel');
 
 // Asset Tools In Out
 Route::get('/Assettools', [ListAssetToolsController::class, 'index'])->name('asset-tools.index');
