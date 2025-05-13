@@ -24,6 +24,7 @@
         <tr>
             <th style="text-align: center;">No</th>
             <th style="text-align: center;">Spare Part</th>
+            <th style="text-align: center;">User</th>
             <th style="text-align: center;">Jenis</th>
             <th style="text-align: center;">Jumlah</th>
             <th style="text-align: center;">Tanggal</th>
@@ -34,6 +35,7 @@
             <tr>
                 <td style="text-align: center;">{{ $index + 1 }}</td>
                 <td style="text-align: center;">{{ $item->assetTools->name ?? '-' }}</td>
+                <td style="text-align: center;">{{ $item->user }}</td>
                 <td style="text-align: center;">{{ $item->type == 'in' ? 'Masuk' : 'Keluar' }}</td>
                 <td style="text-align: center;">{{ $item->quantity }}</td>
                 <td style="text-align: center;">{{ $item->created_at->format('d-m-Y') }}</td>
