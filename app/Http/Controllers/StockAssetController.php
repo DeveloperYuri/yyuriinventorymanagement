@@ -15,11 +15,31 @@ use Illuminate\Support\Carbon;
 
 class StockAssetController extends Controller
 {
-    public function stockInIndex()
+
+    public function stockInIndex(Request $request)
     {
-        $transactions = StockAssetTransactionModel::with('assetTools')->where('type', 'in')->orderByDesc('created_at', 'desc')->paginate(10);
+        $query = StockAssetTransactionModel::with('assetTools')
+            ->where('type', 'in')
+            ->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->paginate(10);
+
         return view('dashboard.assettoolsin.listassettoolsin', compact('transactions'));
     }
+
+    // public function stockInIndex()
+    // {
+    //     $transactions = StockAssetTransactionModel::with('assetTools')->where('type', 'in')->orderByDesc('created_at', 'desc')->paginate(10);
+    //     return view('dashboard.assettoolsin.listassettoolsin', compact('transactions'));
+    // }
 
     public function stockInForm()
     {
@@ -48,11 +68,30 @@ class StockAssetController extends Controller
         return redirect()->route('asset-in.index')->with('success', 'Stok masuk berhasil dicatat.');
     }
 
-    public function stockOutIndex()
+    public function stockOutIndex(Request $request)
     {
-        $transactions = StockAssetTransactionModel::with('assetTools')->where('type', 'out')->orderByDesc('created_at', 'desc')->paginate(10);
+        $query = StockAssetTransactionModel::with('assetTools')
+            ->where('type', 'out')
+            ->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->paginate(10);
+
         return view('dashboard.assettoolsout.listassettoolsout', compact('transactions'));
     }
+
+    // public function stockOutIndex()
+    // {
+    //     $transactions = StockAssetTransactionModel::with('assetTools')->where('type', 'out')->orderByDesc('created_at', 'desc')->paginate(10);
+    //     return view('dashboard.assettoolsout.listassettoolsout', compact('transactions'));
+    // }
 
     public function stockOutForm()
     {
@@ -196,7 +235,7 @@ class StockAssetController extends Controller
 
         // Buat PDF dengan data transaksi dan total stok
         $pdf = Pdf::loadView('assettoolspdf.detailassettools', compact('assetTools', 'transactions', 'startDate', 'endDate'))
-        ->setPaper('A4', 'portrait');
+            ->setPaper('A4', 'portrait');
 
         return $pdf->download('riwayat_detail_assettools' . $assetTools->name . '.pdf');
     }

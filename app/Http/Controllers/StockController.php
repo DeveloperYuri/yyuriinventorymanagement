@@ -15,11 +15,31 @@ use Illuminate\Support\Carbon;
 
 class StockController extends Controller
 {
-    public function stockInIndex()
+
+    public function stockInIndex(Request $request)
     {
-        $transactions = StockTransactionModel::with('sparePart')->where('type', 'in')->orderByDesc('created_at', 'desc')->paginate(10);
+        $query = StockTransactionModel::with('sparePart')
+            ->where('type', 'in')
+            ->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->paginate(10);
+
         return view('dashboard.sparepartin.listsparepartin', compact('transactions'));
     }
+
+    // public function stockInIndex()
+    // {
+    //     $transactions = StockTransactionModel::with('sparePart')->where('type', 'in')->orderByDesc('created_at', 'desc')->paginate(10);
+    //     return view('dashboard.sparepartin.listsparepartin', compact('transactions'));
+    // }
 
     public function stockInForm()
     {
@@ -45,11 +65,30 @@ class StockController extends Controller
         return redirect()->route('stock-in.index')->with('success', 'Stok masuk berhasil dicatat.');
     }
 
-    public function stockOutIndex()
+    public function stockOutIndex(Request $request)
     {
-        $transactions = StockTransactionModel::with('sparePart')->where('type', 'out')->orderByDesc('created_at', 'desc')->paginate(10);
+        $query = StockTransactionModel::with('sparePart')
+            ->where('type', 'out')
+            ->orderByDesc('created_at');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $transactions = $query->paginate(10);
+
         return view('dashboard.sparepartout.listsparepartout', compact('transactions'));
     }
+
+    // public function stockOutIndex()
+    // {
+    //     $transactions = StockTransactionModel::with('sparePart')->where('type', 'out')->orderByDesc('created_at', 'desc')->paginate(10);
+    //     return view('dashboard.sparepartout.listsparepartout', compact('transactions'));
+    // }
 
     public function stockOutForm()
     {

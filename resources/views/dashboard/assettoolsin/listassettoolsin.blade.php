@@ -9,6 +9,24 @@
             </div>
         @endif
 
+        <div class="d-flex justify-content-end mb-2">
+            <form method="GET" action="{{ route('asset-in.index') }}" class="mb-3 d-flex gap-2 align-items-end">
+                <div>
+                    <label for="start_date">Dari Tanggal</label>
+                    <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
+                </div>
+                <div>
+                    <label for="end_date">Sampai Tanggal</label>
+                    <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{{ route('asset-in.index') }}" class="btn btn-secondary">Reset</a>
+                </div>
+            </form>
+        </div>
+
+
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
@@ -25,7 +43,8 @@
                                         <a href="{{ route('export.asset-stock-in') }}" class="btn btn-success"
                                             target="_blank">Cetak
                                             PDF</a>
-                                        <a href="{{ route('assetstockin.export.excel') }}" class="btn btn-success">Export XLX</a>
+                                        <a href="{{ route('assetstockin.export.excel') }}" class="btn btn-success">Export
+                                            XLX</a>
                                     </div>
                                 @endif
 
