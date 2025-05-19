@@ -41,7 +41,7 @@
                                     <div class="d-flex gap-2">
 
                                         <a href="{{ route('assettools.cetakpdf') }}" class="btn btn-success"
-                                            target="_blank">Cetak
+                                            target="_blank">Print
                                             PDF</a>
                                         <a href="{{ route('assettools.export') }}" class="btn btn-success">Export Excel</a>
                                     </div>

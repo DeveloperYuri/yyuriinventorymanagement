@@ -150,7 +150,7 @@
          <!-- Start Spare Part Sidebar -->
 
          @php
-             $isConfigActive = request()->routeIs('indexbrand') || request()->routeIs('indexwarehouse');
+             $isConfigActive = request()->routeIs('indexbrand') || request()->routeIs('indexwarehouse') || request()->routeIs('indexprofile');
          @endphp
 
          <li class="nav-item">
@@ -172,37 +172,14 @@
                          <i class="bi bi-circle"></i><span>Warehouse</span>
                      </a>
                  </li>
-                 {{-- 
-        <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Profile</span>
-            </a>
-        </li> 
-        --}}
-             </ul>
-         </li>
-         {{-- <li class="nav-item">
-             <a class="nav-link collapsed" data-bs-target="#configuration-nav" data-bs-toggle="collapse" href="#">
-                 <i class="bi bi-gear"></i><span>Configuration</span><i class="bi bi-chevron-down ms-auto"></i>
-             </a>
-             <ul id="configuration-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                  <li>
-                     <a href="{{ route('indexbrand') }}">
-                         <i class="bi bi-circle"></i><span>Brand</span>
+                     <a href="{{ route('indexprofile') }}"
+                         class="{{ request()->routeIs('indexprofile') ? 'active' : '' }}">
+                         <i class="bi bi-circle"></i><span>Profile</span>
                      </a>
                  </li>
-                 <li>
-                     <a href="{{ route('indexwarehouse') }}">
-                         <i class="bi bi-circle"></i><span>Warehouse</span>
-                     </a>
-                 </li> --}}
-         {{-- <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Profile</span>
-            </a>
-          </li> --}}
-         {{-- </ul>
-         </li> --}}
+             </ul>
+         </li>
          <!-- End Spare Part Sidebar -->
 
      </ul>

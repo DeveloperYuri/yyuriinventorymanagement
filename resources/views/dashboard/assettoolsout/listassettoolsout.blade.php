@@ -40,7 +40,7 @@
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                                     <div class="d-flex gap-2">
                                         <a href="{{ route('export.asset-stock-out') }}" class="btn btn-success"
-                                            target="_blank">Cetak
+                                            target="_blank">Print
                                             PDF</a>
                                         <a href="{{ route('assetstockout.export.excel') }}" class="btn btn-success">Export
                                             XLX</a>
