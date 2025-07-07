@@ -26,7 +26,7 @@
                                         <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" novalidate>
+                                    <form action="{{ route('indexregisterpost')}}" class="row g-3 needs-validation" novalidate>
                                         <div class="col-12">
                                             <label for="yourName" class="form-label">Your Name</label>
                                             <input type="text" name="name" class="form-control" id="yourName"

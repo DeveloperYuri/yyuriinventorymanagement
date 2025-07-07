@@ -83,7 +83,7 @@
                                                 <td class="text-center">
                                                     @if ($part->image)
                                                         <img src="{{ asset('images/' . $part->image) }}"
-                                                            alt="{{ $part->name }}" width="60">
+                                                            alt="{{ $part->name }}" width="60" loading="lazy">
                                                     @else
                                                         <span class="text-muted">Tidak ada</span>
                                                     @endif

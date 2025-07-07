@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 // Login Register
 Route::get('/', [AuthController::class, 'login'])->name('indexlogin');
 Route::get('/registration', [AuthController::class, 'register'])->name('indexregister');
+Route::get('/registration/post', [AuthController::class, 'registerpost'])->name('indexregisterpost');
 
 // Dashboard Page
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('indexdashboard');

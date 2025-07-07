@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -31,6 +34,32 @@ class AuthController extends Controller
         } else {
             return redirect()->back()->with('error', 'Please enter the correct credentials');
         }
+    }
+
+    public function register(){
+        return view('register.index');
+    }
+
+    public function registerpost(Request $request){
+
+        // dd($request->all());
+        $user = request()->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:6',
+            // 'confirm_password' => 'required_with:password|same:password|min:6',
+            // 'is_role' => 'required'
+        ]);
+
+        $user = new User();
+        $user->name = trim($request->name);
+        $user->email = trim($request->email);
+        $user->password = Hash::make($request->password);
+        // $user->is_role = trim($request->is_role);
+        $user->remember_token = Str::random(50);
+        $user->save();
+
+        return redirect('/')->with('success', 'Register successfully');
     }
 
     public function logout()
