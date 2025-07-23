@@ -32,7 +32,11 @@ class ListSparePartController extends Controller
         $request->validate([
             'name' => 'required|string',
             'price' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
+        ],[
+            'name' => 'Nama Spare Part wajib diisi',
+            'price' => 'Harga Spare Part wajib diisi',
+            'image' => 'File harus berupa JPG, JPEG, PNG, atau GIF Max Size 5MB',
         ]);
 
         $data = $request->only('name', 'price');

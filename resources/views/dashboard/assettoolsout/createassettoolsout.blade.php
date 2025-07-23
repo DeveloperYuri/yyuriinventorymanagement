@@ -10,7 +10,7 @@
                             <h5 class="card-title">Asset Tools Out</h5>
 
                             <!-- Horizontal Form -->
-                            <form action="{{ route('asset-out.store')}}" method="POST">
+                            <form id="myForm" action="{{ route('asset-out.store')}}" method="POST">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">

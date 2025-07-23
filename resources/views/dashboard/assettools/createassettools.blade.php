@@ -11,7 +11,7 @@
                             <h5 class="card-title">Add New Asset Tools</h5>
 
                             <!-- Horizontal Form -->
-                            <form action="{{ route('asset-tools.store')}}" method="POST" enctype="multipart/form-data">
+                            <form id="myForm" action="{{ route('asset-tools.store')}}" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">

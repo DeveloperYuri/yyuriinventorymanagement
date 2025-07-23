@@ -10,7 +10,7 @@
                             <h5 class="card-title">Add New Spare Part In</h5>
 
                             <!-- Horizontal Form -->
-                            <form action="{{ route('stock-in.store') }}" method="POST">
+                            <form id="myForm" action="{{ route('stock-in.store') }}" method="POST">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">
