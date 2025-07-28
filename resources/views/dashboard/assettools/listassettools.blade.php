@@ -5,7 +5,7 @@
 
         <div class="pagetitle d-flex justify-content-between align-items-center">
             @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-                <a href="{{ route('asset-tools.create') }}" class="btn btn-primary">Add Asset Tools</a>
+                <a href="{{ route('asset-tools.create') }}" class="btn btn-primary" dusk="addassettools">Add Asset Tools</a>
             @endif
 
             <a href="{{ route('card-list-asset-tools.index') }}" class="btn btn-secondary"><i class="bi bi-card-list"></i></a>
@@ -72,6 +72,7 @@
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Harga</th>
                                             <th class="text-center">Stok</th>
+                                            <th class="text-center">Satuan</th>
 
                                             @if (Auth::user()->is_role == 2)
                                                 <th class="text-center">Aksi</th>
@@ -96,15 +97,15 @@
                                                 <td class="text-center">Rp {{ number_format($asset->price, 0, ',', '.') }}
                                                 </td>
                                                 <td class="text-center">{{ $asset->stock }}</td>
+                                                <td class="text-center">{{ $asset->satuan }}</td>
 
-                                                @if (Auth::user()->is_role == 2)
-                                                    <td class="text-center">
-                                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}"
-                                                            class="btn btn-info btn-sm mt-1">
-                                                            History Detail
-                                                        </a>
+
+                                                <td class="text-center">
+                                                    @if (Auth::user()->is_role == 1 || Auth::user()->is_role == 2)
                                                         <a href="{{ route('asset-tools.edit', $asset->id) }}"
                                                             class="btn btn-sm btn-warning mt-1">Edit</a>
+                                                    @endif
+                                                    @if (Auth::user()->is_role == 2)
                                                         <form action="{{ route('asset-tools.destroy', $asset->id) }}"
                                                             method="POST" style="display:inline-block;">
                                                             @csrf
@@ -112,8 +113,12 @@
                                                             <button type="button" class="btn btn-sm btn-danger mt-1"
                                                                 onclick="confirmDelete(this.form)">Hapus</button>
                                                         </form>
-                                                    </td>
-                                                @endif
+                                                        <a href="{{ route('assettoolsdetail.history', ['id' => $asset->id]) }}"
+                                                            class="btn btn-info btn-sm mt-1">
+                                                            History Detail
+                                                        </a>
+                                                    @endif
+                                                </td>
 
                                             </tr>
                                         @endforeach

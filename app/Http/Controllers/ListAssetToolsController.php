@@ -33,10 +33,18 @@ class ListAssetToolsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'price' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120'
+        ],[
+            'name' => 'Nama Asset Tools wajib diisi',
+            'price.required' => 'Harga Asset Tools wajib diisi',
+            'price.integer' => 'Harga Asset Tools harus berupa angka',
+            'image.required'   => 'File gambar harus diisi',
+            'image.image'   => 'File harus berupa gambar',
+            'image.mimes'   => 'File harus JPG, JPEG, PNG, atau GIF',
+            'image.max'     => 'Ukuran file maksimal 5MB',
         ]);
 
-        $data = $request->only('name', 'price');
+        $data = $request->only('name', 'price', 'satuan');
 
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
@@ -66,6 +74,7 @@ class ListAssetToolsController extends Controller
         $assetTools = ListAssetToolsModel::findOrFail($id);
         $assetTools->name = $request->name;
         $assetTools->price = $request->price;
+        $assetTools->satuan = $request->satuan;
 
         if ($request->hasFile('image')) {
             if ($assetTools->image && file_exists(public_path('images/' . $assetTools->image))) {

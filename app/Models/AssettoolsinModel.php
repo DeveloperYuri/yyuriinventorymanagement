@@ -33,4 +33,5 @@ class AssettoolsinModel extends Model
         $return = $return->paginate(10);
         return $return;
     }
+    
 }

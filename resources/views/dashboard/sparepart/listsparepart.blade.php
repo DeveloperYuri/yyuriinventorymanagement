@@ -5,7 +5,7 @@
 
         <div class="pagetitle d-flex justify-content-between align-items-center">
             @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
-                <a href="{{ route('spare-parts.create') }}" class="btn btn-primary">Add Spare Part</a>
+                <a href="{{ route('spare-parts.create') }}" class="btn btn-primary" dusk="addsparepart">Add Spare Part</a>
             @endif
 
             <a href="{{ route('card-list-spare-parts.index') }}" class="btn btn-secondary"><i class="bi bi-card-list"></i></a>
@@ -69,8 +69,9 @@
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Harga</th>
                                             <th class="text-center">Stok</th>
+                                            <th class="text-center">Satuan</th>
 
-                                            @if (Auth::user()->is_role == 2)
+                                            @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                                                 <th class="text-center">Aksi</th>
                                             @endif
                                         </tr>
@@ -92,15 +93,16 @@
                                                 <td class="text-center">Rp {{ number_format($part->price, 0, ',', '.') }}
                                                 </td>
                                                 <td class="text-center">{{ $part->stock }}</td>
+                                                <td class="text-center">{{ $part->satuan }}</td>
 
-                                                @if (Auth::user()->is_role == 2)
-                                                    <td class="text-center">
-                                                        <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}"
-                                                            class="btn btn-info btn-sm mt-1">
-                                                            History Detail
-                                                        </a>
+
+                                                <td class="text-center">
+                                                    @if (Auth::user()->is_role == 1 || Auth::user()->is_role == 2)
                                                         <a href="{{ route('spare-parts.edit', $part->id) }}"
                                                             class="btn btn-sm btn-warning mt-1">Edit</a>
+                                                    @endif
+
+                                                    @if (Auth::user()->is_role == 2)
                                                         <form action="{{ route('spare-parts.destroy', $part->id) }}"
                                                             method="POST" style="display:inline;">
                                                             @csrf
@@ -108,8 +110,14 @@
                                                             <button type="button" class="btn btn-sm btn-danger mt-1"
                                                                 onclick="confirmDelete(this.form)">Hapus</button>
                                                         </form>
-                                                    </td>
-                                                @endif
+
+                                                        <a href="{{ route('sparepartdetail.history', ['id' => $part->id]) }}"
+                                                            class="btn btn-info btn-sm mt-1">
+                                                            History Detail
+                                                        </a>
+                                                    @endif
+                                                </td>
+
 
                                             </tr>
                                         @endforeach

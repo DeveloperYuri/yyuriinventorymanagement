@@ -10,7 +10,7 @@
                             <h5 class="card-title">Asset Tools Out</h5>
 
                             <!-- Horizontal Form -->
-                            <form id="myForm" action="{{ route('asset-out.store')}}" method="POST">
+                            <form id="myForm" action="{{ route('asset-out.store') }}" method="POST">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">
@@ -27,14 +27,22 @@
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah Keluar</label>
                                     <div class="col-sm-10">
-                                        <input type="number" name="quantity" class="form-control" required min="1">
+                                        <input type="number" name="quantity"
+                                            class="form-control @error('quantity') is-invalid @enderror"
+                                            min="1" value="{{ old('quantity') }}">
+                                        @error('quantity')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="user" class="col-sm-2 col-form-label">Diminta oleh</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="user" id="user" class="form-control" required>
+                                    <div class="col-sm-10"> 
+                                        <input type="text" name="user" id="user" class="form-control @error('user') is-invalid @enderror" value="{{ old('user')}}">
+                                        @error('user')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -45,7 +53,7 @@
                                         <a href="{{ route('asset-out.index') }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </div>
-                                
+
                             </form><!-- End Horizontal Form -->
 
                         </div>

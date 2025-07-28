@@ -53,6 +53,10 @@ class StockController extends Controller
             'spare_part_id' => 'required|exists:spare_parts,id',
             'quantity' => 'required|integer|min:1',
             'user' => 'required|string|max:255'
+        ],[
+            'spare_part_id' => 'Spare part harus diisi',
+            'quantity' => 'Quantity harus diisi',
+            'user' => 'Field user harus diisi',
         ]);
 
         StockTransactionModel::create([
@@ -102,13 +106,23 @@ class StockController extends Controller
             'spare_part_id' => 'required|exists:spare_parts,id',
             'quantity' => 'required|integer|min:1',
             'user' => 'required|string|max:255'
+        ], [
+            'spare_part_id' => 'Spare Part wajib dipilih',
+            'quantity' => 'Quantity harus diisi',
+            'user' => 'Field user harus diisi',
         ]);
 
         $sparePart = ListSparePartModel::find($request->spare_part_id);
 
         if ($request->quantity > $sparePart->stock) {
-            return back()->withErrors('Jumlah keluar melebihi stok yang tersedia.');
+            return back()
+                ->withErrors(['quantity' => 'Jumlah keluar melebihi stok yang tersedia (Stok: ' . $sparePart->stock . ').'])
+                ->withInput();
         }
+
+        // if ($request->quantity > $sparePart->stock) {
+        //     return back()->withErrors('Jumlah keluar melebihi stok yang tersedia.');
+        // }
 
         StockTransactionModel::create([
             'spare_part_id' => $request->spare_part_id,

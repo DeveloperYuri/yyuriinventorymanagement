@@ -5,7 +5,7 @@
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
             <div class="pagetitle">
-                <a href="{{ route('asset-out.create') }}" class="btn btn-primary">Create New Asset Tools Out</a>
+                <a href="{{ route('asset-out.create') }}" class="btn btn-primary" dusk="createnewassettoolsout">Create New Asset Tools Out</a>
             </div>
         @endif
 

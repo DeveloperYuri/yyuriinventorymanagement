@@ -35,12 +35,6 @@ class StockAssetController extends Controller
         return view('dashboard.assettoolsin.listassettoolsin', compact('transactions'));
     }
 
-    // public function stockInIndex()
-    // {
-    //     $transactions = StockAssetTransactionModel::with('assetTools')->where('type', 'in')->orderByDesc('created_at', 'desc')->paginate(10);
-    //     return view('dashboard.assettoolsin.listassettoolsin', compact('transactions'));
-    // }
-
     public function stockInForm()
     {
         $spareParts = ListAssetToolsModel::all();
@@ -54,6 +48,9 @@ class StockAssetController extends Controller
             'asset_tools_id' => 'required|exists:asset_tools,id',
             'quantity' => 'required|integer|min:1',
             'user' => 'required|string|max:255'
+        ], [
+            'quantity' => 'Quantity harus diisi',
+            'user' => 'Field user harus diisi',
         ]);
 
         // dd($request->all());
@@ -87,12 +84,6 @@ class StockAssetController extends Controller
         return view('dashboard.assettoolsout.listassettoolsout', compact('transactions'));
     }
 
-    // public function stockOutIndex()
-    // {
-    //     $transactions = StockAssetTransactionModel::with('assetTools')->where('type', 'out')->orderByDesc('created_at', 'desc')->paginate(10);
-    //     return view('dashboard.assettoolsout.listassettoolsout', compact('transactions'));
-    // }
-
     public function stockOutForm()
     {
         $spareParts = ListAssetToolsModel::all();
@@ -105,13 +96,22 @@ class StockAssetController extends Controller
             'asset_tools_id' => 'required|exists:asset_tools,id',
             'quantity' => 'required|integer|min:1',
             'user' => 'required|string|max:255'
+            ], [
+            'quantity' => 'Quantity harus diisi',
+            'user' => 'Field user harus diisi',
         ]);
 
         $sparePart = ListAssetToolsModel::find($request->asset_tools_id);
 
         if ($request->quantity > $sparePart->stock) {
-            return back()->withErrors('Jumlah keluar melebihi stok yang tersedia.');
+            return back()
+                ->withErrors(['quantity' => 'Jumlah keluar melebihi stok yang tersedia (Stok: ' . $sparePart->stock . ').'])
+                ->withInput();
         }
+
+        // if ($request->quantity > $sparePart->stock) {
+        //     return back()->withErrors('Jumlah keluar melebihi stok yang tersedia.');
+        // }
 
         StockAssetTransactionModel::create([
             'asset_tools_id' => $request->asset_tools_id,

@@ -4,28 +4,34 @@
     <main id="main" class="main">
         <section class="section">
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
 
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Add New Spare Part</h5>
 
                             <!-- Horizontal Form -->
-                            <form id="myForm" action="{{ route('spare-parts.store') }}" method="POST" enctype="multipart/form-data">
+                            <form id="myForm" action="{{ route('spare-parts.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">IMAGE<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="file" class="form-control" name="image" required>
+                                        <input type="file" class="form-control @error('image') is-invalid @enderror"
+                                            name="image">
+                                        @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Spare Part<span
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Description<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputText" name="name">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            id="inputText" name="name" value="{{ old('name') }}">
                                         @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -36,10 +42,22 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Price<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control @error('price') is-invalid @enderror" id="inputText" name="price">
-                                         @error('price')
+                                        <input type="text" class="form-control @error('price') is-invalid @enderror"
+                                            id="inputText" name="price" value="{{ old('price') }}">
+                                        @error('price')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Satuan</label>
+                                    <div class="col-sm-10">
+                                        <select name="satuan" class="form-control">
+                                            <option value="Pcs">Pcs</option>
+                                            <option value="Pack">Pack</option>
+                                            <option value="Meter">Meter</option>
+                                        </select>
                                     </div>
                                 </div>
 

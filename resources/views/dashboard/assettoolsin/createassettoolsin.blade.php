@@ -10,7 +10,7 @@
                             <h5 class="card-title">Add New Asset Tools In</h5>
 
                             <!-- Horizontal Form -->
-                            <form id="myForm" action="{{ route('asset-in.store')}}" method="POST">
+                            <form id="myForm" action="{{ route('asset-in.store') }}" method="POST">
                                 {{ csrf_field() }}
 
                                 <div class="row mb-3">
@@ -27,14 +27,22 @@
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Jumlah Masuk</label>
                                     <div class="col-sm-10">
-                                        <input type="number" name="quantity" class="form-control" required min="1">
+                                        <input type="number" name="quantity"
+                                            class="form-control @error('quantity') is-invalid @enderror"
+                                            min="1" value="{{ old('quantity')}}">
+                                        @error('quantity')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="user" class="col-sm-2 col-form-label">Penerima Asset</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="user" id="user" class="form-control" required>
+                                        <input type="text" name="user" id="user" class="form-control @error('user') is-invalid @enderror" value="{{ old('user')}}">
+                                        @error('user')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 

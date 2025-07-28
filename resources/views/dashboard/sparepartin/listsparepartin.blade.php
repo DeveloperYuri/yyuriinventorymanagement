@@ -5,7 +5,7 @@
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
             <div class="pagetitle">
-                <a href="{{ route('stock-in.create') }}" class="btn btn-primary">Create New Spare Part In</a>
+                <a href="{{ route('stock-in.create') }}" class="btn btn-primary" dusk="createsparepartin">Create New Spare Part In</a>
             </div><!-- End Page Title -->
         @endif
 
