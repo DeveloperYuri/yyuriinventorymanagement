@@ -74,7 +74,7 @@
                                             <th class="text-center">Stok</th>
                                             <th class="text-center">Satuan</th>
 
-                                            @if (Auth::user()->is_role == 2)
+                                            @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                                                 <th class="text-center">Aksi</th>
                                             @endif
 

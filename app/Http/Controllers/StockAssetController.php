@@ -37,9 +37,9 @@ class StockAssetController extends Controller
 
     public function stockInForm()
     {
-        $spareParts = ListAssetToolsModel::all();
+        $assetTools = ListAssetToolsModel::all();
 
-        return view('dashboard.assettoolsin.createassettoolsin', compact('spareParts'));
+        return view('dashboard.assettoolsin.createassettoolsin', compact('assetTools'));
     }
 
     public function storeStockIn(Request $request)
@@ -86,8 +86,8 @@ class StockAssetController extends Controller
 
     public function stockOutForm()
     {
-        $spareParts = ListAssetToolsModel::all();
-        return view('dashboard.assettoolsout.createassettoolsout', compact('spareParts'));
+        $assetTools = ListAssetToolsModel::all();
+        return view('dashboard.assettoolsout.createassettoolsout', compact('assetTools'));
     }
 
     public function storeStockOut(Request $request)
