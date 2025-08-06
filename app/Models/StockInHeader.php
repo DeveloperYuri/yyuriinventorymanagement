@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class StockInHeader extends Model
+{
+    use HasFactory;
+
+    protected $table = 'stock_in_headers';
+
+    protected $fillable = [
+        'no_dokumen',
+        'diterima_dari',
+        'diterima_oleh',
+        'tanggal'
+    ];
+
+    public function details()
+    {
+        return $this->hasMany(StockInDetail::class, 'stock_in_header_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function stockTransactions()
+    {
+        return $this->hasMany(StockTransactionModel::class);
+    }
+}

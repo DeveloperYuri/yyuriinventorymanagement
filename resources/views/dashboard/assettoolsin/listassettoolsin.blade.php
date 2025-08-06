@@ -5,7 +5,8 @@
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
             <div class="pagetitle">
-                <a href="{{ route('asset-in.create') }}" class="btn btn-primary" dusk="createnewassettoolsin">Create New Asset Tools In</a>
+                <a href="{{ route('asset-in.create') }}" class="btn btn-primary" dusk="createnewassettoolsin">Create New Asset
+                    Tools In</a>
             </div>
         @endif
 
@@ -40,11 +41,20 @@
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                                     <div class="d-flex gap-2">
-                                        <a href="{{ route('export.asset-stock-in') }}" class="btn btn-success"
+                                        {{-- <a href="{{ route('export.asset-stock-in') }}" class="btn btn-success"
                                             target="_blank">Print
-                                            PDF</a>
-                                        <a href="{{ route('assetstockin.export.excel') }}" class="btn btn-success">Export
-                                            XLX</a>
+                                            PDF</a> --}}
+                                        <a href="{{ route('export.asset-stock-in', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}"
+                                            class="btn btn-success">Print PDF</a>
+
+                                        <a href="{{ route('assetstockin.export.excel', [
+                                            'start_date' => request('start_date'),
+                                            'end_date' => request('end_date'),
+                                        ]) }}"
+                                            class="btn btn-success">Export Excel</a>
+
+                                        {{-- <a href="{{ route('assetstockin.export.excel') }}" class="btn btn-success">Export
+                                            XLX</a> --}}
                                     </div>
                                 @endif
 

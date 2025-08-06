@@ -7,6 +7,8 @@ use App\Models\ListSparePartModel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\SparePartImport;
+
 
 class ListSparePartController extends Controller
 {
@@ -113,5 +115,33 @@ class ListSparePartController extends Controller
     public function exportExcel()
     {
         return Excel::download(new SparepartExport, 'laporan_sparepart.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        // Ambil semua data excel dulu
+        $data = Excel::toCollection(new SparePartImport, $request->file('file'))->first();
+
+        // Ambil semua nama di Excel
+        $names = collect($data)->pluck('name')->filter()->unique();
+
+        // Cek duplikat di database
+        $existing = \App\Models\ListSparePartModel::whereIn('name', $names)->pluck('name');
+
+        if ($existing->isNotEmpty()) {
+            return redirect()->back()->withErrors([
+                'file' => 'Nama berikut sudah ada: ' . $existing->implode(', ')
+            ]);
+        }
+
+        // Lanjutkan import jika tidak ada duplikat
+        Excel::import(new SparePartImport, $request->file('file'));
+
+        return redirect()->route('spare-parts.index')
+            ->with('success', 'Import data spare part berhasil!');
     }
 }

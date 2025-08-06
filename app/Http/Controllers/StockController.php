@@ -30,7 +30,9 @@ class StockController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $transactions = $query->paginate(10);
+        // $transactions = $query->paginate(10);
+        $transactions = $query->paginate(10)->withQueryString();
+
 
         return view('dashboard.sparepartin.listsparepartin', compact('transactions'));
     }
@@ -53,7 +55,7 @@ class StockController extends Controller
             'spare_part_id' => 'required|exists:spare_parts,id',
             'quantity' => 'required|integer|min:1',
             'user' => 'required|string|max:255'
-        ],[
+        ], [
             'spare_part_id' => 'Spare part harus diisi',
             'quantity' => 'Quantity harus diisi',
             'user' => 'Field user harus diisi',
@@ -83,7 +85,9 @@ class StockController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $transactions = $query->paginate(10);
+        // $transactions = $query->paginate(10);
+        $transactions = $query->paginate(10)->withQueryString();
+
 
         return view('dashboard.sparepartout.listsparepartout', compact('transactions'));
     }
@@ -134,29 +138,88 @@ class StockController extends Controller
         return redirect()->route('stock-out.index')->with('success', 'Stok keluar berhasil dicatat.');
     }
 
-    public function exportStockInPDF()
+    // public function exportStockInPDF()
+    // {
+    //     $stockIns = StockTransactionModel::where('type', 'in')->with('sparePart')->get();
+    //     $pdf = Pdf::loadView('sparepartpdf.stock_in', compact('stockIns'));
+    //     return $pdf->download('laporan_stok_masuk.pdf');
+    // }
+
+    public function exportStockInPDF(Request $request)
     {
-        $stockIns = StockTransactionModel::where('type', 'in')->with('sparePart')->get();
-        $pdf = Pdf::loadView('sparepartpdf.stock_in', compact('stockIns'));
+        $query = StockTransactionModel::where('type', 'in')->with('sparePart');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $stockIns = $query->get();
+
+        $pdf = Pdf::loadView('sparepartpdf.stock_in', compact('stockIns'))
+            ->setPaper('a4', 'portrait');
+
         return $pdf->download('laporan_stok_masuk.pdf');
     }
 
-    public function exportStockInExcel()
+    // public function exportStockInExcel()
+    // {
+    //     return Excel::download(new StockSparePartInExport, 'laporan_stok_masuk.xlsx');
+    // }
+
+    public function exportStockInExcel(Request $request)
     {
-        return Excel::download(new StockSparePartInExport, 'laporan_stok_masuk.xlsx');
+        return Excel::download(
+            new StockSparePartInExport($request->start_date, $request->end_date),
+            'laporan_stok_masuk.xlsx'
+        );
     }
 
-    public function exportStockOutExcel()
+    public function exportStockOutExcel(Request $request)
     {
-        return Excel::download(new StockSparePartOutExport, 'laporan_stok_keluar.xlsx');
+        return Excel::download(
+            new StockSparePartOutExport($request->start_date, $request->end_date),
+            'laporan_stok_keluar.xlsx'
+        );
     }
 
-    public function exportStockOutPDF()
+
+
+    // public function exportStockOutExcel()
+    // {
+    //     return Excel::download(new StockSparePartOutExport, 'laporan_stok_keluar.xlsx');
+    // }
+
+    // public function exportStockOutPDF()
+    // {
+    //     $stockOuts = StockTransactionModel::where('type', 'out')->with('sparePart')->get();
+    //     $pdf = Pdf::loadView('sparepartpdf.stock_out', compact('stockOuts'));
+    //     return $pdf->download('laporan_stok_keluar.pdf');
+    // }
+
+    public function exportStockOutPDF(Request $request)
     {
-        $stockOuts = StockTransactionModel::where('type', 'out')->with('sparePart')->get();
-        $pdf = Pdf::loadView('sparepartpdf.stock_out', compact('stockOuts'));
+        $query = StockTransactionModel::where('type', 'out')->with('sparePart');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $stockOuts = $query->get();
+
+        $pdf = Pdf::loadView('sparepartpdf.stock_out', compact('stockOuts'))
+            ->setPaper('a4', 'portrait');
+
         return $pdf->download('laporan_stok_keluar.pdf');
     }
+
 
     public function history(Request $request)
     {
@@ -170,7 +233,9 @@ class StockController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $transactions = $query->paginate(20);
+        // $transactions = $query->paginate(20);
+        $transactions = $query->paginate(20)->withQueryString();
+
 
         return view('dashboard.spareparthistory.history', compact('transactions'));
     }
@@ -214,7 +279,7 @@ class StockController extends Controller
         }, 0);
 
         // Pagination
-        $transactions = $query->orderByDesc('created_at')->paginate(20);
+        $transactions = $query->orderByDesc('created_at')->paginate(20)->withQueryString();
 
         return view('dashboard.sparepart.detailsparepart', compact('sparePart', 'transactions', 'totalStock'));
     }

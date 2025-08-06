@@ -17,6 +17,8 @@
                  request()->routeIs('spare-parts.*') ||
                  request()->routeIs('stock-in.*') ||
                  request()->routeIs('stock-out.*') ||
+                 request()->routeIs('sparepartinmultiple.*') ||
+                 request()->routeIs('sparepartoutmultiple.*') ||
                  request()->routeIs('sparepart.history');
          @endphp
 
@@ -33,18 +35,39 @@
                          <i class="bi bi-circle"></i><span>List Spare Part</span>
                      </a>
                  </li>
+
+                 @if (Auth::user()->is_role == 2)
+                     <li>
+                         <a href="{{ route('stock-in.index') }}"
+                             class="{{ request()->routeIs('stock-in.*') ? 'active' : '' }}">
+                             <i class="bi bi-circle"></i><span>Spare Part In ( single Input ) </span>
+                         </a>
+                     </li>
+                 @endif
+
                  <li>
-                     <a href="{{ route('stock-in.index') }}"
-                         class="{{ request()->routeIs('stock-in.*') ? 'active' : '' }}">
+                     <a href="{{ route('sparepartinmultiple.index') }}"
+                         class="{{ request()->routeIs('sparepartinmultiple.*') ? 'active' : '' }}">
                          <i class="bi bi-circle"></i><span>Spare Part In</span>
                      </a>
                  </li>
+
+                 @if (Auth::user()->is_role == 2)
+                     <li>
+                         <a href="{{ route('stock-out.index') }}"
+                             class="{{ request()->routeIs('stock-out.*') ? 'active' : '' }}">
+                             <i class="bi bi-circle"></i><span>Spare Part Out ( single Input )</span>
+                         </a>
+                     </li>
+                 @endif
+
                  <li>
-                     <a href="{{ route('stock-out.index') }}"
-                         class="{{ request()->routeIs('stock-out.*') ? 'active' : '' }}">
+                     <a href="{{ route('sparepartoutmultiple.index') }}"
+                         class="{{ request()->routeIs('sparepartoutmultiple.*') ? 'active' : '' }}">
                          <i class="bi bi-circle"></i><span>Spare Part Out</span>
                      </a>
                  </li>
+                 
                  <li>
                      <a href="{{ route('sparepart.history') }}"
                          class="{{ request()->routeIs('sparepart.history') ? 'active' : '' }}">
@@ -150,7 +173,10 @@
          <!-- Start Spare Part Sidebar -->
 
          @php
-             $isConfigActive = request()->routeIs('indexbrand') || request()->routeIs('indexwarehouse') || request()->routeIs('indexprofile');
+             $isConfigActive =
+                 request()->routeIs('indexbrand') ||
+                 request()->routeIs('indexwarehouse') ||
+                 request()->routeIs('indexprofile');
          @endphp
 
          <li class="nav-item">

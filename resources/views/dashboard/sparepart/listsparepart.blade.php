@@ -25,7 +25,6 @@
             </form>
         </div>
 
-
         <section class="section">
             <div class="row mt-4">
                 <div class="col-lg-12">
@@ -38,12 +37,58 @@
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                                     <div class="d-flex gap-2">
+                                        <!-- Button Import -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                            data-bs-target="#importModal">
+                                            Import Excel
+                                        </button>
+
+                                        <!-- Modal Import -->
+                                        <div class="modal fade" id="importModal" tabindex="-1"
+                                            aria-labelledby="importModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="importModalLabel">Import Spare Part dari
+                                                            Excel</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    
+                                                    <form action="{{ route('spare-parts.import') }}" method="POST"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="file" class="form-label">Pilih File
+                                                                    Excel</label>
+                                                                <input type="file" name="file" class="form-control"
+                                                                    accept=".xlsx,.xls,.csv" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                id="btnImport">Import</button>
+                                                        </div>
+                                                        {{-- <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-primary">Import</button>
+                                                        </div> --}}
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Button Print PDF -->
                                         <a href="{{ route('sparepart.cetakpdf') }}" class="btn btn-success"
                                             target="_blank">Print PDF</a>
+                                        <!-- Button Export Excel -->
                                         <a href="{{ route('sparepart.export') }}" class="btn btn-success">Export Excel</a>
                                     </div>
                                 @endif
-
                             </div>
 
                             @if (session('success'))
@@ -86,7 +131,9 @@
                                                         <img src="{{ asset('images/' . $part->image) }}"
                                                             alt="{{ $part->name }}" width="60" loading="lazy">
                                                     @else
-                                                        <span class="text-muted">Tidak ada</span>
+                                                        <img src="{{ asset('images/default.png') }}"
+                                                            alt="{{ $part->name }}" width="60" loading="lazy">
+                                                        {{-- <span class="text-muted">Tidak ada</span> --}}
                                                     @endif
                                                 </td>
                                                 <td class="text-center">{{ $part->name }}</td>
@@ -159,3 +206,29 @@
 
     </main><!-- End #main -->
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const importForm = document.querySelector('#importModal form');
+            const btnImport = document.getElementById('btnImport');
+
+            importForm.addEventListener('submit', function() {
+                btnImport.disabled = true;
+                btnImport.innerHTML = 'Importing...';
+            });
+        });
+    </script>
+@endpush
+
+@if ($errors->any())
+    @push('scripts')
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal import!',
+                text: '{{ $errors->first() }}'
+            });
+        </script>
+    @endpush
+@endif

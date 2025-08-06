@@ -30,7 +30,9 @@ class StockAssetController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $transactions = $query->paginate(10);
+        // $transactions = $query->paginate(10);
+        $transactions = $query->paginate(10)->withQueryString();
+
 
         return view('dashboard.assettoolsin.listassettoolsin', compact('transactions'));
     }
@@ -79,7 +81,9 @@ class StockAssetController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $transactions = $query->paginate(10);
+        // $transactions = $query->paginate(10);
+        $transactions = $query->paginate(10)->withQueryString();
+
 
         return view('dashboard.assettoolsout.listassettoolsout', compact('transactions'));
     }
@@ -96,7 +100,7 @@ class StockAssetController extends Controller
             'asset_tools_id' => 'required|exists:asset_tools,id',
             'quantity' => 'required|integer|min:1',
             'user' => 'required|string|max:255'
-            ], [
+        ], [
             'quantity' => 'Quantity harus diisi',
             'user' => 'Field user harus diisi',
         ]);
@@ -123,29 +127,87 @@ class StockAssetController extends Controller
         return redirect()->route('asset-out.index')->with('success', 'Stok keluar berhasil dicatat.');
     }
 
-    public function exportStockInPDF()
+    // public function exportStockInPDF()
+    // {
+    //     $stockIns = StockAssetTransactionModel::where('type', 'in')->with('assetTools')->get();
+    //     $pdf = Pdf::loadView('assettoolspdf.stock_in', compact('stockIns'));
+    //     return $pdf->download('laporan_asset_masuk.pdf');
+    // }
+
+    // public function exportStockOutPDF()
+    // {
+    //     $stockOuts = StockAssetTransactionModel::where('type', 'out')->with('assetTools')->get();
+    //     $pdf = Pdf::loadView('assettoolspdf.stock_out', compact('stockOuts'));
+    //     return $pdf->download('laporan_asset_keluar.pdf');
+    // }
+
+    public function exportStockInPDF(Request $request)
     {
-        $stockIns = StockAssetTransactionModel::where('type', 'in')->with('assetTools')->get();
-        $pdf = Pdf::loadView('assettoolspdf.stock_in', compact('stockIns'));
+        $query = StockAssetTransactionModel::where('type', 'in')->with('assetTools');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $stockIns = $query->get();
+
+        $pdf = Pdf::loadView('assettoolspdf.stock_in', compact('stockIns'))
+            ->setPaper('a4', 'portrait');
+
         return $pdf->download('laporan_asset_masuk.pdf');
     }
 
-    public function exportStockOutPDF()
+    public function exportStockOutPDF(Request $request)
     {
-        $stockOuts = StockAssetTransactionModel::where('type', 'out')->with('assetTools')->get();
-        $pdf = Pdf::loadView('assettoolspdf.stock_out', compact('stockOuts'));
+        $query = StockAssetTransactionModel::where('type', 'out')->with('assetTools');
+
+        if ($request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        $stockOuts = $query->get();
+
+        $pdf = Pdf::loadView('assettoolspdf.stock_out', compact('stockOuts'))
+            ->setPaper('a4', 'portrait');
+
         return $pdf->download('laporan_asset_keluar.pdf');
     }
 
-    public function exportStockInExcel()
+    public function exportStockInExcel(Request $request)
     {
-        return Excel::download(new AssetToolsInExport, 'laporan_asset_masuk.xlsx');
+        return Excel::download(
+            new AssetToolsInExport($request->start_date, $request->end_date),
+            'laporan_asset_masuk.xlsx'
+        );
     }
 
-    public function exportStockOutExcel()
+    public function exportStockOutExcel(Request $request)
     {
-        return Excel::download(new AssetToolsOutExport, 'laporan_stok_keluar.xlsx');
+        return Excel::download(
+            new AssetToolsOutExport($request->start_date, $request->end_date),
+            'laporan_asset_keluar.xlsx'
+        );
     }
+
+
+
+    // public function exportStockInExcel()
+    // {
+    //     return Excel::download(new AssetToolsInExport, 'laporan_asset_masuk.xlsx');
+    // }
+
+    // public function exportStockOutExcel()
+    // {
+    //     return Excel::download(new AssetToolsOutExport, 'laporan_stok_keluar.xlsx');
+    // }
 
     public function history(Request $request)
     {
@@ -159,7 +221,9 @@ class StockAssetController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        $transactions = $query->paginate(20);
+        // $transactions = $query->paginate(20);
+        $transactions = $query->paginate(20)->withQueryString();
+
 
         return view('dashboard.assettoolshistory.history', compact('transactions'));
     }
@@ -203,7 +267,7 @@ class StockAssetController extends Controller
         }, 0);
 
         // Pagination
-        $transactions = $query->orderByDesc('created_at')->paginate(20);
+        $transactions = $query->orderByDesc('created_at')->paginate(20)->withQueryString();
 
         return view('dashboard.assettools.detailassettools', compact('assetTools', 'transactions', 'totalStock'));
     }

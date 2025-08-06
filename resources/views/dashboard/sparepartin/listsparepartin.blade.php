@@ -5,7 +5,8 @@
 
         @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
             <div class="pagetitle">
-                <a href="{{ route('stock-in.create') }}" class="btn btn-primary" dusk="createsparepartin">Create New Spare Part In</a>
+                <a href="{{ route('stock-in.create') }}" class="btn btn-primary" dusk="createsparepartin">Create New Spare Part
+                    In</a>
             </div><!-- End Page Title -->
         @endif
 
@@ -39,8 +40,24 @@
 
                                 @if (Auth::user()->is_role == 2 || Auth::user()->is_role == 1)
                                     <div class="d-flex gap-2">
-                                        <a href="{{ route('export.stock-in') }}" class="btn btn-success">Print PDF</a>
-                                        <a href="{{ route('stockin.export.excel') }}" class="btn btn-success">Export XLX</a>
+                                        {{-- <a href="{{ route('export.stock-in') }}" class="btn btn-success">Print PDF</a> --}}
+                                        <a href="{{ route('export.stock-in', [
+                                            'start_date' => request('start_date'),
+                                            'end_date' => request('end_date'),
+                                        ]) }}"
+                                            class="btn btn-success">
+                                            Print PDF
+                                        </a>
+
+                                        {{-- <a href="{{ route('stockin.export.excel') }}" class="btn btn-success">Export XLX</a> --}}
+                                        <a href="{{ route('stockin.export.excel', [
+                                            'start_date' => request('start_date'),
+                                            'end_date' => request('end_date'),
+                                        ]) }}"
+                                            class="btn btn-success">
+                                            Export Excel
+                                        </a>
+
                                     </div>
                                 @endif
 

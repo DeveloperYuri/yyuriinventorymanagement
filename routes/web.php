@@ -5,11 +5,13 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ListAssetToolsController;
 use App\Http\Controllers\ListSparePartController;
+use App\Http\Controllers\ListSparePartMultipleController;
 use App\Http\Controllers\StockAssetController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WarehouseController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 // Login Register
@@ -67,19 +69,16 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');;
 
 
 Route::group(['middleware' => 'superadmin'], function () {
-    
-    Route::get('/dashboardsuperadmin', [DashboardController::class, 'index'])->name('indexdashboardsuperadmin');
 
+    Route::get('/dashboardsuperadmin', [DashboardController::class, 'index'])->name('indexdashboardsuperadmin');
 });
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/dashboardadmin', [DashboardController::class, 'index'])->name('indexdashboardadmin');
-
 });
 
 Route::group(['middleware' => 'users'], function () {
     Route::get('/dashboardusers', [DashboardController::class, 'index'])->name('indexdashboarduser');
-
 });
 
 // Sparepart list In Out
@@ -144,3 +143,19 @@ Route::get('/assettools-export-history-excel', [StockAssetController::class, 'ex
 
 Route::get('/export-asset-stock-in-excel', [StockAssetController::class, 'exportStockInExcel'])->name('assetstockin.export.excel');
 Route::get('/export-asset-stock-out-excel', [StockAssetController::class, 'exportStockOutExcel'])->name('assetstockout.export.excel');
+
+// Spare Part In Multiple
+Route::get('/sparepart/in/multiple', [ListSparePartMultipleController::class, 'index'])->name('sparepartinmultiple.index');
+Route::get('/listsparepart/in/multiple/create', [ListSparePartMultipleController::class, 'create'])->name('sparepartinmultiple.create');
+Route::post('/listsparepart/in/multiple/post', [ListSparePartMultipleController::class, 'storein'])->name('sparepartinmultiple.store');
+Route::get('/stockinmultiple/{id}', [ListSparePartMultipleController::class, 'show'])->name('sparepartinmultiple.show');
+
+// Spare Part Out Multiple
+Route::get('/sparepart/out/multiple', [ListSparePartMultipleController::class, 'indexout'])->name('sparepartoutmultiple.index');
+Route::get('/listsparepart/out/multiple/create', [ListSparePartMultipleController::class, 'createout'])->name('sparepartinmultiple.createout');
+Route::post('/listsparepart/out/multiple/post', [ListSparePartMultipleController::class, 'storeout'])->name('sparepartoutmultiple.store');
+Route::get('/stockoutmultiple/{id}', [ListSparePartMultipleController::class, 'showout'])->name('sparepartoutmultiple.show');
+
+Route::get('/spareparts/search', [ListSparePartMultipleController::class, 'search']);
+Route::post('/spare-parts/import', [ListSparePartController::class, 'import'])->name('spare-parts.import');
+

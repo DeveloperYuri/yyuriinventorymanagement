@@ -118,8 +118,8 @@
             let spareParts = [
                 @foreach ($spareParts as $part)
                     {
-                        label: "{{ $part->name }}",
-                        value: "{{ $part->id }}"
+                        label: {!! json_encode($part->name) !!},
+                        value: {!! json_encode($part->id) !!}
                     },
                 @endforeach
             ];

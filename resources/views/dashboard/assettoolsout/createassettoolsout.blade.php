@@ -121,8 +121,8 @@
             let assetTools = [
                 @foreach ($assetTools as $part)
                     {
-                        label: "{{ $part->name }}",
-                        value: "{{ $part->id }}"
+                        label: {!! json_encode($part->name) !!},
+                        value: {!! json_encode($part->id) !!}
                     },
                 @endforeach
             ];
