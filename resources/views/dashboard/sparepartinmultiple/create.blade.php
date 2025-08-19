@@ -34,9 +34,28 @@
                                                     <div class="text-danger small">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 col-form-label">Supplier</label>
+                                            <div class="col-sm-8">
+                                                <select name="supplier_id" class="form-control">
+                                                    <option value="">-- Pilih Supplier --</option>
+                                                    @foreach ($suppliers as $supplier)
+                                                        <option value="{{ $supplier->id }}"
+                                                            {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
+                                                            {{ $supplier->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- @error('supplier_id')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror --}}
+                                            </div>
+                                        </div>
+
                                     </div>
+
                                     <!-- Kanan -->
                                     <div class="col-md-6">
                                         <div class="row mb-3">
@@ -56,7 +75,16 @@
                                                     <div class="text-danger small">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 col-form-label">No PO</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="po_numbers"
+                                                    value="{{ old('po_numbers') }}">
+                                                {{-- @error('diterima_oleh')
+                                                    <div class="text-danger small">{{ $message }}</div>
+                                                @enderror --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +96,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Spare Part</th>
-                                                    <th>Stok</th>
+                                                    <th>Qty</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>

@@ -56,18 +56,48 @@
                                             <thead>
                                                 <tr>
                                                     <th>Spare Part</th>
-                                                    <th>Stok</th>
+                                                    <th>Qty</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="productTableBody">
+                                                @if (old('product'))
+                                                    @foreach (old('product') as $i => $productId)
+                                                        <tr>
+                                                            <td>
+                                                                <input type="text" name="product_name[]"
+                                                                    class="form-control"
+                                                                    value="{{ old('product_name')[$i] ?? '' }}"
+                                                                    placeholder="Nama Spare Part">
+                                                                <input type="hidden" name="product[]"
+                                                                    value="{{ $productId }}">
+                                                                @error('product.' . $i)
+                                                                    <div class="text-danger small">{{ $message }}</div>
+                                                                @enderror
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" name="demand[]" class="form-control"
+                                                                    min="1" value="{{ old('demand')[$i] ?? 1 }}">
+                                                                @error('demand.' . $i)
+                                                                    <div class="text-danger small">{{ $message }}</div>
+                                                                @enderror
+                                                            </td>
+                                                            <td>
+                                                                <button type="button"
+                                                                    class="btn btn-danger btn-sm removeLine">Remove</button>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+
                                                 <tr>
-                                                    <td colspan="3">
+                                                    <td colspan="3" class="text-left">
                                                         <a href="#" id="addLineBtn">Add Spare Part</a>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+
                                     </div>
                                     <div class="tab-pane fade" id="additional" role="tabpanel">
                                         <textarea class="form-control" rows="4" placeholder="Additional Information"></textarea>
@@ -81,13 +111,9 @@
                                     <button type="submit" class="btn btn-primary" id="saveBtn">
                                         <span id="btnText">Save</span>
                                     </button>
-                                    <a href="{{ route('sparepartoutmultiple.index') }}" class="btn btn-secondary">Cancel</a>
+                                    <a href="{{ route('sparepartoutmultiple.index') }}"
+                                        class="btn btn-secondary">Cancel</a>
                                 </div>
-
-                                {{-- <div class="mt-3">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="{{ route('sparepartoutmultiple.index') }}" class="btn btn-secondary">Cancel</a>
-                                </div> --}}
                             </form>
                         </div>
                     </div>
@@ -124,34 +150,42 @@
                 };
         }
 
-
         $(function() {
-            const table = $('#productTable tbody');
+            const table = $('#productTableBody');
             const addLineBtn = $('#addLineBtn');
+
+            // Pasang autocomplete ke input yang sudah ada dari server (old input)
+            table.find('input[name="product_name[]"]').each(function() {
+                applyAutocomplete($(this));
+            });
+
+            // Event delegated untuk tombol remove agar semua baris bisa dihapus
+            table.on('click', '.removeLine', function() {
+                $(this).closest('tr').remove();
+            });
 
             addLineBtn.on('click', function(event) {
                 event.preventDefault();
                 const newRow = $(`
-                <tr>
-                    <td>
-                        <input type="text" name="product_name[]" class="form-control" placeholder="Nama Spare Part">
-                        <input type="hidden" name="product[]">
-                    </td>
-                    <td>
-                        <input type="number" name="demand[]" class="form-control" min="1" value="1">
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-danger btn-sm removeLine">Remove</button>
-                    </td>
-                </tr>
-            `);
-                table.find('tr:last').before(newRow);
-                applyAutocomplete(newRow.find('input[name="product_name[]"]'));
+        <tr>
+            <td>
+                <input type="text" name="product_name[]" class="form-control" placeholder="Nama Spare Part">
+                <input type="hidden" name="product[]">
+            </td>
+            <td>
+                <input type="number" name="demand[]" class="form-control" min="1" value="1">
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm removeLine">Remove</button>
+            </td>
+        </tr>
+    `);
+                // Sisipkan baris baru sebelum baris tombol Add Spare Part
+                newRow.insertBefore($('#addLineBtn').closest('tr'));
 
-                newRow.find('.removeLine').on('click', function() {
-                    newRow.remove();
-                });
+                applyAutocomplete(newRow.find('input[name="product_name[]"]'));
             });
+
         });
     </script>
 
@@ -164,3 +198,4 @@
         });
     </script>
 @endpush
+

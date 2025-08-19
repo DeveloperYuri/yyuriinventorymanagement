@@ -54,7 +54,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    
+
                                                     <form action="{{ route('spare-parts.import') }}" method="POST"
                                                         enctype="multipart/form-data">
                                                         @csrf
@@ -109,8 +109,9 @@
                                 <table class="table table-hover align-middle">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">No</th>
+                                            {{-- <th class="text-center">No</th> --}}
                                             <th class="text-center">Gambar</th>
+                                            <th class="text-center">Number</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Harga</th>
                                             <th class="text-center">Stok</th>
@@ -125,7 +126,7 @@
 
                                         @foreach ($getRecord as $index => $part)
                                             <tr>
-                                                <td class="text-center">{{ $getRecord->firstItem() + $index }}</td>
+                                                {{-- <td class="text-center">{{ $getRecord->firstItem() + $index }}</td> --}}
                                                 <td class="text-center">
                                                     @if ($part->image)
                                                         <img src="{{ asset('images/' . $part->image) }}"
@@ -136,6 +137,10 @@
                                                         {{-- <span class="text-muted">Tidak ada</span> --}}
                                                     @endif
                                                 </td>
+                                                <td class="text-center">
+                                                    {{ !empty($part->numbers) ? $part->numbers : '000-000-000' }}
+                                                </td>
+
                                                 <td class="text-center">{{ $part->name }}</td>
                                                 <td class="text-center">Rp {{ number_format($part->price, 0, ',', '.') }}
                                                 </td>

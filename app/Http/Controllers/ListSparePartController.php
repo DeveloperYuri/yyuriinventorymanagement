@@ -34,7 +34,8 @@ class ListSparePartController extends Controller
         $request->validate([
             'name' => 'required|string',
             'price' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
+            // 'numbers' => 'required|string',
         ], [
             'name' => 'Nama Spare Part wajib diisi',
             'price.required' => 'Harga Spare Part wajib diisi',
@@ -45,7 +46,7 @@ class ListSparePartController extends Controller
             'image.max'     => 'Ukuran file maksimal 5MB',
         ]);
 
-        $data = $request->only('name', 'price', 'satuan');
+        $data = $request->only('name', 'price', 'satuan', 'numbers');
 
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
@@ -69,13 +70,23 @@ class ListSparePartController extends Controller
         $request->validate([
             'name' => 'required|string',
             'price' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2000'
+        ], [
+            'name' => 'Nama Spare Part wajib diisi',
+            'price.required' => 'Harga Spare Part wajib diisi',
+            'price.integer' => 'Harga Spare Part harus berupa angka',
+            'image.required'   => 'File gambar harus diisi',
+            'image.image'   => 'File harus berupa gambar',
+            'image.mimes'   => 'File harus JPG, JPEG, PNG, atau GIF',
+            'image.max'     => 'Ukuran file maksimal 5MB',
         ]);
+
 
         $sparePart = ListSparePartModel::findOrFail($id);
         $sparePart->name = $request->name;
         $sparePart->price = $request->price;
         $sparePart->satuan = $request->satuan;
+        $sparePart->numbers = $request->numbers;
 
         if ($request->hasFile('image')) {
             if ($sparePart->image && file_exists(public_path('images/' . $sparePart->image))) {

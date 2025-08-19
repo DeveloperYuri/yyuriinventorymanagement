@@ -8,6 +8,7 @@ use App\Models\StockInDetail;
 use App\Models\StockInHeader;
 use App\Models\StockOutHeader;
 use App\Models\StockTransactionModel;
+use App\Models\SupplierModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,7 +53,9 @@ class ListSparePartMultipleController extends Controller
         $nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
         $noDokumen = "WH/IN/{$tahun}/{$nextNumber}";
 
-        return view('dashboard.sparepartinmultiple.create', compact('noDokumen'));
+        $suppliers = SupplierModel::all();
+
+        return view('dashboard.sparepartinmultiple.create', compact('noDokumen', 'suppliers'));
     }
 
     public function storein(Request $request)
@@ -73,15 +76,20 @@ class ListSparePartMultipleController extends Controller
                 'tanggal'       => $request->tanggal,
                 'diterima_dari' => $request->diterima_dari,
                 'diterima_oleh' => $request->diterima_oleh,
+                'supplier_id' => $request->supplier_id,
+                'po_numbers' => $request->po_numbers,
                 // 'user'          => auth()->user()->name,
             ]);
 
             foreach ($request->product as $i => $spare_part_id) {
+                $sparePart = ListSparePartModel::findOrFail($spare_part_id);
+
                 StockTransactionModel::create([
                     'stock_in_header_id' => $header->id,
                     'spare_part_id'      => $spare_part_id,
                     'type'               => 'in',
                     'quantity'           => $request->demand[$i],
+                    'price'              => $sparePart->price, // harga snapshot dari master
                     'user'               => $request->diterima_oleh,
                     // 'user'               => auth()->user()->name,
                 ]);
@@ -165,28 +173,54 @@ class ListSparePartMultipleController extends Controller
 
     public function storeout(Request $request)
     {
-
-        // Validasi input
-        $validated = $request->validate([
+        // Validasi input dasar dulu
+        $request->validate([
             'diminta_oleh'  => 'required|string|max:100',
+            'product'       => 'required|array',
+            'demand'        => 'required|array',
         ], [
-            'diminta_oleh' => 'Form ini harus diisi',
+            'diminta_oleh.required' => 'Form ini harus diisi',
         ]);
 
+        $errors = [];
+
+        // Loop cek stok semua produk
+        foreach ($request->product as $i => $spare_part_id) {
+            $sparePart = \App\Models\ListSparePartModel::find($spare_part_id);
+
+            if (!$sparePart) {
+                $errors["product.$i"] = "Spare part tidak ditemukan.";
+                continue;
+            }
+
+            if ($request->demand[$i] > $sparePart->stock) {
+                $errors["demand.$i"] = "Jumlah keluar melebihi stok yang tersedia (Stok: {$sparePart->stock}).";
+            }
+        }
+
+        // Jika ada error stok, kembalikan dengan error sekaligus
+        if (!empty($errors)) {
+            return back()->withErrors($errors)->withInput();
+        }
+
+        // Jika valid, proses simpan transaksi stok keluar
         return DB::transaction(function () use ($request) {
             $header = StockOutHeader::create([
                 'no_dokumen'    => $request->no_dokumen,
                 'tanggal'       => $request->tanggal,
-                'diminta_oleh' => $request->diminta_oleh
+                'diminta_oleh'  => $request->diminta_oleh
             ]);
 
             foreach ($request->product as $i => $spare_part_id) {
+                $sparePart = \App\Models\ListSparePartModel::find($spare_part_id);
+
                 StockTransactionModel::create([
                     'stock_out_header_id' => $header->id,
-                    'spare_part_id'      => $spare_part_id,
-                    'type'               => 'out',
-                    'quantity'           => $request->demand[$i],
-                    'user'               => $request->diminta_oleh
+                    'spare_part_id'       => $spare_part_id,
+                    'type'                => 'out',
+                    'quantity'            => $request->demand[$i],
+                    'price'               => $sparePart->price, // ambil harga dari master
+                    'user'                => $request->diminta_oleh
                 ]);
             }
 
@@ -194,11 +228,88 @@ class ListSparePartMultipleController extends Controller
         });
     }
 
+
+    // public function storeout(Request $request)
+    // {
+    //     // Validasi input
+    //     $request->validate([
+    //         'diminta_oleh'  => 'required|string|max:100',
+    //         'product'       => 'required|array',
+    //         'demand'        => 'required|array',
+    //     ], [
+    //         'diminta_oleh' => 'Form ini harus diisi',
+    //     ]);
+
+    //     // Cek stok sebelum transaksi dimulai
+    //     foreach ($request->product as $i => $spare_part_id) {
+    //         $sparePart = \App\Models\ListSparePartModel::findOrFail($spare_part_id);
+
+    //         if ($request->demand[$i] > $sparePart->stock) {
+    //             return back()
+    //                 ->withErrors([
+    //                     "demand.$i" => 'Jumlah keluar melebihi stok yang tersedia (Stok: ' . $sparePart->stock . ').'
+    //                 ])
+    //                 ->withInput();
+    //         }
+    //     }
+
+    //     // Simpan data di dalam transaksi DB
+    //     return DB::transaction(function () use ($request) {
+    //         $header = StockOutHeader::create([
+    //             'no_dokumen'    => $request->no_dokumen,
+    //             'tanggal'       => $request->tanggal,
+    //             'diminta_oleh'  => $request->diminta_oleh
+    //         ]);
+
+    //         foreach ($request->product as $i => $spare_part_id) {
+    //             StockTransactionModel::create([
+    //                 'stock_out_header_id' => $header->id,
+    //                 'spare_part_id'       => $spare_part_id,
+    //                 'type'                => 'out',
+    //                 'quantity'            => $request->demand[$i],
+    //                 'user'                => $request->diminta_oleh
+    //             ]);
+    //         }
+
+    //         return redirect()->route('sparepartoutmultiple.index')->with('success', 'Stok keluar berhasil dicatat.');
+    //     });
+    // }
+
+    // public function storeout(Request $request)
+    // {
+
+    //     // Validasi input
+    //     $validated = $request->validate([
+    //         'diminta_oleh'  => 'required|string|max:100',
+    //     ], [
+    //         'diminta_oleh' => 'Form ini harus diisi',
+    //     ]);
+
+    //     return DB::transaction(function () use ($request) {
+    //         $header = StockOutHeader::create([
+    //             'no_dokumen'    => $request->no_dokumen,
+    //             'tanggal'       => $request->tanggal,
+    //             'diminta_oleh' => $request->diminta_oleh
+    //         ]);
+
+    //         foreach ($request->product as $i => $spare_part_id) {
+    //             StockTransactionModel::create([
+    //                 'stock_out_header_id' => $header->id,
+    //                 'spare_part_id'      => $spare_part_id,
+    //                 'type'               => 'out',
+    //                 'quantity'           => $request->demand[$i],
+    //                 'user'               => $request->diminta_oleh
+    //             ]);
+    //         }
+
+    //         return redirect()->route('sparepartoutmultiple.index')->with('success', 'Stok keluar berhasil dicatat.');
+    //     });
+    // }
+
     public function showout($id)
     {
         $transaction = StockOutHeader::with('stockTransactions.sparePart')->findOrFail($id);
 
         return view('dashboard.sparepartoutmultiple.show', compact('transaction'));
     }
-    
 }

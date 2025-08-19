@@ -68,6 +68,83 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">User</th>
                                         <th class="text-center">Jumlah</th>
+                                        <th class="text-center">Harga/Item</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-center">Tanggal</th>
+                                        <th class="text-center">Keterangan</th>
+                                    </tr>
+                                    <tbody>
+                                        @foreach ($transactions as $index => $item)
+                                            @php
+                                                $total = $item->quantity * $item->price;
+                                            @endphp
+                                            <tr>
+                                                <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
+                                                <td class="text-center">{{ $item->user ?? '-' }}</td>
+                                                <td class="text-center">{{ $item->quantity }}</td>
+                                                <td class="text-center">Rp. {{ number_format($item->price) }}</td>
+                                                <td class="text-center">Rp.
+                                                    {{ $item->type == 'in' ? number_format($total) : '-' . number_format($total) }}
+                                                </td>
+                                                <td class="text-center">{{ $item->created_at->format('d-m-Y') }}</td>
+                                                <td class="text-center">
+                                                    <span
+                                                        class="badge {{ $item->type == 'in' ? 'bg-success' : 'bg-danger' }}">
+                                                        {{ $item->type == 'in' ? 'Masuk' : 'Keluar' }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                        @if ($transactions->currentPage() === $transactions->lastPage())
+                                            <tr>
+                                                <td colspan="2" class="text-end"><strong>Jumlah Akhir Stok</strong></td>
+                                                <td class="text-center"><strong>{{ $totalStock }}</strong></td>
+                                                <td colspan="1" class="text-end"><strong>Total Harga</strong></td>
+                                                <td class="text-center"><strong>Rp.
+                                                        {{ number_format($allTransactions->last()->runningValue) }}</strong>
+                                                </td>
+                                                <td colspan="3"></td>
+                                            </tr>
+                                        @endif
+
+
+                                        {{-- @if ($transactions->currentPage() === $transactions->lastPage())
+                                            <tr>
+                                                <td colspan="2" class="text-end"><strong>Jumlah Akhir Stok</strong></td>
+                                                <td class="text-center"><strong>{{ $totalStock }}</strong></td>
+                                                <td colspan="1" class="text-end"><strong>Total Harga</strong></td>
+                                                <td class="text-center"><strong>Rp.
+                                                        {{ number_format($totalStock * $item->price) }}</strong></td>
+                                                <td colspan="3"></td>
+                                            </tr>
+                                        @endif --}}
+
+                                        {{-- @if ($transactions->currentPage() === $transactions->lastPage())
+                                            <tr>
+
+                                                <tr>
+                                                <td colspan="2" class="text-end"><strong>Jumlah Akhir Stok</strong></td>
+                                                <td class="text-center"><strong>{{ $totalStock }}</strong></td>
+                                                <td colspan="3"></td>
+                                            </tr>
+
+                                                <td colspan="4" class="text-end"><strong>Total Harga Stock</strong></td>
+                                                <td class="text-center">
+                                                    <strong>Rp. {{ number_format($totalStock * $sparePart->price) }}</strong>
+                                                </td>
+                                                <td colspan="2"></td>
+                                            </tr>
+                                        @endif --}}
+                                    </tbody>
+                                </table>
+
+
+                                {{-- <table class="table table-hover align-middle">
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">User</th>
+                                        <th class="text-center">Jumlah</th>
                                         <th class="text-center">Tanggal</th>
                                         <th class="text-center">Keterangan</th>
                                     </tr>
@@ -97,7 +174,7 @@
                                             </tr>
                                         @endif
                                     </tbody>
-                                </table>
+                                </table> --}}
                                 <!-- End Default Table Example -->
                             </div>
 

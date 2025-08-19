@@ -272,17 +272,55 @@ class StockController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        // Perhitungan total dari semua data (tidak terpengaruh pagination)
-        $allTransactions = $query->get();
-        $totalStock = $allTransactions->reduce(function ($carry, $item) {
-            return $carry + ($item->type === 'in' ? $item->quantity : -$item->quantity);
-        }, 0);
+        $allTransactions = $query->orderBy('created_at')->get();
 
-        // Pagination
+        $totalStock = 0;
+        $runningValue = 0;
+
+        // Hitung total stock dan total value
+        $allTransactions->each(function ($item) use (&$totalStock, &$runningValue, $sparePart) {
+            if ($item->type === 'in') {
+                $totalStock += $item->quantity;
+                $runningValue += $item->quantity * $item->price;
+            } else {
+                $totalStock -= $item->quantity;
+                $runningValue -= $item->quantity * $item->price;
+            }
+            $item->runningStock = $totalStock; // simpan ke tiap item supaya bisa tampil di view
+            $item->runningValue = $runningValue; // simpan total harga
+        });
+
         $transactions = $query->orderByDesc('created_at')->paginate(20)->withQueryString();
 
-        return view('dashboard.sparepart.detailsparepart', compact('sparePart', 'transactions', 'totalStock'));
+        return view('dashboard.sparepart.detailsparepart', compact('sparePart', 'transactions', 'totalStock', 'allTransactions'));
     }
+
+
+    // public function viewHistoryPerItem(Request $request, $id)
+    // {
+    //     $sparePart = ListSparePartModel::findOrFail($id);
+
+    //     $query = StockTransactionModel::where('spare_part_id', $id);
+
+    //     if ($request->start_date) {
+    //         $query->whereDate('created_at', '>=', $request->start_date);
+    //     }
+
+    //     if ($request->end_date) {
+    //         $query->whereDate('created_at', '<=', $request->end_date);
+    //     }
+
+    //     // Perhitungan total dari semua data (tidak terpengaruh pagination)
+    //     $allTransactions = $query->get();
+    //     $totalStock = $allTransactions->reduce(function ($carry, $item) {
+    //         return $carry + ($item->type === 'in' ? $item->quantity : -$item->quantity);
+    //     }, 0);
+
+    //     // Pagination
+    //     $transactions = $query->orderByDesc('created_at')->paginate(20)->withQueryString();
+
+    //     return view('dashboard.sparepart.detailsparepart', compact('sparePart', 'transactions', 'totalStock'));
+    // }
 
     public function exportHistoryPerItemPDF($id, Request $request)
     {

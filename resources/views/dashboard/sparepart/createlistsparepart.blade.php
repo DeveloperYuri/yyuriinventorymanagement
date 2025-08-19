@@ -26,6 +26,19 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Number<span
+                                            style="color: red">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"
+                                            id="inputText" name="numbers" value="{{ old('numbers') }}">
+                                        {{-- @error('numbers')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror --}}
+                                    </div>
+                                </div>
+
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Description<span
                                             style="color: red">*</span></label>

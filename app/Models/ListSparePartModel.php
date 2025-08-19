@@ -13,7 +13,7 @@ class ListSparePartModel extends Model
 
     protected $table = 'spare_parts';
 
-    protected $fillable = ['name', 'stock', 'image', 'price', 'satuan'];
+    protected $fillable = ['name', 'stock', 'image', 'price', 'satuan', 'numbers'];
     
     public function transactions()
     {

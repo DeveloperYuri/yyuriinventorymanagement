@@ -152,7 +152,7 @@ Route::get('/stockinmultiple/{id}', [ListSparePartMultipleController::class, 'sh
 
 // Spare Part Out Multiple
 Route::get('/sparepart/out/multiple', [ListSparePartMultipleController::class, 'indexout'])->name('sparepartoutmultiple.index');
-Route::get('/listsparepart/out/multiple/create', [ListSparePartMultipleController::class, 'createout'])->name('sparepartinmultiple.createout');
+Route::get('/listsparepart/out/multiple/create', [ListSparePartMultipleController::class, 'createout'])->name('sparepartoutmultiple.createout');
 Route::post('/listsparepart/out/multiple/post', [ListSparePartMultipleController::class, 'storeout'])->name('sparepartoutmultiple.store');
 Route::get('/stockoutmultiple/{id}', [ListSparePartMultipleController::class, 'showout'])->name('sparepartoutmultiple.show');
 

@@ -19,30 +19,57 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">IMAGE</label>
                                     <div class="col-sm-10">
                                         @if ($sparePart->image)
-                                            <img src="{{ asset('images/' . $sparePart->image) }}" alt="{{ $sparePart->name }}"
-                                                width="100">
+                                            <img src="{{ asset('images/' . $sparePart->image) }}"
+                                                alt="{{ $sparePart->name }}" width="100">
                                         @else
                                             <span class="text-muted">Tidak ada</span>
                                         @endif
                                         <br>
                                         <label class="mt-2">Ganti Gambar (Opsional)</label>
-                                        <input type="file" name="image" class="form-control" accept="image/*">
+                                        <input type="file" name="image"
+                                            class="form-control @error('image') is-invalid @enderror" accept="image/*">
+
+                                        @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="numbers"
+                                            class="form-control"
+                                            value="{{ $sparePart->numbers }}">
+
+                                        {{-- @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror --}}
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="name" class="form-control" required
+                                        <input type="text" name="name"
+                                            class="form-control @error('name') is-invalid @enderror"
                                             value="{{ $sparePart->name }}">
+
+                                        @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
                                     <div class="col-sm-10">
-                                        <input type="number" name="price" class="form-control" required
+                                        <input type="number" name="price"
+                                            class="form-control @error('price') is-invalid @enderror"
                                             value="{{ $sparePart->price }}">
+                                        @error('price')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -53,7 +80,8 @@
                                             value="{{ $sparePart->satuan }}">
                                             <option value="Pcs" {{ $sparePart->satuan == 'Pcs' ? 'selected' : '' }}>Pcs
                                             </option>
-                                            <option value="Pack" {{ $sparePart->satuan == 'Pack' ? 'selected' : '' }}>Pack
+                                            <option value="Pack" {{ $sparePart->satuan == 'Pack' ? 'selected' : '' }}>
+                                                Pack
                                             </option>
                                             <option value="Meter" {{ $sparePart->satuan == 'Meter' ? 'selected' : '' }}>
                                                 Meter</option>

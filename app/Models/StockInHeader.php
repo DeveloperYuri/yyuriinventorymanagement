@@ -15,7 +15,9 @@ class StockInHeader extends Model
         'no_dokumen',
         'diterima_dari',
         'diterima_oleh',
-        'tanggal'
+        'tanggal',
+        'supplier_id',
+        'po_numbers'
     ];
 
     public function details()
@@ -31,5 +33,10 @@ class StockInHeader extends Model
     public function stockTransactions()
     {
         return $this->hasMany(StockTransactionModel::class);
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(SupplierModel::class);
     }
 }

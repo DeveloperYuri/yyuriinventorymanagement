@@ -31,6 +31,15 @@
                                                     value="{{ $transaction->diterima_dari }}" readonly>
                                             </div>
                                         </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 col-form-label">Supplier</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="diterima_dari"
+                                                    value="{{ $transaction->supplier->name ?? '' }}" readonly>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <!-- Kanan -->
                                     <div class="col-md-6">
@@ -47,6 +56,13 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="diterima_oleh"
                                                     value="{{ $transaction->diterima_oleh }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 col-form-label">No PO</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="diterima_oleh"
+                                                    value="{{ $transaction->po_numbers }}" readonly>
                                             </div>
                                         </div>
                                     </div>

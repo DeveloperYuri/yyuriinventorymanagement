@@ -9,7 +9,7 @@ class StockOutHeader extends Model
 {
     use HasFactory;
 
-    protected $table = 'stock_out_header';
+    protected $table = 'stock_out_headers';
 
     protected $fillable = [
         'no_dokumen',
