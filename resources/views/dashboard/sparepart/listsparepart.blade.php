@@ -25,6 +25,20 @@
             </form>
         </div>
 
+        {{-- <div class="mt-4">
+            <form method="get">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <input id="searchingtitle" type="text" class="form-control" value="{{ Request()->name }}"
+                            placeholder="Searching Spare Part" name="name">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div> --}}
+
         <section class="section">
             <div class="row mt-4">
                 <div class="col-lg-12">
@@ -127,16 +141,41 @@
                                         @foreach ($getRecord as $index => $part)
                                             <tr>
                                                 {{-- <td class="text-center">{{ $getRecord->firstItem() + $index }}</td> --}}
-                                                <td class="text-center">
-                                                    @if ($part->image)
+
+                                                {{-- @if ($part->image)
                                                         <img src="{{ asset('images/' . $part->image) }}"
                                                             alt="{{ $part->name }}" width="60" loading="lazy">
                                                     @else
                                                         <img src="{{ asset('images/default.png') }}"
                                                             alt="{{ $part->name }}" width="60" loading="lazy">
-                                                        {{-- <span class="text-muted">Tidak ada</span> --}}
+                                                    @endif --}}
+
+                                                <td class="text-center">
+                                                    @if ($part->image)
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#imageModal{{ $part->id }}">
+                                                            <img src="{{ asset('images/' . $part->image) }}"
+                                                                class="img-thumbnail"
+                                                                style="width: 100px; height: 70px; object-fit: contain;">
+                                                        </a>
+
+                                                        <!-- Modal polos -->
+                                                        <div class="modal fade" id="imageModal{{ $part->id }}"
+                                                            tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                                <div
+                                                                    class="modal-content bg-transparent border-0 shadow-none">
+                                                                    <div class="modal-body text-center p-0">
+                                                                        <img src="{{ asset('images/' . $part->image) }}"
+                                                                            class="img-fluid rounded"
+                                                                            style="max-height: 90vh;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     @endif
                                                 </td>
+
                                                 <td class="text-center">
                                                     {{ !empty($part->numbers) ? $part->numbers : '000-000-000' }}
                                                 </td>
@@ -221,6 +260,15 @@
             importForm.addEventListener('submit', function() {
                 btnImport.disabled = true;
                 btnImport.innerHTML = 'Importing...';
+            });
+        });
+    </script>
+
+    <script>
+        $(function() {
+            $("#searchingtitle").autocomplete({
+                source: "{{ route('spare-parts.autocomplete') }}",
+                minLength: 2, // mulai search setelah 2 karakter
             });
         });
     </script>

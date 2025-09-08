@@ -27,17 +27,17 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
+                                {{-- <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Number<span
                                             style="color: red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control"
-                                            id="inputText" name="numbers" value="{{ old('numbers') }}">
-                                        {{-- @error('numbers')
+                                        <input type="text" class="form-control" id="inputText" name="numbers"
+                                            value="{{ old('numbers') }}">
+                                        @error('numbers')
                                             <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror --}}
+                                        @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Description<span
@@ -91,3 +91,13 @@
 
     </main><!-- End #main -->
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById("myForm").addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+                event.preventDefault();
+            }
+        });
+    </script>
+@endpush

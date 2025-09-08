@@ -70,6 +70,9 @@
                                         <th class="text-center">Jumlah</th>
                                         <th class="text-center">Harga/Item</th>
                                         <th class="text-center">Total</th>
+                                        <th class="text-center">Lokasi</th>
+                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Sub Category</th>
                                         <th class="text-center">Tanggal</th>
                                         <th class="text-center">Keterangan</th>
                                     </tr>
@@ -86,6 +89,12 @@
                                                 <td class="text-center">Rp.
                                                     {{ $item->type == 'in' ? number_format($total) : '-' . number_format($total) }}
                                                 </td>
+                                                <td class="text-center">{{ $item->stockOutHeader->location->name ?? '-' }}
+                                                </td>
+                                                <td class="text-center">{{ $item->stockOutHeader->category->name ?? '-' }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ $item->stockOutHeader->subcategory->name ?? '-' }}</td>
                                                 <td class="text-center">{{ $item->created_at->format('d-m-Y') }}</td>
                                                 <td class="text-center">
                                                     <span
@@ -95,6 +104,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        {{-- aaa --}}
 
                                         @if ($transactions->currentPage() === $transactions->lastPage())
                                             <tr>

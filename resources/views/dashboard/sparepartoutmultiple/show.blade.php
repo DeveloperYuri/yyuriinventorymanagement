@@ -31,6 +31,13 @@
                                                     value="{{ $transaction->diminta_oleh }}" readonly>
                                             </div>
                                         </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 col-form-label">Category</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="diterima_dari"
+                                                    value="{{ $transaction->category->name ?? '-' }}" readonly>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- Kanan -->
                                     <div class="col-md-6">
@@ -40,6 +47,20 @@
                                                 <input type="text" class="form-control" name="diterima_dari"
                                                     value="{{ \Carbon\Carbon::parse($transaction->tanggal)->format('d-m-Y') }}"
                                                     readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 col-form-label">Lokasi</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="diterima_dari"
+                                                    value="{{ $transaction->location->name ?? '-' }}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-4 col-form-label">Sub Category</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="diterima_dari"
+                                                    value="{{ $transaction->subcategory->name ?? '-' }}" readonly>
                                             </div>
                                         </div>
                                     </div>

@@ -2,15 +2,19 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ListAssetToolsController;
 use App\Http\Controllers\ListSparePartController;
 use App\Http\Controllers\ListSparePartMultipleController;
+use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\StockAssetController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WarehouseController;
+use App\Models\SubCategoryModel;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +66,34 @@ Route::put('/updatewarehouse/{id}', [WarehouseController::class, 'update'])->nam
 // Profile
 Route::get('/profile', [DashboardController::class, 'profile'])->name('indexprofile');
 
+// Lokasi
+Route::get('/locations', [LocationsController::class, 'index'])->name('indexlocations');
+Route::get('/create/locations', [LocationsController::class, 'create'])->name('createlocations');
+Route::post('/create/locations/save', [LocationsController::class, 'store'])->name('storelocations');
+Route::get('/edit/locations/{id}', [LocationsController::class, 'edit'])->name('editlocations');
+Route::put('/update/locations/{id}', [LocationsController::class, 'update'])->name('updatelocations');
+Route::delete('/delete/locations/{id}', [LocationsController::class, 'destroy'])->name('deletelocations');
+
+// Category
+Route::get('/category', [CategoryController::class, 'index'])->name('indexcategory');
+Route::get('/create/category', [CategoryController::class, 'create'])->name('createcategory');
+Route::post('/create/category/save', [CategoryController::class, 'store'])->name('storecategory');
+Route::get('/edit/category/{id}', [CategoryController::class, 'edit'])->name('editcategory');
+Route::put('/update/category/{id}', [CategoryController::class, 'update'])->name('updatecategory');
+Route::delete('/delete/category/{id}', [CategoryController::class, 'destroy'])->name('deletecategory');
+
+// Sub Category
+Route::get('/subcategory', [SubCategoryController::class, 'index'])->name('indexsubcategory');
+Route::get('/create/subcategory', [SubCategoryController::class, 'create'])->name('createsubcategory');
+Route::post('/create/subcategory/save', [SubCategoryController::class, 'store'])->name('storesubcategory');
+Route::get('/edit/subcategory/{id}', [SubCategoryController::class, 'edit'])->name('editsubcategory');
+Route::put('/update/subcategory/{id}', [SubCategoryController::class, 'update'])->name('updatesubcategory');
+Route::delete('/delete/subcategory/{id}', [SubCategoryController::class, 'destroy'])->name('deletesubcategory');
+
+// routes/web.php
+Route::get('/get-subcategories/{category_id}', [SubCategoryController::class, 'getByCategory'])->name('get.subcategories');
+
+
 // Login
 Route::post('login_post', [AuthController::class, 'login_post'])->name('loginpost');
 
@@ -92,6 +124,8 @@ Route::put('/spare-parts/{id}', [ListSparePartController::class, 'update'])->nam
 Route::delete('/spare-parts/{id}', [ListSparePartController::class, 'destroy'])->name('spare-parts.destroy');
 Route::get('/sparepart/pdf', [ListSparePartController::class, 'cetakPDF'])->name('sparepart.cetakpdf');
 Route::get('/export-sparepart', [ListSparePartController::class, 'exportExcel'])->name('sparepart.export');
+
+Route::get('/spare-parts/autocomplete', [ListSparePartController::class, 'autocomplete'])->name('spare-parts.autocomplete');
 
 Route::get('/sparepart-in', [StockController::class, 'stockInIndex'])->name('stock-in.index');
 Route::get('/sparepart-in/create', [StockController::class, 'stockInForm'])->name('stock-in.create');

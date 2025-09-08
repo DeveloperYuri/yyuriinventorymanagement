@@ -176,6 +176,9 @@
              $isConfigActive =
                  request()->routeIs('indexbrand') ||
                  request()->routeIs('indexwarehouse') ||
+                 request()->routeIs('indexlocations') ||
+                 request()->routeIs('indexcategory') ||
+                 request()->routeIs('indexsubcategory') ||
                  request()->routeIs('indexprofile');
          @endphp
 
@@ -196,6 +199,24 @@
                      <a href="{{ route('indexwarehouse') }}"
                          class="{{ request()->routeIs('indexwarehouse') ? 'active' : '' }}">
                          <i class="bi bi-circle"></i><span>Warehouse</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="{{ route('indexlocations') }}"
+                         class="{{ request()->routeIs('indexlocations') ? 'active' : '' }}">
+                         <i class="bi bi-circle"></i><span>Lokasi</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="{{ route('indexcategory') }}"
+                         class="{{ request()->routeIs('indexcategory') ? 'active' : '' }}">
+                         <i class="bi bi-circle"></i><span>Category</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="{{ route('indexsubcategory') }}"
+                         class="{{ request()->routeIs('indexsubcategory') ? 'active' : '' }}">
+                         <i class="bi bi-circle"></i><span>Sub Category</span>
                      </a>
                  </li>
                  <li>

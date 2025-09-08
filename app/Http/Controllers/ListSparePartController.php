@@ -35,7 +35,6 @@ class ListSparePartController extends Controller
             'name' => 'required|string',
             'price' => 'required|integer',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
-            // 'numbers' => 'required|string',
         ], [
             'name' => 'Nama Spare Part wajib diisi',
             'price.required' => 'Harga Spare Part wajib diisi',
@@ -47,6 +46,12 @@ class ListSparePartController extends Controller
         ]);
 
         $data = $request->only('name', 'price', 'satuan', 'numbers');
+
+        // ✅ Generate part_number berdasarkan kata pertama dari name
+        $jenis = strtolower(strtok($request->name, ' ')); // ambil kata pertama
+        $count = ListSparePartModel::where('numbers', 'like', $jenis . '-%')->count() + 1;
+        $increment = str_pad($count, 3, '0', STR_PAD_LEFT);
+        $data['numbers'] = $jenis . '-' . $increment;
 
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
@@ -154,5 +159,14 @@ class ListSparePartController extends Controller
 
         return redirect()->route('spare-parts.index')
             ->with('success', 'Import data spare part berhasil!');
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $query = $request->get('term'); // jQuery UI pakai "term" sebagai key
+        $data = ListSparePartModel::where('name', 'LIKE', "%{$query}%")
+            ->pluck('name'); // ambil hanya kolom name
+
+        return response()->json($data);
     }
 }

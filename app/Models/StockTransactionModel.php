@@ -19,6 +19,16 @@ class StockTransactionModel extends Model
         return $this->belongsTo(ListSparePartModel::class);
     }
 
+    public function stockOutHeader()
+    {
+        return $this->belongsTo(StockOutHeader::class, 'stock_out_header_id');
+    }
+
+    public function stockInHeader()
+    {
+        return $this->belongsTo(StockInHeader::class, 'stock_in_header_id');
+    }
+
     protected static function booted()
     {
         static::created(function ($transaction) {

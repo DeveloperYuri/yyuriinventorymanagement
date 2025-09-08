@@ -14,9 +14,12 @@ class StockOutHeader extends Model
     protected $fillable = [
         'no_dokumen',
         'diminta_oleh',
-        'tanggal'
+        'tanggal',
+        'locations_id',
+        'category_id',
+        'subcategory_id'
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -25,5 +28,20 @@ class StockOutHeader extends Model
     public function stockTransactions()
     {
         return $this->hasMany(StockTransactionModel::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(LocationsModel::class, 'locations_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryModel::class, 'category_id');
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategoryModel::class, 'subcategory_id');
     }
 }

@@ -95,19 +95,25 @@
 
                                 <table class="table table-hover align-middle">
                                     <tr>
-                                        <th class="text-center">No</th>
+                                        {{-- <th class="text-center">No</th> --}}
                                         <th class="text-center">Nama Spare Part</th>
                                         <th class="text-center">User</th>
                                         <th class="text-center">Jumlah</th>
+                                        <th class="text-center">Lokasi</th>
+                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Sub Category</th>
                                         <th class="text-center">Tanggal</th>
                                         <th class="text-center">Keterangan</th>
                                     </tr>
                                     @foreach ($transactions as $index => $item)
                                         <tr>
-                                            <td class="text-center">{{ $transactions->firstItem() + $index }}</td>
+                                            {{-- <td class="text-center">{{ $transactions->firstItem() + $index }}</td> --}}
                                             <td class="text-center">{{ $item->sparePart->name ?? '-' }}</td>
                                             <td class="text-center">{{ $item->user }}</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
+                                            <td class="text-center">{{ $item->stockOutHeader->location->name ?? '-' }}</td>
+                                            <td class="text-center">{{ $item->stockOutHeader->category->name ?? '-' }}</td>
+                                            <td class="text-center">{{ $item->stockOutHeader->subcategory->name ?? '-' }}</td>
                                             <td class="text-center">{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td class="text-center">
                                                 @if ($item->type == 'in')

@@ -56,6 +56,9 @@
                                         <tr>
                                             <th class="text-center">No Dokumen</th>
                                             <th class="text-center">Di minta oleh</th>
+                                            <th class="text-center">Lokasi</th>
+                                            <th class="text-center">Category</th>
+                                            <th class="text-center">Sub Category</th>
                                             <th class="text-center">Tanggal</th>
                                             <th class="text-center">Status</th>
                                         </tr>
@@ -66,6 +69,9 @@
                                                 style="cursor:pointer;">
                                                 <td class="text-center">{{ $out->no_dokumen }}</td>
                                                 <td class="text-center">{{ $out->diminta_oleh ?? '-' }}</td>
+                                                <td class="text-center">{{ $out->location->name ?? '-' }}</td>
+                                                <td class="text-center">{{ $out->category->name ?? '-' }}</td>
+                                                <td class="text-center">{{ $out->subcategory->name ?? '-' }}</td>
                                                 <td class="text-center">
                                                     {{ \Carbon\Carbon::parse($out->tanggal)->format('d-m-Y') }}</td>
                                                 <td class="text-center"><span class="badge bg-success">Success</span></td>

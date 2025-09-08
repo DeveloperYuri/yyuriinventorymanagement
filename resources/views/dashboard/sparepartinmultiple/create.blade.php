@@ -12,7 +12,7 @@
 
                             <h2 class="mt-4">Form Penerimaan Barang</h2>
 
-                            <form class="mt-4" action="{{ route('sparepartinmultiple.store') }}" method="POST">
+                            <form id="myForm" class="mt-4" action="{{ route('sparepartinmultiple.store') }}" method="POST">
                                 @csrf
                                 <div class="row mb-3">
                                     <!-- Kiri -->
@@ -201,6 +201,14 @@
             document.getElementById('btnText').innerHTML =
                 '<span class="spinner-border spinner-border-sm"></span> Saving...';
             this.form.submit();
+        });
+    </script>
+
+    <script>
+        document.getElementById("myForm").addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+                event.preventDefault();
+            }
         });
     </script>
 @endpush

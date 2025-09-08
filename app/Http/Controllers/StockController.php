@@ -223,7 +223,14 @@ class StockController extends Controller
 
     public function history(Request $request)
     {
-        $query = StockTransactionModel::with('sparePart')->orderByDesc('created_at');
+        // $query = StockTransactionModel::with('sparePart')->orderByDesc('created_at');
+
+        $query = StockTransactionModel::with([
+            'sparePart',
+            'stockOutHeader.location',
+            'stockOutHeader.category',
+            'stockOutHeader.subcategory'
+        ])->orderByDesc('created_at');
 
         if ($request->start_date) {
             $query->whereDate('created_at', '>=', $request->start_date);
@@ -262,7 +269,13 @@ class StockController extends Controller
     {
         $sparePart = ListSparePartModel::findOrFail($id);
 
-        $query = StockTransactionModel::where('spare_part_id', $id);
+        $query = StockTransactionModel::with([
+            'stockOutHeader.location',
+            'stockOutHeader.category',
+            'stockOutHeader.subcategory'
+        ])->where('spare_part_id', $id);
+
+        // $query = StockTransactionModel::where('spare_part_id', $id);
 
         if ($request->start_date) {
             $query->whereDate('created_at', '>=', $request->start_date);
@@ -279,16 +292,30 @@ class StockController extends Controller
 
         // Hitung total stock dan total value
         $allTransactions->each(function ($item) use (&$totalStock, &$runningValue, $sparePart) {
+            $fixedPrice = $sparePart->price; // harga tetap dari master sparepart
+
             if ($item->type === 'in') {
                 $totalStock += $item->quantity;
-                $runningValue += $item->quantity * $item->price;
+                $runningValue += $item->quantity * $fixedPrice;
             } else {
                 $totalStock -= $item->quantity;
-                $runningValue -= $item->quantity * $item->price;
+                $runningValue -= $item->quantity * $fixedPrice;
             }
-            $item->runningStock = $totalStock; // simpan ke tiap item supaya bisa tampil di view
-            $item->runningValue = $runningValue; // simpan total harga
+
+            $item->runningStock = $totalStock;
+            $item->runningValue = $runningValue;
         });
+        // $allTransactions->each(function ($item) use (&$totalStock, &$runningValue, $sparePart) {
+        //     if ($item->type === 'in') {
+        //         $totalStock += $item->quantity;
+        //         $runningValue += $item->quantity * $item->price;
+        //     } else {
+        //         $totalStock -= $item->quantity;
+        //         $runningValue -= $item->quantity * $item->price;
+        //     }
+        //     $item->runningStock = $totalStock; // simpan ke tiap item supaya bisa tampil di view
+        //     $item->runningValue = $runningValue; // simpan total harga
+        // });
 
         $transactions = $query->orderByDesc('created_at')->paginate(20)->withQueryString();
 

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryModel;
 use App\Models\ListSparePartModel;
+use App\Models\LocationsModel;
 use App\Models\SparePartModel;
 use App\Models\StockInDetail;
 use App\Models\StockInHeader;
 use App\Models\StockOutHeader;
 use App\Models\StockTransactionModel;
+use App\Models\SubCategoryModel;
 use App\Models\SupplierModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -168,7 +171,11 @@ class ListSparePartMultipleController extends Controller
         $nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
         $noDokumen = "WH/OUT/{$tahun}/{$nextNumber}";
 
-        return view('dashboard.sparepartoutmultiple.create', compact('noDokumen'));
+        $locations = LocationsModel::all();
+        $categories = CategoryModel::all();
+        // $subcategories = SubCategoryModel::all();
+
+        return view('dashboard.sparepartoutmultiple.create', compact('noDokumen', 'locations', 'categories'));
     }
 
     public function storeout(Request $request)
@@ -208,7 +215,11 @@ class ListSparePartMultipleController extends Controller
             $header = StockOutHeader::create([
                 'no_dokumen'    => $request->no_dokumen,
                 'tanggal'       => $request->tanggal,
-                'diminta_oleh'  => $request->diminta_oleh
+                'diminta_oleh'  => $request->diminta_oleh,
+                'locations_id' => $request->locations_id,
+                'category_id' => $request->category_id,
+                'subcategory_id' => $request->subcategory_id
+
             ]);
 
             foreach ($request->product as $i => $spare_part_id) {
